@@ -73,7 +73,7 @@ export default function AddWord({ modalOpen, setModalOpen, lengthNum }) {
                 <input
                   type="text"
                   name="word_eng"
-                  placeholder="Write a new word...(ex)chair"
+                  placeholder="Write a new English word."
                   value={word_eng}
                   onChange={handleWordChange}
                 />
@@ -85,7 +85,7 @@ export default function AddWord({ modalOpen, setModalOpen, lengthNum }) {
                 <input
                   type="text"
                   name="word_kor"
-                  placeholder="Write a meaning"
+                  placeholder="Write a Korean meaning."
                   value={word_kor}
                   onChange={handleWordChange}
                 />
