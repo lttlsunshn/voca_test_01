@@ -13,16 +13,33 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-export async function addNewWord(newWord, word_eng) {
-  return set(ref(db, "words/" + word_eng), {
-    newWord,
+export async function addNewNote(inputTitle) {
+  return set(ref(db, `voca-notes/note${inputTitle}/`), {
+    noteTitle: "note" + inputTitle,
   });
 }
 
-export async function getWords() {
-  return get(ref(db, "words")).then((snapshot) => {
+export async function addNewWord(noteTitle, id, num, word_eng, word_kor) {
+  return set(ref(db, `voca-notes/${noteTitle}/wordList/` + word_eng), {
+    id,
+    num,
+    word_eng,
+    word_kor,
+  });
+}
+
+export async function getNotes() {
+  return get(ref(db, "voca-notes")).then((snapshot) => {
     if (snapshot.exists()) {
-      // console.log(snapshot.val());
+      return Object.values(snapshot.val());
+    }
+    return [];
+  });
+}
+
+export async function getNote(noteTitle) {
+  return get(ref(db, `voca-notes/note-${noteTitle}`)).then((snapshot) => {
+    if (snapshot.exists()) {
       return Object.values(snapshot.val());
     }
     return [];

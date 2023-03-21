@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "/voca-notes", element: <VocaNotes /> },
-      { path: "/voca-notes/:noteId", element: <VocaNote /> },
+      { path: "/voca-notes/:noteTitle", element: <VocaNote /> },
     ],
   },
 ]);

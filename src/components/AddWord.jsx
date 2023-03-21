@@ -1,8 +1,14 @@
 import React, { useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { addNewWord } from "../api/firebase";
+import { AiFillCloseCircle } from "react-icons/ai";
 
-export default function AddWord({ modalOpen, setModalOpen, lengthNum }) {
+export default function AddWord({
+  modalOpen,
+  setModalOpen,
+  noteTitle,
+  lengthNum,
+}) {
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -28,19 +34,14 @@ export default function AddWord({ modalOpen, setModalOpen, lengthNum }) {
       word_kor: "",
     });
   };
-  console.log("# :", lengthNum);
+
   const nextNum = useRef(lengthNum + 1);
 
   const handleAddWord = () => {
     const id = uuid();
-    const newWord = {
-      id,
-      num: nextNum.current,
-      word_eng,
-      word_kor,
-    };
+    const num = nextNum.current;
 
-    addNewWord(newWord, word_eng);
+    addNewWord(noteTitle, id, num, word_eng, word_kor);
 
     nextNum.current += 1;
     handleReset();
@@ -56,14 +57,14 @@ export default function AddWord({ modalOpen, setModalOpen, lengthNum }) {
   return (
     <div
       className={"modal-background" + (modalOpen ? " active" : "")}
-      id="modal"
+      id="modal_add_word"
     >
       <form onSubmit={handleSubmit} className="modal-window">
-        <span className="modal-close" id="closeModal" onClick={closeModal}>
-          X
-        </span>
         <div className="add_word_head">
-          <div className="add_word_title">단어 추가</div>
+          <div className="add_word_title">새 단어 추가</div>
+          <span className="modal-close" id="closeModal" onClick={closeModal}>
+            <AiFillCloseCircle />
+          </span>
         </div>
         <table className="input_area">
           <tbody>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import AddWord from "./components/AddWord";
 import Header from "./components/Header";
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import SideSpace from "./components/SideSpace";
 
@@ -19,7 +19,7 @@ function App() {
           <Sidebar />
         </div>
         <div className="container">
-          <Navbar />
+          {/* <Navbar /> */}
           <Outlet />
           <AddWord />
         </div>
