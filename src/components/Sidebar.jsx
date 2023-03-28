@@ -9,7 +9,7 @@ import AddNote from "./AddNote";
 
 export default function Sidebar() {
   const { data: vocaNotes } = useQuery(["voca-notes"], getNotes);
-  vocaNotes && console.log("vocaNotes : ", vocaNotes);
+  // vocaNotes && console.log("vocaNotes : ", vocaNotes);
 
   const [modalOpen, setModalOpen] = useState(false);
 

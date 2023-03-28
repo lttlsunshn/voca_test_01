@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { getNote } from "../api/firebase";
+import SortList from "../components/SortList";
 
 export default function PrintPage() {
   const { noteTitle } = useParams();
@@ -16,11 +17,12 @@ export default function PrintPage() {
   !wordList && console.log("NO LIST");
 
   return (
-    <>
+    <div className="print-page">
       <div className="voca_note_header">
-        <div className="voca_note_title"></div>
+        <div className="voca_note_title">{noteTitle}</div>
       </div>
-      <table className="voca_note">
+      <SortList wordList={wordList} />
+      {/* <table className="voca_note">
         <thead>
           <tr>
             <th>번호</th>
@@ -38,7 +40,7 @@ export default function PrintPage() {
               </tr>
             ))}
         </tbody>
-      </table>
-    </>
+      </table> */}
+    </div>
   );
 }

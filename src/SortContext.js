@@ -2,7 +2,6 @@ import React, { createContext, useReducer } from "react";
 
 const initialList = {
   vocaList: [],
-  // printable: false,
 };
 
 function sortReducer(state, action) {
@@ -13,10 +12,7 @@ function sortReducer(state, action) {
       return { ...state, vocaList: action.descWordList };
     case "randomSort":
       return { ...state, vocaList: action.randomWordList };
-    // case "print":
-    //   return { ...state, printable: true };
-    // case "notPintable":
-    //   return { ...state, printable: false };
+
     default:
       return state;
   }
