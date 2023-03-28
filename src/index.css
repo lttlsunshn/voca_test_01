@@ -239,6 +239,24 @@ button {
   border-radius: 50%;
 }
 
+.sort {
+  width: 80px;
+  border-radius: 20px;
+  background-color: var(--color-purple);
+  color: var(--color-butter);
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.sort:hover {
+  background-color: var(--color-light-purple);
+  color: var(--color-purple);
+  /* transform: scale(1.1); */
+  transition: all 300ms ease-in;
+}
+
 .voca_note_title {
   margin-top: 20px;
   margin-bottom: 10px;

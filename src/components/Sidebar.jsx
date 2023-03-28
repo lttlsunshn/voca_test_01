@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaListUl } from "react-icons/fa";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdOutlineStickyNote2 } from "react-icons/md";
@@ -33,7 +33,6 @@ export default function Sidebar() {
             <>
               <p
                 className="notes_list_item"
-                key={item.noteTitle}
                 onClick={() => {
                   navigate(`/voca-notes/${item.noteTitle}`);
                 }}
@@ -53,11 +52,7 @@ export default function Sidebar() {
       </div>
       <section>
         {modalOpen && (
-          <AddNote
-            modalOpen={modalOpen}
-            setModalOpen={setModalOpen}
-            // lengthNum={lengthNum}
-          />
+          <AddNote modalOpen={modalOpen} setModalOpen={setModalOpen} />
         )}
       </section>
     </>

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { addNewWord } from "../api/firebase";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 export default function AddWord({
   modalOpen,
@@ -9,6 +10,8 @@ export default function AddWord({
   noteTitle,
   lengthNum,
 }) {
+  const navigate = useNavigate();
+
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -41,7 +44,7 @@ export default function AddWord({
     const id = uuid();
     const num = nextNum.current;
 
-    addNewWord(noteTitle, id, num, word_eng, word_kor);
+    addNewWord(noteTitle, num, word_eng, word_kor, id);
 
     nextNum.current += 1;
     handleReset();

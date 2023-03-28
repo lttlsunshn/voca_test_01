@@ -13,18 +13,60 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-export async function addNewNote(inputTitle) {
+export async function addNewNote(inputTitle, createdTime, createdTimeNum) {
   return set(ref(db, `voca-notes/note${inputTitle}/`), {
     noteTitle: "note" + inputTitle,
+    createdTime,
+    id: createdTimeNum,
   });
 }
 
-export async function addNewWord(noteTitle, id, num, word_eng, word_kor) {
+export async function addNewWord(noteTitle, num, word_eng, word_kor, id) {
   return set(ref(db, `voca-notes/${noteTitle}/wordList/` + word_eng), {
-    id,
     num,
     word_eng,
     word_kor,
+    id,
+  });
+}
+
+export async function makeAnswerTitle(noteTitle, createdTime) {
+  return set(ref(db, `online-test/test-${noteTitle}-${createdTime}/`), {
+    createdTime,
+    noteTitle,
+  });
+}
+
+export async function makeAnswerList(
+  noteTitle,
+  createdTime,
+  answer,
+  isCorrect,
+  item
+) {
+  return set(
+    ref(
+      db,
+      `online-test/test-${noteTitle}-${createdTime}/answer-list/` + item.num
+    ),
+    {
+      answer,
+      isCorrect,
+      num: item.num,
+      word_eng: item.word_eng,
+      word_kor: item.word_kor,
+    }
+  );
+}
+
+export async function getAnswerList(noteTitle, timeTitle) {
+  return get(
+    ref(db, `online-test/test-${noteTitle}-${timeTitle}/answer-list`)
+  ).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+    return [];
   });
 }
 
@@ -38,7 +80,7 @@ export async function getNotes() {
 }
 
 export async function getNote(noteTitle) {
-  return get(ref(db, `voca-notes/note-${noteTitle}`)).then((snapshot) => {
+  return get(ref(db, `voca-notes/${noteTitle}/wordList`)).then((snapshot) => {
     if (snapshot.exists()) {
       return Object.values(snapshot.val());
     }

@@ -8,7 +8,13 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import VocaNote from "./pages/VocaNote";
 import VocaNotes from "./pages/VocaNotes";
+import OnlineTest from "./pages/OnlineTest";
+import PrintPage from "./pages/PrintPage";
+import ScoreResult from "./pages/ScoreResult";
+import { SortProvider } from "./SortContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
@@ -18,16 +24,32 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/voca-notes", element: <VocaNotes /> },
       { path: "/voca-notes/:noteTitle", element: <VocaNote /> },
+      { path: "/voca-notes/:noteTitle/online-test", element: <OnlineTest /> },
+      {
+        path: "/voca-notes/:noteTitle/online-test/:timeTitle",
+        element: <ScoreResult />,
+      },
+
+      // { path: "/voca-notes/:noteTitle/print-page", element: <PrintPage /> },
     ],
+  },
+  {
+    path: "/voca-notes/:noteTitle/print-page",
+    element: <PrintPage />,
+    errorElement: <NotFound />,
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
+    <QueryClientProvider client={queryClient}>
+      <SortProvider>
+        <RouterProvider router={router}>
+          <App />
+        </RouterProvider>
+      </SortProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

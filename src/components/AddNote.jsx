@@ -1,11 +1,17 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { addNewNote } from "../api/firebase";
+import { useCreatedTime } from "../hooks/useCreatedTime.js";
 
 export default function AddNote({ modalOpen, setModalOpen, lengthNum }) {
   const [inputTitle, setInputTitle] = useState("");
   const navigate = useNavigate();
+
+  const { createdTime } = useCreatedTime();
+  const createdTimeNum = Number(createdTime.split("_").join(""));
+
+  console.log("createdTimeNum : ", createdTimeNum);
 
   const closeModal = () => {
     setModalOpen(false);
@@ -20,13 +26,9 @@ export default function AddNote({ modalOpen, setModalOpen, lengthNum }) {
     setInputTitle("");
   };
 
-  // const nextNum = useRef(lengthNum + 1);
-  const nextNum = useRef(1);
-
   const handleAddNote = () => {
-    addNewNote(inputTitle);
+    addNewNote(inputTitle, createdTime, createdTimeNum);
 
-    nextNum.current += 1;
     handleReset();
   };
 
