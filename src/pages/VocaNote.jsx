@@ -20,7 +20,7 @@ export default function VocaNote() {
     () => getNote(noteTitle)
   );
 
-  wordList && console.log("wordList : ", wordList);
+  // wordList && console.log("wordList : ", wordList);
   !wordList && console.log("NO LIST");
 
   const lengthNum = wordList && wordList.length;

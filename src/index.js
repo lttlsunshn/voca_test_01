@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import VocaNote from "./pages/VocaNote";
-import VocaNotes from "./pages/VocaNotes";
 import OnlineTest from "./pages/OnlineTest";
 import PrintPage from "./pages/PrintPage";
 import ScoreResult from "./pages/ScoreResult";
@@ -22,15 +21,12 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
-      { path: "/voca-notes", element: <VocaNotes /> },
       { path: "/voca-notes/:noteTitle", element: <VocaNote /> },
       { path: "/voca-notes/:noteTitle/online-test", element: <OnlineTest /> },
       {
         path: "/voca-notes/:noteTitle/online-test/:timeTitle",
         element: <ScoreResult />,
       },
-
-      // { path: "/voca-notes/:noteTitle/print-page", element: <PrintPage /> },
     ],
   },
   {
