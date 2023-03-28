@@ -1,5 +1,3 @@
-import React from "react";
-
 export function useCreatedTime() {
   const now = new Date();
   const nowYear = now.getFullYear();

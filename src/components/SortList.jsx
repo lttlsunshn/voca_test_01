@@ -49,7 +49,8 @@ export default function SortList({ wordList }) {
 
   useEffect(() => {
     handleSortAsc();
-  }, [noteTitle, wordList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wordList]);
 
   return (
     <>
