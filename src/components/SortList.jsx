@@ -1,18 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { SortDispatchContext, SortStateContext } from "../SortContext";
+import { SortDispatchContext } from "../SortContext";
 
 export default function SortList({ wordList }) {
-  const sortState = useContext(SortStateContext);
+  // const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
 
   const { noteTitle } = useParams();
-  console.log("noteTitle : ", noteTitle);
 
   const handleSortAsc = () => {
     let ascWordList = wordList && [...wordList];
 
-    wordList &&
+    // wordList &&
+    ascWordList &&
       ascWordList.sort(function (a, b) {
         return a.num - b.num;
       });
@@ -23,7 +23,8 @@ export default function SortList({ wordList }) {
 
   const handleSortDesc = () => {
     let descWordList = wordList && [...wordList];
-    wordList &&
+    // wordList &&
+    descWordList &&
       descWordList.sort(function (a, b) {
         return b.num - a.num;
       });
@@ -48,9 +49,10 @@ export default function SortList({ wordList }) {
   };
 
   useEffect(() => {
-    handleSortAsc();
+    wordList && handleSortAsc();
+    console.log("useEffct 1");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wordList]);
+  }, [noteTitle]);
 
   return (
     <>
@@ -65,26 +67,6 @@ export default function SortList({ wordList }) {
           랜덤
         </button>
       </div>
-
-      <table className="voca_note">
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>영어 단어</th>
-            <th>뜻</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortState.vocaList &&
-            sortState.vocaList.map((item) => (
-              <tr key={item.id}>
-                <td>{item.num}</td>
-                <td>{item.word_eng}</td>
-                <td>{item.word_kor}</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
     </>
   );
 }

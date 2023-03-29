@@ -2,19 +2,21 @@ import React, { createContext, useReducer } from "react";
 
 const initialList = {
   vocaList: [],
+  sortType: "",
 };
 
 function sortReducer(state, action) {
   switch (action.type) {
     case "ascSort":
-      return { ...state, vocaList: action.ascWordList };
+      return { ...state, vocaList: action.ascWordList, sortType: "asc" };
     case "descSort":
-      return { ...state, vocaList: action.descWordList };
+      return { ...state, vocaList: action.descWordList, sortType: "desc" };
     case "randomSort":
-      return { ...state, vocaList: action.randomWordList };
-
+      return { ...state, vocaList: action.randomWordList, sortType: "random" };
+    case "onlineTest":
+      return { ...state, vocaList: action.wordList };
     default:
-      return state;
+      return { ...state };
   }
 }
 

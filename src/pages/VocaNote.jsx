@@ -1,24 +1,26 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import AddWord from "../components/AddWord";
 import { getNote } from "../api/firebase";
 import { HiPrinter } from "react-icons/hi";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaKeyboard } from "react-icons/fa";
-
 import SortList from "../components/SortList";
+import { SortDispatchContext, SortStateContext } from "../SortContext";
 
 export default function VocaNote() {
+  const sortState = useContext(SortStateContext);
+  const dispatch = useContext(SortDispatchContext);
+  const navigate = useNavigate();
+
   const { noteTitle } = useParams();
-  console.log("noteTitle : ", noteTitle);
 
   const { data: wordList } = useQuery(
     [`voca-notes/${noteTitle}/wordList`],
     () => getNote(noteTitle)
   );
 
-  // wordList && console.log("wordList : ", wordList);
   !wordList && console.log("NO LIST");
 
   const lengthNum = wordList && wordList.length;
@@ -26,6 +28,12 @@ export default function VocaNote() {
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = () => {
     setModalOpen(true);
+  };
+
+  const handleOnlineBtn = () => {
+    console.log("NOW vocaList : ", sortState.vocaList);
+    dispatch({ type: "onlineTest", wordList });
+    navigate(`/voca-notes/${noteTitle}/online-test`);
   };
 
   return (
@@ -45,20 +53,35 @@ export default function VocaNote() {
                 "print",
                 "width=800, height=900"
               );
-              // dispatch({ type: "print" });
             }}
           >
             <HiPrinter />
           </button>
-
-          <Link to={`/voca-notes/${noteTitle}/online-test`}>
-            <button>
-              <FaKeyboard />
-            </button>
-          </Link>
+          <button onClick={handleOnlineBtn}>
+            <FaKeyboard />
+          </button>
         </div>
       </div>
-      <SortList wordList={wordList} />
+      {wordList && <SortList wordList={wordList} />}
+      <table className="voca_note">
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>영어 단어</th>
+            <th>뜻</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortState.vocaList &&
+            sortState.vocaList.map((item) => (
+              <tr key={item.id}>
+                <td>{item.num}</td>
+                <td>{item.word_eng}</td>
+                <td>{item.word_kor}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
 
       {modalOpen && (
         <AddWord

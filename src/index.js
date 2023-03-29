@@ -39,13 +39,13 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <SortProvider>
+    <SortProvider>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router}>
           <App />
         </RouterProvider>
-      </SortProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </SortProvider>
   </React.StrictMode>
 );
 
