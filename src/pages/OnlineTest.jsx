@@ -53,22 +53,22 @@ export default function OnlineTest() {
     <>
       <div className="voca_note_header">
         <div className="voca_note_title">{noteTitle} TEST</div>
-      </div>
-      <div className="button-list">
-        <button
-          onClick={() => {
-            window.open(
-              `/voca-notes/${noteTitle}/print-page/`,
-              "print",
-              "width=800, height=900"
-            );
-          }}
-        >
-          <HiPrinter />
-        </button>
-        <button>
-          <FaKeyboard />
-        </button>
+        <div className="button-list">
+          <button
+            onClick={() => {
+              window.open(
+                `/voca-notes/${noteTitle}/print-page/`,
+                "print",
+                "width=800, height=900"
+              );
+            }}
+          >
+            <HiPrinter />
+          </button>
+          <button>
+            <FaKeyboard />
+          </button>
+        </div>
       </div>
 
       {testList && <SortList wordList={testList} />}

@@ -63,32 +63,31 @@ export default function VocaNote() {
         </div>
       </div>
 
+      {lengthNum === 0 ? <></> : wordList && <SortList wordList={wordList} />}
       {lengthNum === 0 ? (
         <div id="empty-note">
           <p>단어장이 비어 있어요.</p>
         </div>
       ) : (
-        (wordList && <SortList wordList={wordList} />)(
-          <table className="voca_note">
-            <thead>
-              <tr>
-                <th>번호</th>
-                <th>영어 단어</th>
-                <th>뜻</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortState.vocaList &&
-                sortState.vocaList.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.num}</td>
-                    <td>{item.word_eng}</td>
-                    <td>{item.word_kor}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        )
+        <table className="voca_note">
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>영어 단어</th>
+              <th>뜻</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortState.vocaList &&
+              sortState.vocaList.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.num}</td>
+                  <td>{item.word_eng}</td>
+                  <td>{item.word_kor}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       )}
 
       {modalOpen && (
