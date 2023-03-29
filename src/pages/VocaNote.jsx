@@ -24,7 +24,7 @@ export default function VocaNote() {
   !wordList && console.log("NO LIST");
 
   const lengthNum = wordList && wordList.length;
-
+  console.log("lengthNum : ", lengthNum);
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = () => {
     setModalOpen(true);
@@ -62,26 +62,34 @@ export default function VocaNote() {
           </button>
         </div>
       </div>
-      {wordList && <SortList wordList={wordList} />}
-      <table className="voca_note">
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>영어 단어</th>
-            <th>뜻</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortState.vocaList &&
-            sortState.vocaList.map((item) => (
-              <tr key={item.id}>
-                <td>{item.num}</td>
-                <td>{item.word_eng}</td>
-                <td>{item.word_kor}</td>
+
+      {lengthNum === 0 ? (
+        <div id="empty-note">
+          <p>단어장이 비어 있어요.</p>
+        </div>
+      ) : (
+        (wordList && <SortList wordList={wordList} />)(
+          <table className="voca_note">
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>영어 단어</th>
+                <th>뜻</th>
               </tr>
-            ))}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {sortState.vocaList &&
+                sortState.vocaList.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.num}</td>
+                    <td>{item.word_eng}</td>
+                    <td>{item.word_kor}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )
+      )}
 
       {modalOpen && (
         <AddWord

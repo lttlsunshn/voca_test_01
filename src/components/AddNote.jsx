@@ -28,7 +28,6 @@ export default function AddNote({ modalOpen, setModalOpen, lengthNum }) {
 
   const handleAddNote = () => {
     addNewNote(inputTitle, createdTime, createdTimeNum);
-
     handleReset();
   };
 
@@ -37,6 +36,7 @@ export default function AddNote({ modalOpen, setModalOpen, lengthNum }) {
     handleAddNote();
     closeModal();
     navigate(`voca-notes/note${inputTitle}`);
+    window.location.reload();
   };
 
   return (

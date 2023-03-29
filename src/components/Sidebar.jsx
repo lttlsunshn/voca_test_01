@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaListUl } from "react-icons/fa";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { RiDeleteBin4Line } from "react-icons/ri";
+import { RiPencilFill } from "react-icons/ri";
 import { MdOutlineStickyNote2 } from "react-icons/md";
-import { getNotes } from "../api/firebase";
+import { deleteNote, getNotes } from "../api/firebase";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AddNote from "./AddNote";
 
 export default function Sidebar() {
+  // const [loading, setLoading] = useState(false);
   const { data: vocaNotes } = useQuery(["voca-notes"], getNotes);
   // vocaNotes && console.log("vocaNotes : ", vocaNotes);
 
@@ -18,6 +21,22 @@ export default function Sidebar() {
   };
 
   const navigate = useNavigate();
+
+  // const handleModifyNote = (e) => {
+  //   console.log(e.currentTarget.value);
+  //   deleteNote(e.currentTarget.value);
+
+  //   window.location.reload();
+  // };
+
+  const handleDeleteNote = (e) => {
+    // console.log(e.target.value);
+
+    console.log(e.currentTarget.value);
+    deleteNote(e.currentTarget.value);
+
+    window.location.reload();
+  };
 
   return (
     <>
@@ -32,15 +51,34 @@ export default function Sidebar() {
           vocaNotes.map((item) => (
             <>
               <p
-                className="notes_list_item"
+                key={item.id}
+                className="notes_list_items"
                 onClick={() => {
                   navigate(`/voca-notes/${item.noteTitle}`);
                 }}
               >
-                <span className="notes_list_item_icon">
-                  <MdOutlineStickyNote2 />
+                <span className="item_list">
+                  <span className="notes_list_item_icon">
+                    <MdOutlineStickyNote2 />
+                  </span>
+                  {item.noteTitle}
                 </span>
-                {item.noteTitle}
+                <span className="btns_list">
+                  {/* <button
+                    className="btn_mod_note"
+                    value={item.noteTitle}
+                    onClick={handleModifyNote}
+                  >
+                    <RiPencilFill />
+                  </button> */}
+                  <button
+                    className="btn_del_note"
+                    value={item.noteTitle}
+                    onClick={handleDeleteNote}
+                  >
+                    <RiDeleteBin4Line />
+                  </button>
+                </span>
               </p>
             </>
           ))}

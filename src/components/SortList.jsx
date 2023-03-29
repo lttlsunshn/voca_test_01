@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { SortDispatchContext } from "../SortContext";
 
 export default function SortList({ wordList }) {
-  // const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
 
   const { noteTitle } = useParams();
@@ -11,7 +10,6 @@ export default function SortList({ wordList }) {
   const handleSortAsc = () => {
     let ascWordList = wordList && [...wordList];
 
-    // wordList &&
     ascWordList &&
       ascWordList.sort(function (a, b) {
         return a.num - b.num;
@@ -23,7 +21,7 @@ export default function SortList({ wordList }) {
 
   const handleSortDesc = () => {
     let descWordList = wordList && [...wordList];
-    // wordList &&
+
     descWordList &&
       descWordList.sort(function (a, b) {
         return b.num - a.num;
@@ -50,7 +48,6 @@ export default function SortList({ wordList }) {
 
   useEffect(() => {
     wordList && handleSortAsc();
-    console.log("useEffct 1");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteTitle]);
 
