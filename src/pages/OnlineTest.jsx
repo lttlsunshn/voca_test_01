@@ -9,9 +9,6 @@ import { FaKeyboard } from "react-icons/fa";
 
 export default function OnlineTest() {
   const sortState = useContext(SortStateContext);
-  // console.log("OnlineTest sortState : ", sortState);
-  // console.log("sortType : ", sortState.sortType);
-  // !sortState.vocaList && console.log("NO TEST VocaList");
   const { noteTitle } = useParams();
 
   const navigate = useNavigate();
@@ -91,7 +88,7 @@ export default function OnlineTest() {
                     <input
                       type="text"
                       name="answer"
-                      placeholder="write a 뜻"
+                      placeholder="뜻을 적어주세요."
                       value={answerList[item.num]}
                       onChange={(e) => handleWordChange(e, item.num)}
                     />

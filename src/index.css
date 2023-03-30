@@ -473,13 +473,15 @@ main {
 }
 
 .btn_save_word {
-  width: 150px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  width: 100px;
+  font-size: 1rem;
+  font-weight: 800;
   border-radius: 15px;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 0;
+  padding: 0.2rem;
   background-color: var(--color-green);
+  color: var(--color-butter);
 }
 
 .btn_save_word:hover {
@@ -510,4 +512,12 @@ main {
   /* line-height: 3rem; */
   text-align: center;
   margin-top: 50px;
+}
+
+input::placeholder {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding-left: 10px;
+  /* padding-bottom: 20px; */
+  /* line-height: 1.5rem; */
 }

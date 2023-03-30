@@ -24,14 +24,14 @@ export default function VocaNote() {
   !wordList && console.log("NO LIST");
 
   const lengthNum = wordList && wordList.length;
-  console.log("lengthNum : ", lengthNum);
+  // console.log("lengthNum : ", lengthNum);
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = () => {
     setModalOpen(true);
   };
 
   const handleOnlineBtn = () => {
-    console.log("NOW vocaList : ", sortState.vocaList);
+    // console.log("NOW vocaList : ", sortState.vocaList);
     dispatch({ type: "onlineTest", wordList });
     navigate(`/voca-notes/${noteTitle}/online-test`);
   };
