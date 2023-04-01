@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { get, getDatabase, ref, remove, set } from "firebase/database";
+import { get, getDatabase, ref, remove, set, update } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -16,18 +16,53 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 export async function addNewNote(inputTitle, createdTime, createdTimeNum) {
-  return set(ref(db, `voca-notes/note${inputTitle}/`), {
-    noteTitle: "note" + inputTitle,
+  return set(ref(db, `voca-notes/${inputTitle}`), {
+    noteTitle: inputTitle,
     createdTime,
     id: createdTimeNum,
   });
 }
 
-export async function deleteNote(noteTitle) {
-  return remove(ref(db, `voca-notes/${noteTitle}/`));
+export async function getNote_(noteTitle) {
+  return get(ref(db, `voca-notes/${noteTitle}/wordList`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+    return [];
+  });
 }
 
-export async function addNewWord(noteTitle, num, word_eng, word_kor, id) {
+export async function getNote(noteTitle) {
+  return get(ref(db, `voca-notes/${noteTitle}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return snapshot.val();
+    }
+    return [];
+  });
+}
+
+export async function modifyNote_(noteModify, noteTitleModify, inputTitle) {
+  console.log("noteModify.key : ", Object.keys(noteModify));
+  return update(ref(db, `voca-notes/${noteTitleModify}/`), {
+    ...noteModify,
+    noteTitle: inputTitle,
+  });
+}
+
+export async function modifyNote(noteModify, inputTitle, modifiedTime) {
+  return set(ref(db, `voca-notes/${inputTitle}/`), {
+    ...noteModify,
+    noteTitle: inputTitle,
+    // modifiedTime,
+  });
+}
+
+export async function deleteNote(noteTitle) {
+  return remove(ref(db, `voca-notes/${noteTitle}`));
+}
+
+export async function addNewWord(noteTitle, word_eng, num, word_kor, id) {
+  console.log("add new word");
   return set(ref(db, `voca-notes/${noteTitle}/wordList/` + word_eng), {
     num,
     word_eng,
@@ -37,7 +72,7 @@ export async function addNewWord(noteTitle, num, word_eng, word_kor, id) {
 }
 
 export async function makeAnswerTitle(noteTitle, createdTime) {
-  return set(ref(db, `online-test/test-${noteTitle}-${createdTime}/`), {
+  return set(ref(db, `online-test/test-${noteTitle}-${createdTime}`), {
     createdTime,
     noteTitle,
   });
@@ -78,15 +113,6 @@ export async function getAnswerList(noteTitle, timeTitle) {
 
 export async function getNotes() {
   return get(ref(db, "voca-notes")).then((snapshot) => {
-    if (snapshot.exists()) {
-      return Object.values(snapshot.val());
-    }
-    return [];
-  });
-}
-
-export async function getNote(noteTitle) {
-  return get(ref(db, `voca-notes/${noteTitle}/wordList`)).then((snapshot) => {
     if (snapshot.exists()) {
       return Object.values(snapshot.val());
     }

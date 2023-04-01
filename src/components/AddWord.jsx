@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { addNewWord } from "../api/firebase";
+import { addNewWord, addNewWord2 } from "../api/firebase";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 export default function AddWord({
@@ -41,7 +41,7 @@ export default function AddWord({
     const id = uuid();
     const num = nextNum.current;
 
-    addNewWord(noteTitle, num, word_eng, word_kor, id);
+    addNewWord(noteTitle, word_eng, num, word_kor, id);
 
     nextNum.current += 1;
     handleReset();

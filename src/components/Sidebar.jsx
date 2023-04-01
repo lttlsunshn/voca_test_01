@@ -8,34 +8,43 @@ import { deleteNote, getNotes } from "../api/firebase";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AddNote from "./AddNote";
+import ModifyNote from "./ModifyNote";
 
 export default function Sidebar() {
-  // const [loading, setLoading] = useState(false);
   const { data: vocaNotes } = useQuery(["voca-notes"], getNotes);
   // vocaNotes && console.log("vocaNotes : ", vocaNotes);
+  const [noteTitleModify, setNoteTitleModify] = useState("");
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpenAdd, setModalOpenAdd] = useState(false);
+  const showModalAdd = () => {
+    setModalOpenAdd(true);
+  };
 
-  const showModal = () => {
-    setModalOpen(true);
+  const [modalOpenModify, setModalOpenModify] = useState(false);
+  const showModalModify = (e) => {
+    console.log(e.currentTarget.value);
+
+    setNoteTitleModify(e.currentTarget.value);
+    setModalOpenModify(true);
+    // console.log("noteTitleModify : ", noteTitleModify);
   };
 
   const navigate = useNavigate();
 
-  // const handleModifyNote = (e) => {
-  //   console.log(e.currentTarget.value);
-  //   deleteNote(e.currentTarget.value);
-
-  //   window.location.reload();
-  // };
-
   const handleDeleteNote = (e) => {
     // console.log(e.target.value);
+    // console.log(e.currentTarget.value);
 
-    console.log(e.currentTarget.value);
-    deleteNote(e.currentTarget.value);
+    const ok = window.confirm(
+      `NOTE ${e.currentTarget.value}를 삭제하시겠습니까?`
+    );
 
-    window.location.reload();
+    if (ok) {
+      deleteNote(e.currentTarget.value);
+      navigate("/voca-notes");
+      window.location.reload();
+      // console.log(e.currentTarget.value);
+    }
   };
 
   return (
@@ -50,27 +59,28 @@ export default function Sidebar() {
         {vocaNotes &&
           vocaNotes.map((item) => (
             <>
-              <p
-                key={item.id}
-                className="notes_list_items"
-                onClick={() => {
-                  navigate(`/voca-notes/${item.noteTitle}`);
-                }}
-              >
-                <span className="item_list">
-                  <span className="notes_list_item_icon">
+              <p className="notes_list_items">
+                <span
+                  className="item_list"
+                  key={item.id}
+                  onClick={() => {
+                    navigate(`/voca-notes/${item.noteTitle}`);
+                    console.log(item.noteTitle, "note clicked!");
+                  }}
+                >
+                  <span className="note_icon">
                     <MdOutlineStickyNote2 />
                   </span>
                   {item.noteTitle}
                 </span>
                 <span className="btns_list">
-                  {/* <button
+                  <button
                     className="btn_mod_note"
                     value={item.noteTitle}
-                    onClick={handleModifyNote}
+                    onClick={showModalModify}
                   >
                     <RiPencilFill />
-                  </button> */}
+                  </button>
                   <button
                     className="btn_del_note"
                     value={item.noteTitle}
@@ -83,14 +93,27 @@ export default function Sidebar() {
             </>
           ))}
       </div>
-      <div className="new_note2" onClick={showModal}>
+      <div className="new_note2" onClick={showModalAdd}>
         <span className="icon_add_note">
           <IoMdAddCircleOutline />
         </span>
       </div>
       <section>
-        {modalOpen && (
-          <AddNote modalOpen={modalOpen} setModalOpen={setModalOpen} />
+        {modalOpenAdd && (
+          <AddNote
+            modalOpenAdd={modalOpenAdd}
+            setModalOpenAdd={setModalOpenAdd}
+          />
+        )}
+      </section>
+
+      <section>
+        {modalOpenModify && (
+          <ModifyNote
+            modalOpenModify={modalOpenModify}
+            setModalOpenModify={setModalOpenModify}
+            noteTitleModify={noteTitleModify}
+          />
         )}
       </section>
     </>

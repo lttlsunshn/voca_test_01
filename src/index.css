@@ -153,35 +153,38 @@ main {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+/* .notes_list_items:hover {
+  
+  color: var(--color-purple);
+  transition: all 200ms ease-in;
+} */
+
+.item_list {
+  display: flex;
+  /* justify-content: left; */
+
   cursor: pointer;
 }
 
-.notes_list_items:hover {
+.item_list:hover {
   /* color: var(--color-light-purple); */
   color: var(--color-purple);
   transition: all 200ms ease-in;
 }
-.notes_list_items:active {
+
+.item_list:active {
   color: var(--color-light-purple);
   /* color: var(--color-purple); */
   transition: all 200ms ease-in;
 }
-.item_list {
-  display: flex;
-  /* justify-content: left; */
-}
 
-.notes_list_item_icon {
+.note_icon {
   padding-top: 5px;
   padding-right: 5px;
   font-size: 1.3rem;
   color: var(--color-butter);
-}
-
-.notes_list_item_icon:hover {
-  /* color: var(--color-light-purple); */
-  color: var(--color-purple);
-  transition: all 200ms ease-in;
 }
 
 .btns_list {
@@ -195,11 +198,13 @@ main {
   /* width: 20px; */
   /* padding: 0; */
   font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .btn_del_note {
   /* width: 20px; */
   font-size: 1.3rem;
+  cursor: pointer;
 }
 /* .notes_list_item p {
   cursor: pointer;
@@ -454,6 +459,14 @@ main {
   display: block;
 }
 
+#modal_modify_note {
+  display: none;
+}
+
+#modal_modify_note.active {
+  display: block;
+}
+
 .modal-close {
   position: absolute;
   top: 0;
@@ -501,9 +514,17 @@ main {
   font-size: 1.3rem;
   font-weight: 800;
 
-  text-align: center;
-  margin-top: 50px;
+  text-align: left;
+  margin-top: 60px;
+  margin-left: 30px;
 }
+
+#home_voca_test {
+  color: var(--color-green);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
 #empty-note {
   /* color: var(--color-text); */
   color: var(--color-green);
@@ -517,7 +538,7 @@ main {
 input::placeholder {
   font-size: 0.9rem;
   font-weight: 500;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   /* padding-bottom: 20px; */
   /* line-height: 1.5rem; */
 }

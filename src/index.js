@@ -12,6 +12,7 @@ import PrintPage from "./pages/PrintPage";
 import ScoreResult from "./pages/ScoreResult";
 import { SortProvider } from "./SortContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import VocaNotes from "./pages/VocaNotes";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
+      { path: "/voca-notes", element: <VocaNotes /> },
       { path: "/voca-notes/:noteTitle", element: <VocaNote /> },
       { path: "/voca-notes/:noteTitle/online-test", element: <OnlineTest /> },
       {

@@ -15,16 +15,29 @@ export default function VocaNote() {
   const navigate = useNavigate();
 
   const { noteTitle } = useParams();
+  console.log("noteTitle : ", noteTitle);
 
-  const { data: wordList } = useQuery(
-    [`voca-notes/${noteTitle}/wordList`],
-    () => getNote(noteTitle)
+  const { data: vocaNote } = useQuery(
+    [`voca-notes/${noteTitle}/`],
+    () => getNote(noteTitle) // 객체로 가져오기
   );
 
-  !wordList && console.log("NO LIST");
+  vocaNote && console.log("vocaNote : ", vocaNote);
 
-  const lengthNum = wordList && wordList.length;
-  // console.log("lengthNum : ", lengthNum);
+  vocaNote &&
+    vocaNote["wordList"] &&
+    console.log("vocaNote['wordList'] : ", vocaNote["wordList"]);
+
+  const wordList =
+    vocaNote && vocaNote.wordList && Object.values(vocaNote.wordList);
+  // const wordList = vocaNote.wordList && Object.values(vocaNote.wordList);
+
+  !wordList && console.log("NO LIST");
+  wordList && console.log("wordListwordList : ", wordList);
+
+  // const lengthNum = wordList && wordList.length;
+  const lengthNum = wordList ? wordList.length : 0;
+  console.log("lengthNum : ", lengthNum);
   const [modalOpen, setModalOpen] = useState(false);
   const showModal = () => {
     setModalOpen(true);
@@ -62,9 +75,14 @@ export default function VocaNote() {
           </button>
         </div>
       </div>
-
-      {lengthNum === 0 ? <></> : wordList && <SortList wordList={wordList} />}
-      {lengthNum === 0 ? (
+      {lengthNum === 0 || wordList == undefined ? (
+        <></>
+      ) : (
+        wordList && <SortList wordList={wordList} />
+      )}
+      {/* {wordList ? <></> : <SortList wordList={wordList} />} */}
+      {lengthNum === 0 || wordList == undefined ? (
+        // {wordList ? (
         <div id="empty-note">
           <p>단어장이 비어 있어요.</p>
         </div>
@@ -89,7 +107,6 @@ export default function VocaNote() {
           </tbody>
         </table>
       )}
-
       {modalOpen && (
         <AddWord
           modalOpen={modalOpen}

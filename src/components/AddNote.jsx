@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { addNewNote } from "../api/firebase";
 import { useCreatedTime } from "../hooks/useCreatedTime.js";
 
-export default function AddNote({ modalOpen, setModalOpen, lengthNum }) {
+export default function AddNote({ modalOpenAdd, setModalOpenAdd }) {
   const [inputTitle, setInputTitle] = useState("");
   const navigate = useNavigate();
 
@@ -13,8 +13,8 @@ export default function AddNote({ modalOpen, setModalOpen, lengthNum }) {
 
   console.log("createdTimeNum : ", createdTimeNum);
 
-  const closeModal = () => {
-    setModalOpen(false);
+  const closeModalAdd = () => {
+    setModalOpenAdd(false);
   };
 
   const handleWordChange = (e) => {
@@ -27,27 +27,28 @@ export default function AddNote({ modalOpen, setModalOpen, lengthNum }) {
   };
 
   const handleAddNote = () => {
-    addNewNote(inputTitle, createdTime, createdTimeNum);
+    const emptyArr = [];
+    addNewNote(inputTitle, createdTime, createdTimeNum, emptyArr);
     handleReset();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleAddNote();
-    closeModal();
-    navigate(`voca-notes/note${inputTitle}`);
+    closeModalAdd();
+    navigate(`voca-notes/${inputTitle}`);
     window.location.reload();
   };
 
   return (
     <div
-      className={"modal-background" + (modalOpen ? " active" : "")}
+      className={"modal-background" + (modalOpenAdd ? " active" : "")}
       id="modal_add_note"
     >
       <form onSubmit={handleSubmit} className="modal-window">
         <div className="add_note_head">
           <div className="add_note_title">새 단어장 추가</div>
-          <span className="modal-close" id="closeModal" onClick={closeModal}>
+          <span className="modal-close" id="closeModal" onClick={closeModalAdd}>
             <AiFillCloseCircle />
           </span>
         </div>
@@ -59,7 +60,7 @@ export default function AddNote({ modalOpen, setModalOpen, lengthNum }) {
                 <input
                   type="text"
                   name="note_title"
-                  placeholder="Write a new note title."
+                  placeholder="단어장 제목을 적어 주세요."
                   value={inputTitle}
                   onChange={handleWordChange}
                 />
