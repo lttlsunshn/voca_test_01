@@ -172,6 +172,8 @@ main {
   /* color: var(--color-light-purple); */
   color: var(--color-purple);
   transition: all 200ms ease-in;
+  /* transform: scale(1.1); */
+  /* transition: all 300ms ease-in; */
 }
 
 .item_list:active {
@@ -201,10 +203,25 @@ main {
   cursor: pointer;
 }
 
+.btn_mod_note:hover {
+  /* display: block; */
+  color: var(--color-purple);
+  transform: scale(1.2);
+  transition: all 200ms ease-in;
+}
 .btn_del_note {
   /* width: 20px; */
   font-size: 1.3rem;
   cursor: pointer;
+  /* display: none; */
+  /* color: gray; */
+}
+
+.btn_del_note:hover {
+  /* display: block; */
+  color: var(--color-purple);
+  transform: scale(1.2);
+  transition: all 200ms ease-in;
 }
 /* .notes_list_item p {
   cursor: pointer;
