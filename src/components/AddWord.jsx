@@ -36,10 +36,9 @@ export default function AddWord({
   };
 
   const nextNum = useRef(lengthNum + 1);
-
+  const num = nextNum.current;
   const handleAddWord = () => {
     const id = uuid();
-    const num = nextNum.current;
 
     addNewWord(noteTitle, word_eng, num, word_kor, id);
 
@@ -68,6 +67,10 @@ export default function AddWord({
         </div>
         <table className="input_area">
           <tbody>
+            <tr>
+              <th>번호</th>
+              <td>{num}</td>
+            </tr>
             <tr>
               <th>영어 단어</th>
               <td>

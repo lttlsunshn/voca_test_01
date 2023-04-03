@@ -30,6 +30,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100vw;
+  max-width: 1440px;
   height: 100vh;
   background-color: var(--color-butter);
 }
@@ -44,7 +45,7 @@ code {
 }
 
 .header {
-  height: 70px;
+  height: 60px;
   padding-left: 60px;
 
   font-size: 2rem;
@@ -61,10 +62,12 @@ main {
 
 .side-space {
   width: 70px;
+  /* border: 1px dashed red; */
 }
 
 .sidebar {
-  width: 300px;
+  /* width: 300px; */
+  width: 30%;
   height: 85vh;
   padding: 20px;
   padding-top: 20px;
@@ -72,62 +75,18 @@ main {
   color: var(--color-butter);
   font-weight: 700;
 }
+
 .container {
   padding-left: 40px;
 }
 
-.navbar {
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.nav_notes {
-  display: flex;
-}
 .voca_note_header {
-  width: 80%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  /* border: 1px dashed red; */
 }
-
-/* .dropdown {
-  position: relative;
-}
-
-.dropdown_trigger {
-  cursor: pointer;
-  color: var(--color-purple);
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-right: 100px;
-
-  display: flex;
-} */
-
-/* .dropdown_content {
-  display: none;
-
-  width: 150px;
-  padding-top: 0.25rem;
-
-  position: absolute;
-  top: 100%;
-
-  background-color: var(--color-green);
-  color: var(--color-butter);
-  z-index: 9999;
-
-  font-size: 1.1rem;
-  font-weight: 500;
-  padding: 15px;
-} */
-
-/* .dropdown:hover .dropdown_content {
-  display: block;
-  cursor: pointer;
-  /* color: var(--color-light-purple); */
-/* }  */
 
 .notes_list_title {
   cursor: pointer;
@@ -135,8 +94,8 @@ main {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 10px;
-  /* margin-right: 100px; */
   display: flex;
+  /* border: 1px dashed red; */
 }
 
 .notes_list_items {
@@ -154,32 +113,17 @@ main {
 .item_list {
   display: flex;
   width: 80%;
-
   cursor: pointer;
-}
-
-.item_list + .btns_list {
-  display: none;
+  /* overflow: hidden; */
 }
 
 .item_list:hover {
   color: var(--color-purple);
   transition: all 200ms ease-in;
-  /* transform: scale(1.1); */
-  /* transition: all 300ms ease-in; */
-}
-
-/* 바로 다음에 오는 형제에게만 적용 */
-.item_list:hover + .btns_list {
-  display: block;
-  transition: all 200ms ease-in;
-  /* gap: 5px; */
 }
 
 .item_list:active {
   color: var(--color-light-purple);
-  /* color: var(--color-purple); */
-  transition: all 200ms ease-in;
 }
 
 .note_icon {
@@ -192,43 +136,57 @@ main {
 .btns_list {
   display: flex;
   justify-content: right;
-  gap: 5px;
-  /* flex-direction: ; */
+  gap: 10px;
+  font-size: 1.2rem;
+
+  cursor: pointer;
 }
 
-.btn_mod_note {
+#btns_note {
+  opacity: 0;
+  /* opacity: 0.3; */
+  /* color: gray; */
+}
+#btns_note.visible {
+  opacity: 1;
+  color: var(--color-butter);
+  transition: all 200ms ease-in;
+}
+
+#btns_note:hover {
+  opacity: 1;
+}
+
+#btn_mod_note {
   font-size: 1.2rem;
   cursor: pointer;
 }
 
-.btn_mod_note:hover {
+#btn_mod_note:hover {
   color: var(--color-purple);
-  transform: scale(1.2);
+  transform: scale(1.3);
   transition: all 200ms ease-in;
-}
-.btn_del_note {
-  /* width: 20px; */
-  font-size: 1.3rem;
-  cursor: pointer;
 }
 
-.btn_del_note:hover {
+#btn_mod_note:active {
+  color: var(--color-light-purple);
+}
+
+#btn_del_note:hover {
   color: var(--color-purple);
-  transform: scale(1.2);
+  transform: scale(1.3);
   transition: all 200ms ease-in;
+}
+
+#btn_del_note:active {
+  color: var(--color-light-purple);
 }
 
 .icon_notes_list {
   font-size: 1.2rem;
   margin-top: 8px;
   margin-right: 10px;
-  /* color: var(--color-butter); */
-}
-.icon_notes {
-  font-size: 1.2rem;
-  margin-top: 8px;
-  margin-right: 10px;
-  color: var(--color-green);
+  /* border: 1px dashed red; */
 }
 
 .new_note2 {
@@ -252,7 +210,8 @@ main {
 .button-list {
   display: flex;
   flex-flow: row-reverse;
-  margin-top: 15px;
+
+  /* border: 1px dashed red; */
 }
 
 .button-list > button {
@@ -272,12 +231,15 @@ main {
 }
 
 .sort-btn-list {
+  width: 100%;
   display: flex;
   /* flex-flow: row; */
   justify-content: right;
+
   margin-right: 150px;
   margin-top: 20px;
   gap: 10px;
+  /* border: 1px dashed red; */
 }
 .sort {
   width: 80px;
@@ -303,42 +265,27 @@ main {
   text-align: center;
   border-radius: 20px;
   padding: 5px;
-  /* background-color: red; */
-  /* border: 1px dashed black; */
+  color: gray;
 }
 
 .sort:hover {
-  /* background-color: var(--color-light-purple); */
   background-color: var(--color-purple);
-  /* color: var(--color-green); */
+
   transform: scale(1.05);
   transition: all 200ms ease-in;
 }
 
 .sort input:checked + label {
-  /* #btn_sort_asc:checked + label { */
   background-color: var(--color-purple);
-  /* color: red; */
+  color: var(--color-butter);
 }
-/* .sort input[type="radio"]:checked + label {
-  background-color: gray;
-  color: red;
-} */
-
-/* input 기본 스타일 초기화 */
-/* input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-} */
 
 .voca_note_title {
-  margin-top: 20px;
-  margin-bottom: 10px;
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--color-green);
   display: flex;
+  /* border: 1px dashed red; */
 }
 
 .voca_note_title_icon {
@@ -348,11 +295,13 @@ main {
 
   color: var(--color-purple);
   cursor: pointer;
+  /* border: 1px dashed red; */
 }
 
 .voca_note {
-  width: 80%;
+  width: 100%;
   text-align: center;
+  /* border: 1px dashed red; */
 }
 
 .voca_note th {
@@ -368,7 +317,7 @@ main {
   padding: 10px;
 }
 
-.btn_new_word {
+/* .btn_new_word {
   width: 100px;
   font-size: 1rem;
   font-weight: bold;
@@ -376,11 +325,12 @@ main {
   margin-top: 30px;
   margin-left: 0;
   background-color: var(--color-purple);
-}
+  border: 1px dashed red;
+} */
 
 .add_word_head {
   width: 100%;
-  height: 70px;
+  height: 60px;
   background-color: var(--color-green);
 }
 
@@ -388,7 +338,7 @@ main {
   font-size: 1.3rem;
   font-weight: 700;
   text-align: center;
-  line-height: 70px;
+  line-height: 60px;
   color: var(--color-butter);
 }
 
@@ -426,7 +376,7 @@ main {
   height: 2rem;
   /* opacity: 1; */
   border-radius: 5px;
-  margin: 10px 10px;
+  margin: 10px 0;
   padding-left: 15px;
   font-size: 1.2rem;
   font-weight: 400;
@@ -549,7 +499,7 @@ main {
   color: var(--color-green);
   font-size: 1.3rem;
   font-weight: 800;
-  /* line-height: 3rem; */
+
   text-align: center;
   margin-top: 50px;
 }
@@ -557,7 +507,4 @@ main {
 input::placeholder {
   font-size: 0.9rem;
   font-weight: 500;
-  /* padding-left: 10px; */
-  /* padding-bottom: 20px; */
-  /* line-height: 1.5rem; */
 }

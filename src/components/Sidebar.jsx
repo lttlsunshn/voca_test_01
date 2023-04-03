@@ -11,6 +11,8 @@ import AddNote from "./AddNote";
 import ModifyNote from "./ModifyNote";
 
 export default function Sidebar() {
+  const [isHoverId, setIsHoverId] = useState(null);
+
   const { data: vocaNotes } = useQuery(["voca-notes"], getNotes);
   // vocaNotes && console.log("vocaNotes : ", vocaNotes);
   const [noteTitleModify, setNoteTitleModify] = useState("");
@@ -31,10 +33,15 @@ export default function Sidebar() {
 
   const navigate = useNavigate();
 
-  const handleDeleteNote = (e) => {
-    // console.log(e.target.value);
-    // console.log(e.currentTarget.value);
+  const handleMouseOver = (e) => {
+    setIsHoverId(e.target.id);
+  };
 
+  const handleMouseLeave = (e) => {
+    setIsHoverId("");
+  };
+
+  const handleDeleteNote = (e) => {
     const ok = window.confirm(
       `NOTE ${e.currentTarget.value}를 삭제하시겠습니까?`
     );
@@ -59,10 +66,16 @@ export default function Sidebar() {
         {vocaNotes &&
           vocaNotes.map((item) => (
             <>
-              <p className="notes_list_items">
+              <p
+                key={item.id}
+                className="notes_list_items"
+                onMouseOver={handleMouseOver}
+                onMouseLeave={handleMouseLeave}
+                value={item.id}
+              >
                 <span
                   className="item_list"
-                  key={item.id}
+                  id={item.id}
                   onClick={() => {
                     navigate(`/voca-notes/${item.noteTitle}`);
                     console.log(item.noteTitle, "note clicked!");
@@ -73,16 +86,23 @@ export default function Sidebar() {
                   </span>
                   {item.noteTitle}
                 </span>
-                <span className="btns_list">
+
+                <span
+                  className={
+                    "btns_list" +
+                    (Number(isHoverId) === item.id ? " visible" : "")
+                  }
+                  id="btns_note"
+                >
                   <button
-                    className="btn_mod_note"
+                    id="btn_mod_note"
                     value={item.noteTitle}
                     onClick={showModalModify}
                   >
                     <RiPencilFill />
                   </button>
                   <button
-                    className="btn_del_note"
+                    id="btn_del_note"
                     value={item.noteTitle}
                     onClick={handleDeleteNote}
                   >

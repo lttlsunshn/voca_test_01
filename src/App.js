@@ -14,6 +14,7 @@ function App() {
         <div className="container">
           <Outlet />
         </div>
+        <div className="side-space"></div>
       </main>
     </>
   );
