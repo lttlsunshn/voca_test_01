@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SortDispatchContext } from "../SortContext";
 
@@ -45,6 +45,12 @@ export default function SortList({ wordList }) {
     dispatch({ type: "randomSort", randomWordList });
     console.log("random sort");
   };
+  const [checked, setChecked] = useState("sort_asc");
+
+  const handleChange = (e) => {
+    console.log("e.target.value :", e.target.value);
+    setChecked(e.target.value);
+  };
 
   useEffect(() => {
     wordList && handleSortAsc();
@@ -54,15 +60,41 @@ export default function SortList({ wordList }) {
   return (
     <>
       <div className="sort-btn-list">
-        <button className="sort" onClick={handleSortAsc}>
-          오름차순
-        </button>
-        <button className="sort" onClick={handleSortDesc}>
-          내림차순
-        </button>
-        <button className="sort" onClick={handleSortRandom}>
-          랜덤
-        </button>
+        <div className="sort" onClick={handleSortAsc}>
+          <input
+            id="btn_sort_asc"
+            type="radio"
+            name="sort_btn"
+            value="sort_asc"
+            onChange={handleChange}
+            checked={checked === "sort_asc"}
+          />
+          <label for="btn_sort_asc">오름차순</label>
+        </div>
+
+        <div className="sort" onClick={handleSortDesc}>
+          <input
+            id="btn_sort_desc"
+            type="radio"
+            name="sort_btn"
+            value="sort_desc"
+            onChange={handleChange}
+            checked={checked === "sort_desc"}
+          />
+          <label for="btn_sort_desc">내림차순</label>
+        </div>
+
+        <div className="sort" onClick={handleSortRandom}>
+          <input
+            id="btn_sort_random"
+            type="radio"
+            name="sort_btn"
+            value="sort_random"
+            onChange={handleChange}
+            checked={checked === "sort_random"}
+          />
+          <label for="btn_sort_random">랜덤</label>
+        </div>
       </div>
     </>
   );

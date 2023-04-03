@@ -128,10 +128,7 @@ main {
   cursor: pointer;
   /* color: var(--color-light-purple); */
 /* }  */
-/* .notes_list {
-  display: flex;
-  flex-direction: column;
-} */
+
 .notes_list_title {
   cursor: pointer;
   color: var(--color-purple);
@@ -147,33 +144,36 @@ main {
   font-size: 1.1rem;
   font-weight: 600;
   height: 30px;
-  /* margin-top: 5px; */
-  /* margin-right: 100px; */
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-/* .notes_list_items:hover {
-  
-  color: var(--color-purple);
-  transition: all 200ms ease-in;
-} */
-
 .item_list {
   display: flex;
-  /* justify-content: left; */
+  width: 80%;
 
   cursor: pointer;
 }
 
+.item_list + .btns_list {
+  display: none;
+}
+
 .item_list:hover {
-  /* color: var(--color-light-purple); */
   color: var(--color-purple);
   transition: all 200ms ease-in;
   /* transform: scale(1.1); */
   /* transition: all 300ms ease-in; */
+}
+
+/* 바로 다음에 오는 형제에게만 적용 */
+.item_list:hover + .btns_list {
+  display: block;
+  transition: all 200ms ease-in;
+  /* gap: 5px; */
 }
 
 .item_list:active {
@@ -197,14 +197,11 @@ main {
 }
 
 .btn_mod_note {
-  /* width: 20px; */
-  /* padding: 0; */
   font-size: 1.2rem;
   cursor: pointer;
 }
 
 .btn_mod_note:hover {
-  /* display: block; */
   color: var(--color-purple);
   transform: scale(1.2);
   transition: all 200ms ease-in;
@@ -213,24 +210,13 @@ main {
   /* width: 20px; */
   font-size: 1.3rem;
   cursor: pointer;
-  /* display: none; */
-  /* color: gray; */
 }
 
 .btn_del_note:hover {
-  /* display: block; */
   color: var(--color-purple);
   transform: scale(1.2);
   transition: all 200ms ease-in;
 }
-/* .notes_list_item p {
-  cursor: pointer;
-  color: var(--color-butter);
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-right: 100px;
-  display: flex;
-} */
 
 .icon_notes_list {
   font-size: 1.2rem;
@@ -244,16 +230,6 @@ main {
   margin-right: 10px;
   color: var(--color-green);
 }
-
-/* .new_note {
-  cursor: pointer;
-  color: var(--color-purple);
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-right: 100px;
-
-  display: flex;
-} */
 
 .new_note2 {
   background-color: var(--color-purple);
@@ -272,13 +248,6 @@ main {
   margin: 0 auto;
   color: var(--color-butter);
 }
-
-/* .icon_new_note {
-  font-size: 1.5rem;
-  margin-top: 5px;
-  margin-right: 5px;
-  color: var(--color-green);
-} */
 
 .button-list {
   display: flex;
@@ -313,8 +282,9 @@ main {
 .sort {
   width: 80px;
   border-radius: 20px;
-  padding: 5px;
-  background-color: var(--color-purple);
+  /* padding: 5px; */
+  /* background-color: var(--color-purple); */
+  background-color: var(--color-light-purple);
   color: var(--color-butter);
   font-size: 0.8rem;
   font-weight: 700;
@@ -323,12 +293,44 @@ main {
   cursor: pointer;
 }
 
-.sort:hover {
-  background-color: var(--color-light-purple);
-  color: var(--color-purple);
-  /* transform: scale(1.1); */
-  transition: all 300ms ease-in;
+.sort input {
+  display: none;
 }
+
+.sort label {
+  display: block;
+
+  text-align: center;
+  border-radius: 20px;
+  padding: 5px;
+  /* background-color: red; */
+  /* border: 1px dashed black; */
+}
+
+.sort:hover {
+  /* background-color: var(--color-light-purple); */
+  background-color: var(--color-purple);
+  /* color: var(--color-green); */
+  transform: scale(1.05);
+  transition: all 200ms ease-in;
+}
+
+.sort input:checked + label {
+  /* #btn_sort_asc:checked + label { */
+  background-color: var(--color-purple);
+  /* color: red; */
+}
+/* .sort input[type="radio"]:checked + label {
+  background-color: gray;
+  color: red;
+} */
+
+/* input 기본 스타일 초기화 */
+/* input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+} */
 
 .voca_note_title {
   margin-top: 20px;
