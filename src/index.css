@@ -270,9 +270,14 @@ main {
 
 .sort:hover {
   background-color: var(--color-purple);
+  /* color: var(--color-butter); */
 
   transform: scale(1.05);
   transition: all 200ms ease-in;
+}
+
+.sort label:hover {
+  color: var(--color-butter);
 }
 
 .sort input:checked + label {
