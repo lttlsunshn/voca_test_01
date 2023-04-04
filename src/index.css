@@ -509,6 +509,19 @@ main {
   margin-top: 50px;
 }
 
+#score-result {
+  color: var(--color-purple);
+  font-size: 1.8rem;
+  font-weight: 800;
+
+  text-align: center;
+  margin-top: 50px;
+}
+
+#correct-num {
+  color: var(--color-green);
+  margin-right: 30px;
+}
 input::placeholder {
   font-size: 0.9rem;
   font-weight: 500;

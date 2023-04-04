@@ -15,19 +15,34 @@ export default function OnlineTest() {
 
   const [testList, setTestList] = useState(sortState.vocaList);
 
-  const answerList = {};
+  const answerObject = {};
+  const answerList = [];
+  const answerSheet = [];
+
   const handleWordChange = (e, num) => {
-    answerList[num] = e.target.value; // 미묘한 차이
+    answerObject[num] = e.target.value;
   };
 
   const handleMarkableAnswer = () => {
-    console.log("answerList : ", answerList);
+    Object.entries(answerObject).forEach((item) => {
+      answerList[item[0] - 1] = item[1];
+    });
+
+    const answerArr = Array.from(answerList);
+
+    answerArr.map((item, idx) => {
+      item === undefined ? (answerSheet[idx] = "") : (answerSheet[idx] = item);
+    });
 
     makeAnswerTitle(noteTitle, createdTime);
 
-    sortState.vocaList.forEach((item) => {
-      const answer = answerList[item.num];
-      const isCorrect = item.word_kor === answerList[item.num] ? true : false;
+    sortState.vocaList.forEach((item, idx) => {
+      const answer = answerList[idx] === undefined ? "" : answerList[idx];
+      const isCorrect =
+        answerList[idx] !== undefined &&
+        item.word_kor === answerList[item.num - 1]
+          ? true
+          : false;
 
       makeAnswerList(noteTitle, createdTime, answer, isCorrect, item);
     });
@@ -49,7 +64,7 @@ export default function OnlineTest() {
   return (
     <>
       <div className="voca_note_header">
-        <div className="voca_note_title">{noteTitle} TEST</div>
+        <div className="voca_note_title">{noteTitle} Online TEST</div>
         <div className="button-list">
           <button
             onClick={() => {
@@ -89,7 +104,7 @@ export default function OnlineTest() {
                       type="text"
                       name="answer"
                       placeholder="뜻을 적어주세요."
-                      value={answerList[item.num]}
+                      value={answerObject[item.num]}
                       onChange={(e) => handleWordChange(e, item.num)}
                     />
                   </td>

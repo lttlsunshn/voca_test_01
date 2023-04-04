@@ -53,8 +53,12 @@ export default function ScoreResult() {
               ))}
           </tbody>
         </table>
-        RESULT : {scoreResult && correctNum} /{" "}
-        {scoreResult && scoreResult.length}
+        <div id="score-result">
+          <span id="correct-num">맞은 개수</span>
+          <span>
+            {scoreResult && correctNum} / {scoreResult && scoreResult.length}
+          </span>
+        </div>
       </form>
     </>
   );

@@ -35,7 +35,6 @@ export default function VocaNote() {
   !wordList && console.log("NO LIST");
   wordList && console.log("wordListwordList : ", wordList);
 
-  // const lengthNum = wordList && wordList.length;
   const lengthNum = wordList ? wordList.length : 0;
   console.log("lengthNum : ", lengthNum);
   const [modalOpen, setModalOpen] = useState(false);
@@ -44,7 +43,6 @@ export default function VocaNote() {
   };
 
   const handleOnlineBtn = () => {
-    // console.log("NOW vocaList : ", sortState.vocaList);
     dispatch({ type: "onlineTest", wordList });
     navigate(`/voca-notes/${noteTitle}/online-test`);
   };
@@ -75,13 +73,13 @@ export default function VocaNote() {
           </button>
         </div>
       </div>
-      {lengthNum === 0 || wordList == undefined ? (
+      {lengthNum === 0 || wordList === undefined ? (
         <></>
       ) : (
         wordList && <SortList wordList={wordList} />
       )}
       {/* {wordList ? <></> : <SortList wordList={wordList} />} */}
-      {lengthNum === 0 || wordList == undefined ? (
+      {lengthNum === 0 || wordList === undefined ? (
         // {wordList ? (
         <div id="empty-note">
           <p>단어장이 비어 있어요.</p>
