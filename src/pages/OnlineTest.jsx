@@ -6,6 +6,7 @@ import { useCreatedTime } from "../hooks/useCreatedTime";
 import { SortStateContext } from "../SortContext";
 import { HiPrinter } from "react-icons/hi";
 import { FaKeyboard } from "react-icons/fa";
+import TestToggle from "../components/TestToggle";
 
 export default function OnlineTest() {
   const sortState = useContext(SortStateContext);
@@ -30,7 +31,7 @@ export default function OnlineTest() {
 
     const answerArr = Array.from(answerList);
 
-    answerArr.map((item, idx) => {
+    answerArr.forEach((item, idx) => {
       item === undefined ? (answerSheet[idx] = "") : (answerSheet[idx] = item);
     });
 
@@ -38,9 +39,10 @@ export default function OnlineTest() {
 
     sortState.vocaList.forEach((item, idx) => {
       const answer = answerList[idx] === undefined ? "" : answerList[idx];
+      const word =
+        sortState.toggle === "meaning" ? item.word_kor : item.word_eng;
       const isCorrect =
-        answerList[idx] !== undefined &&
-        item.word_kor === answerList[item.num - 1]
+        answerList[idx] !== undefined && word === answerList[item.num - 1]
           ? true
           : false;
 
@@ -82,35 +84,73 @@ export default function OnlineTest() {
           </button>
         </div>
       </div>
-
-      {testList && <SortList wordList={testList} />}
+      <div className="list-options">
+        <div className="test-toggle">
+          <TestToggle />
+        </div>
+        <div className="sort-btn-list">
+          {testList && <SortList wordList={testList} />}
+        </div>
+      </div>
       <form>
         <table className="voca_note">
-          <thead>
-            <tr>
-              <th>번호</th>
-              <th>영어 단어</th>
-              <th>뜻</th>
-            </tr>
-          </thead>
-          <tbody>
-            {testList &&
-              testList.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.num}</td>
-                  <td>{item.word_eng}</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="answer"
-                      placeholder="뜻을 적어주세요."
-                      value={answerObject[item.num]}
-                      onChange={(e) => handleWordChange(e, item.num)}
-                    />
-                  </td>
+          {sortState.toggle === "meaning" ? (
+            <>
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>영어 단어</th>
+                  <th>뜻</th>
                 </tr>
-              ))}
-          </tbody>
+              </thead>
+              <tbody>
+                {testList &&
+                  testList.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.num}</td>
+                      <td>{item.word_eng}</td>
+                      <td>
+                        <input
+                          type="text"
+                          name="answer"
+                          placeholder="뜻을 적어주세요."
+                          value={answerObject[item.num]}
+                          onChange={(e) => handleWordChange(e, item.num)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </>
+          ) : (
+            <>
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>뜻</th>
+                  <th>영어 단어</th>
+                </tr>
+              </thead>
+              <tbody>
+                {testList &&
+                  testList.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.num}</td>
+                      <td>{item.word_kor}</td>
+                      <td>
+                        <input
+                          type="text"
+                          name="answer"
+                          placeholder="철자를 적어주세요."
+                          value={answerObject[item.num]}
+                          onChange={(e) => handleWordChange(e, item.num)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </>
+          )}
         </table>
         <button className="btn_save_word" type="submit" onClick={handleSubmit}>
           제출

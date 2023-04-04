@@ -3,11 +3,11 @@ import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getNote } from "../api/firebase";
 import SortList from "../components/SortList";
+import TestToggle from "../components/TestToggle";
 import { SortStateContext } from "../SortContext";
 
 export default function PrintPage() {
   const sortState = useContext(SortStateContext);
-  // console.log("PRINT vocaList : ", sortState.vocaList);
   const { noteTitle } = useParams();
   // console.log("noteTitle : ", noteTitle);
 
@@ -23,30 +23,65 @@ export default function PrintPage() {
   !wordList && console.log("NO LIST");
 
   return (
+    // <main>
     <div className="print-page">
       <div className="voca_note_header">
         <div className="voca_note_title">{noteTitle}</div>
       </div>
-      {wordList && <SortList wordList={wordList} />}
+      <div className="list-options">
+        <div className="test-toggle">
+          <TestToggle />
+        </div>
+        <div className="sort-btn-list">
+          {wordList && <SortList wordList={wordList} />}
+        </div>
+      </div>
       <table className="voca_note">
-        <thead>
-          <tr>
-            <th>번호</th>
-            <th>영어 단어</th>
-            <th>뜻</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortState.vocaList &&
-            sortState.vocaList.map((item) => (
-              <tr key={item.id}>
-                <td>{item.num}</td>
-                <td>{item.word_eng}</td>
-                <td>{item.word_kor}</td>
+        {sortState.toggle === "meaning" ? (
+          <>
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>영어 단어</th>
+                <th>뜻</th>
               </tr>
-            ))}
-        </tbody>
+            </thead>
+            <tbody>
+              {sortState.vocaList &&
+                sortState.vocaList.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.num}</td>
+                    <td>{item.word_eng}</td>
+                    <td className="blank"></td>
+                  </tr>
+                ))}
+            </tbody>
+          </>
+        ) : (
+          <>
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>뜻</th>
+                <th>영어 단어</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortState.vocaList &&
+                sortState.vocaList.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.num}</td>
+
+                    <td>{item.word_kor}</td>
+                    <td className="blank"></td>
+                  </tr>
+                ))}
+            </tbody>
+          </>
+        )}
       </table>
     </div>
+    // <div className="side-space"></div>
+    // </main>
   );
 }

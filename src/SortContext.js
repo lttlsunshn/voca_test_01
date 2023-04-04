@@ -4,6 +4,8 @@ const initialList = {
   vocaList: [],
   sortType: "",
   mode: "note",
+  // spellToggle: false,
+  toggle: "meaning",
 };
 
 function sortReducer(state, action) {
@@ -20,6 +22,10 @@ function sortReducer(state, action) {
       return { ...state, mode: "test" };
     case "print":
       return { ...state, mode: "print" };
+    case "spell":
+      return { ...state, toggle: "spell" };
+    case "meaning":
+      return { ...state, toggle: "meaning" };
     default:
       return { ...state };
   }

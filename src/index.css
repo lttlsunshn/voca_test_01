@@ -230,17 +230,56 @@ main {
   border-radius: 50%;
 }
 
+.list-options {
+  display: flex;
+  justify-content: space-between;
+
+  /* padding: 20px 0; */
+  margin: 30px 0 10px;
+
+  /* border: 1px dashed green; */
+}
+.test-toggle {
+  width: 100%;
+  display: flex;
+  /* flex-flow: row; */
+  justify-content: left;
+  align-items: center;
+
+  /* margin-right: 150px; */
+  /* margin-top: 20px; */
+  gap: 10px;
+  /* border: 1px dashed red; */
+}
+
+/* 
+.toggle
+.toggle input
+.toggle label
+.toggle:hover
+.sort label:hover {
+  color: var(--color-butter);
+}
+
+.sort input:checked + label {
+  background-color: var(--color-purple);
+  color: var(--color-butter);
+}
+
+*/
 .sort-btn-list {
   width: 100%;
   display: flex;
   /* flex-flow: row; */
   justify-content: right;
+  align-items: center;
 
-  margin-right: 150px;
-  margin-top: 20px;
+  /* margin-right: 150px; */
+  /* margin-top: 20px; */
   gap: 10px;
-  /* border: 1px dashed red; */
+  /* border: 1px dashed blue; */
 }
+
 .sort {
   width: 80px;
   border-radius: 20px;
@@ -250,7 +289,7 @@ main {
   color: var(--color-butter);
   font-size: 0.8rem;
   font-weight: 700;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 
   cursor: pointer;
 }
@@ -478,7 +517,9 @@ main {
 }
 
 .print-page {
+  margin-top: 30px;
   margin-left: 80px;
+  margin-right: 90px;
 }
 
 #home-note {
