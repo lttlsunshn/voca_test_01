@@ -49,10 +49,9 @@ export default function ModifyNote({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget.value);
 
     const ok = window.confirm(
-      `NOTE ${e.currentTarget.value}의 제목을 수정하시겠습니까?`
+      `NOTE ${noteTitleModify}의 제목을 ${inputTitle}로 수정하시겠습니까?`
     );
 
     if (ok) {
