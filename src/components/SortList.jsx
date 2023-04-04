@@ -17,7 +17,7 @@ export default function SortList({ wordList }) {
       });
 
     dispatch({ type: "ascSort", ascWordList });
-    console.log("ascending sort");
+    // console.log("ascending sort");
   };
 
   const handleSortDesc = () => {
@@ -29,7 +29,7 @@ export default function SortList({ wordList }) {
       });
 
     dispatch({ type: "descSort", descWordList });
-    console.log("descending sort");
+    // console.log("descending sort");
   };
 
   const handleSortRandom = () => {

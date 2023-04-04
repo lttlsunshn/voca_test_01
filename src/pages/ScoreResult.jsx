@@ -8,8 +8,8 @@ let correctNum = 0;
 export default function ScoreResult() {
   const { noteTitle } = useParams();
   const { timeTitle } = useParams();
-  console.log("noteTitle", noteTitle);
-  console.log("timeTitle ", timeTitle);
+  // console.log("noteTitle", noteTitle);
+  // console.log("timeTitle ", timeTitle);
 
   const { data: scoreResult } = useQuery(
     [`test-${noteTitle}-${timeTitle}/answer-list/`],
@@ -22,7 +22,7 @@ export default function ScoreResult() {
   correctNum =
     scoreResult && scoreResult.filter((item) => item.isCorrect).length;
 
-  console.log("correctNum : ", correctNum);
+  // console.log("correctNum : ", correctNum);
 
   return (
     <>

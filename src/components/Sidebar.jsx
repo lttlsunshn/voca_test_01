@@ -81,7 +81,7 @@ export default function Sidebar() {
                   onClick={() => {
                     dispatch({ type: "note" });
                     navigate(`/voca-notes/${item.noteTitle}`);
-                    console.log(item.noteTitle, "note clicked!");
+                    // console.log(item.noteTitle, "note clicked!");
                   }}
                 >
                   <span className="note_icon">
