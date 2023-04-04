@@ -11,10 +11,13 @@ export default function PrintPage() {
   const { noteTitle } = useParams();
   // console.log("noteTitle : ", noteTitle);
 
-  const { data: wordList } = useQuery(
+  const { data: vocaNote } = useQuery(
     [`voca-notes/${noteTitle}/wordList`],
     () => getNote(noteTitle)
   );
+
+  const wordList =
+    vocaNote && vocaNote.wordList && Object.values(vocaNote.wordList);
 
   wordList && console.log("wordList : ", wordList);
   !wordList && console.log("NO LIST");

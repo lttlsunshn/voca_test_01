@@ -64,7 +64,7 @@ export default function VocaNote() {
               window.open(
                 `/voca-notes/${noteTitle}/print-page/`,
                 "print",
-                "width=800, height=900"
+                "width=1000, height=900"
               );
             }}
           >
