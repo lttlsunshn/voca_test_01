@@ -6,6 +6,7 @@
   --color-purple: #845ec2;
   --color-light-purple: #f3c5ff;
   --color-green: #00c9a7;
+  --color-light-green: #9ed7cd;
   --color-butter: #fefedf;
   --color-text: #221724;
 }
@@ -231,42 +232,80 @@ main {
 }
 
 .list-options {
+  width: 100%;
   display: flex;
   justify-content: space-between;
 
   /* padding: 20px 0; */
   margin: 30px 0 10px;
+  padding: 0;
 
   /* border: 1px dashed green; */
 }
+
 .test-toggle {
   width: 100%;
   display: flex;
-  /* flex-flow: row; */
   justify-content: left;
   align-items: center;
+}
 
-  /* margin-right: 150px; */
-  /* margin-top: 20px; */
-  gap: 10px;
+.toggle {
+  width: 50px;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#toggle-spell label {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  /* border: 1px dashed blue; */
+}
+
+#toggle-meaning label {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
   /* border: 1px dashed red; */
 }
 
-/* 
-.toggle
-.toggle input
-.toggle label
-.toggle:hover
-.sort label:hover {
+.toggle input {
+  display: none;
+}
+
+.toggle label {
+  display: block;
+
+  text-align: center;
+  /* border-radius: 20px; */
+  /* padding: 10px; */
+  background-color: var(--color-light-green);
+  color: gray;
+}
+
+.toggle label:hover {
+  background-color: var(--color-green);
   color: var(--color-butter);
 }
 
-.sort input:checked + label {
-  background-color: var(--color-purple);
+.toggle input:checked + label {
+  background-color: var(--color-green);
   color: var(--color-butter);
 }
 
-*/
+.toggle label {
+  display: block;
+
+  text-align: center;
+  /* border-radius: 20px; */
+  padding: 5px;
+  background-color: var(--color-light-green);
+  color: gray;
+
+  cursor: pointer;
+}
+
 .sort-btn-list {
   width: 100%;
   display: flex;
@@ -274,8 +313,6 @@ main {
   justify-content: right;
   align-items: center;
 
-  /* margin-right: 150px; */
-  /* margin-top: 20px; */
   gap: 10px;
   /* border: 1px dashed blue; */
 }
@@ -283,8 +320,7 @@ main {
 .sort {
   width: 80px;
   border-radius: 20px;
-  /* padding: 5px; */
-  /* background-color: var(--color-purple); */
+
   background-color: var(--color-light-purple);
   color: var(--color-butter);
   font-size: 0.8rem;

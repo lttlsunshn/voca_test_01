@@ -17,7 +17,6 @@ export default function SortList({ wordList }) {
       });
 
     dispatch({ type: "ascSort", ascWordList });
-    // console.log("ascending sort");
   };
 
   const handleSortDesc = () => {
@@ -29,7 +28,6 @@ export default function SortList({ wordList }) {
       });
 
     dispatch({ type: "descSort", descWordList });
-    // console.log("descending sort");
   };
 
   const handleSortRandom = () => {
@@ -44,12 +42,11 @@ export default function SortList({ wordList }) {
     let randomWordList = wordList && shuffleList(wordList);
 
     dispatch({ type: "randomSort", randomWordList });
-    console.log("random sort");
   };
   const [checked, setChecked] = useState("sort_asc");
 
   const handleChange = (e) => {
-    console.log("e.target.value :", e.target.value);
+    // console.log("e.target.value :", e.target.value);
     setChecked(e.target.value);
   };
 
@@ -60,42 +57,40 @@ export default function SortList({ wordList }) {
 
   return (
     <>
-      <div className="sort-btn-list">
-        <div className="sort" onClick={handleSortAsc}>
-          <input
-            id="btn_sort_asc"
-            type="radio"
-            name="sort_btn"
-            value="sort_asc"
-            onChange={handleChange}
-            checked={checked === "sort_asc"}
-          />
-          <label for="btn_sort_asc">오름차순</label>
-        </div>
+      <div className="sort" onClick={handleSortAsc}>
+        <input
+          id="btn_sort_asc"
+          type="radio"
+          name="sort_btn"
+          value="sort_asc"
+          onChange={handleChange}
+          checked={checked === "sort_asc"}
+        />
+        <label htmlFor="btn_sort_asc">오름차순</label>
+      </div>
 
-        <div className="sort" onClick={handleSortDesc}>
-          <input
-            id="btn_sort_desc"
-            type="radio"
-            name="sort_btn"
-            value="sort_desc"
-            onChange={handleChange}
-            checked={checked === "sort_desc"}
-          />
-          <label for="btn_sort_desc">내림차순</label>
-        </div>
+      <div className="sort" onClick={handleSortDesc}>
+        <input
+          id="btn_sort_desc"
+          type="radio"
+          name="sort_btn"
+          value="sort_desc"
+          onChange={handleChange}
+          checked={checked === "sort_desc"}
+        />
+        <label htmlFor="btn_sort_desc">내림차순</label>
+      </div>
 
-        <div className="sort" onClick={handleSortRandom}>
-          <input
-            id="btn_sort_random"
-            type="radio"
-            name="sort_btn"
-            value="sort_random"
-            onChange={handleChange}
-            checked={checked === "sort_random"}
-          />
-          <label for="btn_sort_random">랜덤</label>
-        </div>
+      <div className="sort" onClick={handleSortRandom}>
+        <input
+          id="btn_sort_random"
+          type="radio"
+          name="sort_btn"
+          value="sort_random"
+          onChange={handleChange}
+          checked={checked === "sort_random"}
+        />
+        <label htmlFor="btn_sort_random">랜덤</label>
       </div>
     </>
   );

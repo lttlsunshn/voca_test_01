@@ -1,30 +1,27 @@
-import React, { useContext, useEffect, useState } from "react";
-import { SortDispatchContext, SortStateContext } from "../SortContext";
+import React, { useContext, useState } from "react";
+import { SortDispatchContext } from "../SortContext";
 
 export default function TestToggle() {
-  const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
 
   const [checked, setChecked] = useState("meaning");
 
   const handleChange = (e) => {
-    // console.log("e.target.value :", e.target.value);
+    // console.log("e.target : ", e.target);
     setChecked(e.target.value);
   };
 
-  const handleToggle = () => {
-    dispatch({ type: `${checked}` });
+  const handleToggleSpell = (e) => {
+    dispatch({ type: "spell" });
   };
 
-  // console.log("sortState.toggle", sortState.toggle);
-
-  useEffect(() => {
-    handleToggle();
-  }, [checked]);
+  const handleToggleMeaning = (e) => {
+    dispatch({ type: "meaning" });
+  };
 
   return (
     <>
-      <div className="toggle" onClick={handleToggle}>
+      <div className="toggle" id="toggle-spell" onClick={handleToggleSpell}>
         <input
           id="btn_toggle_spell"
           type="radio"
@@ -33,10 +30,12 @@ export default function TestToggle() {
           onChange={handleChange}
           checked={checked === "spell"}
         />
-        <label for="btn_sort_asc">철자</label>
+        <label htmlFor="btn_toggle_spell" value="spell">
+          철자
+        </label>
       </div>
 
-      <div className="toggle" onClick={handleToggle}>
+      <div className="toggle" id="toggle-meaning" onClick={handleToggleMeaning}>
         <input
           id="btn_toggle_meaning"
           type="radio"
@@ -45,7 +44,9 @@ export default function TestToggle() {
           onChange={handleChange}
           checked={checked === "meaning"}
         />
-        <label for="btn_sort_desc">뜻</label>
+        <label htmlFor="btn_toggle_meaning" value="meaning">
+          뜻
+        </label>
       </div>
     </>
   );

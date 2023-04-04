@@ -74,11 +74,16 @@ export default function VocaNote() {
           </button>
         </div>
       </div>
-      <div className="list-options">
+      <div>
         {lengthNum === 0 || wordList === undefined ? (
           <></>
         ) : (
-          wordList && <SortList wordList={wordList} />
+          <div className="list-options">
+            <div className="test-toggle"></div>
+            <div className="sort-btn-list">
+              {wordList && <SortList wordList={wordList} />}
+            </div>
+          </div>
         )}
       </div>
       {lengthNum === 0 || wordList === undefined ? (
