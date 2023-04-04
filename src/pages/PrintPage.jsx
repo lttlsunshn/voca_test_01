@@ -26,7 +26,7 @@ export default function PrintPage() {
     // <main>
     <div className="print-page">
       <div className="voca_note_header">
-        <div className="voca_note_title">{noteTitle}</div>
+        <div className="voca_note_title">{noteTitle} TEST</div>
       </div>
       <div className="list-options">
         <div className="test-toggle">
