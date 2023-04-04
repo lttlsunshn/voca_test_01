@@ -3,6 +3,7 @@ import React, { createContext, useReducer } from "react";
 const initialList = {
   vocaList: [],
   sortType: "",
+  mode: "note",
 };
 
 function sortReducer(state, action) {
@@ -13,8 +14,12 @@ function sortReducer(state, action) {
       return { ...state, vocaList: action.descWordList, sortType: "desc" };
     case "randomSort":
       return { ...state, vocaList: action.randomWordList, sortType: "random" };
-    case "onlineTest":
-      return { ...state, vocaList: action.wordList };
+    case "note":
+      return { ...state, mode: "note" };
+    case "test":
+      return { ...state, mode: "test" };
+    case "print":
+      return { ...state, mode: "print" };
     default:
       return { ...state };
   }

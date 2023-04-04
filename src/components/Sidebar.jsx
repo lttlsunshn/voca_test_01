@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaListUl } from "react-icons/fa";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { RiDeleteBin4Line } from "react-icons/ri";
@@ -9,9 +9,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AddNote from "./AddNote";
 import ModifyNote from "./ModifyNote";
+import { SortDispatchContext } from "../SortContext";
 
 export default function Sidebar() {
   const [isHoverId, setIsHoverId] = useState(null);
+  const dispatch = useContext(SortDispatchContext);
 
   const { data: vocaNotes } = useQuery(["voca-notes"], getNotes);
   // vocaNotes && console.log("vocaNotes : ", vocaNotes);
@@ -77,6 +79,7 @@ export default function Sidebar() {
                   className="item_list"
                   id={item.id}
                   onClick={() => {
+                    dispatch({ type: "note" });
                     navigate(`/voca-notes/${item.noteTitle}`);
                     console.log(item.noteTitle, "note clicked!");
                   }}

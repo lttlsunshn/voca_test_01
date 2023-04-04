@@ -43,7 +43,8 @@ export default function VocaNote() {
   };
 
   const handleOnlineBtn = () => {
-    dispatch({ type: "onlineTest", wordList });
+    // dispatch({ type: "onlineTest", wordList });
+    dispatch({ type: "test" });
     navigate(`/voca-notes/${noteTitle}/online-test`);
   };
 
@@ -59,6 +60,7 @@ export default function VocaNote() {
         <div className="button-list">
           <button
             onClick={() => {
+              dispatch({ type: "print" });
               window.open(
                 `/voca-notes/${noteTitle}/print-page/`,
                 "print",

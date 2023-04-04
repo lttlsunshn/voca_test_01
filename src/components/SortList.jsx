@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { SortDispatchContext } from "../SortContext";
+import { SortDispatchContext, SortStateContext } from "../SortContext";
 
 export default function SortList({ wordList }) {
+  const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
 
   const { noteTitle } = useParams();
@@ -55,7 +56,7 @@ export default function SortList({ wordList }) {
   useEffect(() => {
     wordList && handleSortAsc();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [noteTitle]);
+  }, [noteTitle, sortState.mode]);
 
   return (
     <>
