@@ -500,6 +500,14 @@ main {
   display: block;
 }
 
+#modal_modify_word {
+  display: none;
+}
+
+#modal_modify_word.active {
+  display: block;
+}
+
 #modal_add_note {
   display: none;
 }

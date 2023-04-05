@@ -6,10 +6,8 @@ import { getNote } from "../api/firebase";
 import { HiPrinter } from "react-icons/hi";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaKeyboard } from "react-icons/fa";
-import { RiPencilFill } from "react-icons/ri";
 import SortList from "../components/SortList";
 import { SortDispatchContext, SortStateContext } from "../SortContext";
-import ModifyWord from "../components/ModifyWord";
 
 export default function VocaNote() {
   const sortState = useContext(SortStateContext);
@@ -24,8 +22,6 @@ export default function VocaNote() {
     () => getNote(noteTitle) // 객체로 가져오기
   );
 
-  const [wordModify, setWordModify] = useState("");
-
   // vocaNote && console.log("vocaNote : ", vocaNote);
 
   // vocaNote &&
@@ -37,25 +33,13 @@ export default function VocaNote() {
   // const wordList = vocaNote.wordList && Object.values(vocaNote.wordList);
 
   // !wordList && console.log("NO LIST");
-  // wordList && console.log("vocaNote wordList : ", wordList);
+  // wordList && console.log("wordListwordList : ", wordList);
 
   const lengthNum = wordList ? wordList.length : 0;
   // console.log("lengthNum : ", lengthNum);
-  const [modalOpenAddWord, setModalOpenAddWord] = useState(false);
-  const showModalAddWord = () => {
-    setModalOpenAddWord(true);
-  };
-
-  const [modalOpenModifyWord, setModalOpenModifyWord] = useState(false);
-  const showModalModifyWord = (e) => {
-    console.log(e.currentTarget.value);
-
-    const clickedWord = wordList.find(
-      (item) => item.id === e.currentTarget.value
-    );
-    console.log("clickedWord : ", clickedWord);
-    setWordModify(clickedWord);
-    setModalOpenModifyWord(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const showModal = () => {
+    setModalOpen(true);
   };
 
   const handleOnlineBtn = () => {
@@ -68,7 +52,7 @@ export default function VocaNote() {
       <div className="voca_note_header">
         <div className="voca_note_title">
           {noteTitle}
-          <span className="voca_note_title_icon" onClick={showModalAddWord}>
+          <span className="voca_note_title_icon" onClick={showModal}>
             <IoMdAddCircleOutline />
           </span>
         </div>
@@ -113,7 +97,6 @@ export default function VocaNote() {
               <th>번호</th>
               <th>영어 단어</th>
               <th>뜻</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -123,33 +106,17 @@ export default function VocaNote() {
                   <td>{item.num}</td>
                   <td>{item.word_eng}</td>
                   <td>{item.word_kor}</td>
-                  <td>
-                    <button
-                      id="btn_word_mod"
-                      value={item.id}
-                      onClick={showModalModifyWord}
-                    >
-                      <RiPencilFill />
-                    </button>
-                  </td>
                 </tr>
               ))}
           </tbody>
         </table>
       )}
-      {modalOpenAddWord && (
+      {modalOpen && (
         <AddWord
-          modalOpen={modalOpenAddWord}
-          setModalOpen={setModalOpenAddWord}
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
           noteTitle={noteTitle}
           lengthNum={lengthNum}
-        />
-      )}
-      {modalOpenModifyWord && (
-        <ModifyWord
-          modalOpenModifyWord={modalOpenModifyWord}
-          setModalOpenModifyWord={setModalOpenModifyWord}
-          wordModify={wordModify}
         />
       )}
     </>

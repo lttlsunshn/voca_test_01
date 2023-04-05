@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { get, getDatabase, ref, remove, set, update } from "firebase/database";
+import { get, getDatabase, ref, remove, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -41,14 +41,6 @@ export async function getNote(noteTitle) {
   });
 }
 
-export async function modifyNote_(noteModify, noteTitleModify, inputTitle) {
-  console.log("noteModify.key : ", Object.keys(noteModify));
-  return update(ref(db, `voca-notes/${noteTitleModify}/`), {
-    ...noteModify,
-    noteTitle: inputTitle,
-  });
-}
-
 export async function modifyNote(noteModify, inputTitle, modifiedTime) {
   return set(ref(db, `voca-notes/${inputTitle}/`), {
     ...noteModify,
@@ -69,6 +61,20 @@ export async function addNewWord(noteTitle, word_eng, num, word_kor, id) {
     word_kor,
     id,
   });
+}
+
+export async function modifyWord(noteTitle, word_eng, num, word_kor, id) {
+  console.log("modify word");
+  return set(ref(db, `voca-notes/${noteTitle}/wordList/` + word_eng), {
+    num,
+    word_eng,
+    word_kor,
+    id,
+  });
+}
+
+export async function deleteWord(noteTitle, word_eng) {
+  return remove(ref(db, `voca-notes/${noteTitle}/wordList/` + word_eng));
 }
 
 export async function makeAnswerTitle(noteTitle, createdTime) {

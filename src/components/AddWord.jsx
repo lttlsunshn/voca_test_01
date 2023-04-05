@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { addNewWord, addNewWord2 } from "../api/firebase";
+import { addNewWord } from "../api/firebase";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 export default function AddWord({
