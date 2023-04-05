@@ -12,19 +12,23 @@ export default function ModifyWord({
 
   const { noteTitle } = useParams();
   const [modifiedWord, setModifiedWord] = useState({
-    word_eng: "",
-    word_kor: "",
+    modified_eng: "",
+    modified_kor: "",
   });
-  // const navigate = useNavigate();
+
+  let word_eng = "";
+  let word_kor = "";
 
   const closeModalModifyWord = () => {
     setModalOpenModifyWord(false);
   };
 
-  const { word_eng, word_kor } = modifiedWord; // 비구조화 할당을 통해 값 추출
+  const { modified_eng, modified_kor } = modifiedWord; // 비구조화 할당을 통해 값 추출
 
   const handleWordChange = (e) => {
     const { value, name } = e.target;
+    // console.log(name, value);
+
     setModifiedWord({
       ...modifiedWord,
       [name]: value,
@@ -33,23 +37,24 @@ export default function ModifyWord({
 
   const handleReset = () => {
     setModifiedWord({
-      word_eng: "",
-      word_kor: "",
+      modified_eng: "",
+      modified_kor: "",
     });
   };
 
-  // const nextNum = useRef(lengthNum + 1);
-  // const num = nextNum.current;
   const handleModifyWord = () => {
     const num = wordModify.num;
     const id = wordModify.id;
-    console.log("modified Eng : ", word_eng);
-    console.log("modified Kor : ", word_kor);
+
+    !modified_kor && console.log("값이 없어.");
+
+    word_eng = modified_eng ? modified_eng : wordModify.word_eng;
+    word_kor = modified_kor ? modified_kor : wordModify.word_kor;
+    console.log("modified Kor_ : ", modified_kor);
 
     deleteWord(noteTitle, wordModify.word_eng);
     modifyWord(noteTitle, word_eng, num, word_kor, id);
 
-    // nextNum.current += 1;
     handleReset();
   };
 
@@ -57,7 +62,7 @@ export default function ModifyWord({
     e.preventDefault();
 
     const ok = window.confirm(
-      `${wordModify.word_eng} ${wordModify.word_kor}을 ${word_eng} ${word_kor}(으)로 수정하시겠습니까?`
+      `${wordModify.word_eng} ${wordModify.word_kor}을 ${modified_eng} ${modified_kor}(으)로 수정하시겠습니까?`
     );
 
     if (ok) {
@@ -90,9 +95,9 @@ export default function ModifyWord({
               <td>
                 <input
                   type="text"
-                  name="word_eng"
+                  name="modified_eng"
                   placeholder={`${wordModify.word_eng}`}
-                  value={word_eng}
+                  value={modified_eng}
                   onChange={handleWordChange}
                 />
               </td>
@@ -102,9 +107,9 @@ export default function ModifyWord({
               <td>
                 <input
                   type="text"
-                  name="word_kor"
+                  name="modified_kor"
                   placeholder={`${wordModify.word_kor}`}
-                  value={word_kor}
+                  value={modified_kor}
                   onChange={handleWordChange}
                 />
               </td>
