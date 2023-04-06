@@ -256,6 +256,25 @@ main {
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
+  /* border: 1px dashed red; */
+}
+
+#toggle-spell-disabled label {
+  background-color: gray;
+  color: var(--color-text);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  opacity: 0.4;
+  cursor: default;
+}
+
+#toggle-meaning-disabled label {
+  background-color: gray;
+  color: var(--color-text);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  opacity: 0.4;
+  cursor: default;
 }
 
 #toggle-spell label {
@@ -328,6 +347,31 @@ main {
   /* margin-bottom: 20px; */
 
   cursor: pointer;
+}
+
+.sort_disabled {
+  width: 80px;
+  border-radius: 20px;
+
+  background-color: gray;
+  color: var(--color-text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  /* margin-bottom: 20px; */
+
+  opacity: 0.4;
+}
+
+.sort_disabled input {
+  display: none;
+}
+.sort_disabled label {
+  display: block;
+
+  text-align: center;
+  border-radius: 20px;
+  padding: 5px;
+  /* color: gray; */
 }
 
 .sort input {
