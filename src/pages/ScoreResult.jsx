@@ -96,9 +96,13 @@ export default function ScoreResult() {
                       <td>{item.word_kor}</td>
                       <td>
                         {item.isCorrect ? (
-                          item.answer
+                          <span style={{ color: "lightseagreen" }}>
+                            {item.answer}
+                          </span>
                         ) : (
-                          <strike>{item.answer}</strike>
+                          <strike style={{ color: "salmon" }}>
+                            {item.answer}
+                          </strike>
                         )}
                       </td>
                       <td>{item.isCorrect ? "O" : "X"}</td>
@@ -126,9 +130,13 @@ export default function ScoreResult() {
                       <td>{item.word_eng}</td>
                       <td>
                         {item.isCorrect ? (
-                          item.answer
+                          <span style={{ color: "lightseagreen" }}>
+                            {item.answer}
+                          </span>
                         ) : (
-                          <strike>{item.answer}</strike>
+                          <strike style={{ color: "salmon" }}>
+                            {item.answer}
+                          </strike>
                         )}
                       </td>
                       <td>{item.isCorrect ? "O" : "X"}</td>
