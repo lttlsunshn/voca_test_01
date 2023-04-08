@@ -19,8 +19,8 @@ export default function PrintPage() {
   const wordList =
     vocaNote && vocaNote.wordList && Object.values(vocaNote.wordList);
 
-  wordList && console.log("wordList : ", wordList);
-  !wordList && console.log("NO LIST");
+  // wordList && console.log("wordList : ", wordList);
+  // !wordList && console.log("NO LIST");
 
   return (
     // <main>
@@ -44,6 +44,7 @@ export default function PrintPage() {
                 <th>번호</th>
                 <th>영어 단어</th>
                 <th>뜻</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -53,6 +54,7 @@ export default function PrintPage() {
                     <td>{item.num}</td>
                     <td>{item.word_eng}</td>
                     <td className="blank"></td>
+                    <td></td>
                   </tr>
                 ))}
             </tbody>
@@ -64,6 +66,7 @@ export default function PrintPage() {
                 <th>번호</th>
                 <th>뜻</th>
                 <th>영어 단어</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -74,6 +77,8 @@ export default function PrintPage() {
 
                     <td>{item.word_kor}</td>
                     <td className="blank"></td>
+                    <td className="blank"></td>
+                    {/* <td></td> */}
                   </tr>
                 ))}
             </tbody>

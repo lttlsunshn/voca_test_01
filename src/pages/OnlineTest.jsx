@@ -101,6 +101,7 @@ export default function OnlineTest() {
                   <th>번호</th>
                   <th>영어 단어</th>
                   <th>뜻</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -118,6 +119,7 @@ export default function OnlineTest() {
                           onChange={(e) => handleWordChange(e, item.num)}
                         />
                       </td>
+                      <td></td>
                     </tr>
                   ))}
               </tbody>
@@ -129,6 +131,7 @@ export default function OnlineTest() {
                   <th>번호</th>
                   <th>뜻</th>
                   <th>영어 단어</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -146,6 +149,7 @@ export default function OnlineTest() {
                           onChange={(e) => handleWordChange(e, item.num)}
                         />
                       </td>
+                      <td></td>
                     </tr>
                   ))}
               </tbody>

@@ -114,6 +114,7 @@ export default function VocaNote() {
               <th>영어 단어</th>
               <th>뜻</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -123,6 +124,7 @@ export default function VocaNote() {
                   <td>{item.num}</td>
                   <td>{item.word_eng}</td>
                   <td>{item.word_kor}</td>
+                  <td></td>
                   <td>
                     <button
                       id="btn_word_mod"

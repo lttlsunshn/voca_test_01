@@ -4,19 +4,19 @@ import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
-    <>
-      <Header />
+    <div className="container">
+      <div>
+        <Header />
+      </div>
       <main>
-        <div className="side-space"></div>
         <div className="sidebar">
           <Sidebar />
         </div>
-        <div className="container">
+        <div className="outlet">
           <Outlet />
         </div>
-        <div className="side-space"></div>
       </main>
-    </>
+    </div>
   );
 }
 

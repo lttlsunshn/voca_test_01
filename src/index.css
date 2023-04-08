@@ -23,17 +23,37 @@ table {
   border-collapse: collapse;
 }
 
+td:nth-of-type(1) {
+  width: 100px;
+  /* border: 1px dashed blue; */
+}
+
+td:nth-of-type(2) {
+  width: 200px;
+}
+
+td:nth-of-type(3) {
+  width: 200px;
+}
+
+td:last-of-type {
+  width: 80px;
+}
+
 body {
-  margin: 0;
+  /* margin: 0; */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   width: 100vw;
   max-width: 1440px;
   height: 100vh;
   background-color: var(--color-butter);
+
+  /* margin: 0 auto; */
 }
 
 /* #root {
@@ -45,9 +65,15 @@ code {
     monospace;
 }
 
+.container {
+  max-width: 1024px;
+
+  margin: 0 auto;
+}
+
 .header {
   height: 60px;
-  padding-left: 60px;
+  /* padding-left: 60px; */
 
   font-size: 2rem;
   font-weight: bold;
@@ -59,16 +85,17 @@ code {
 
 main {
   display: flex;
+  justify-content: left;
+  /* width: 100%; */
 }
 
-.side-space {
+/* .side-space {
   width: 70px;
-  /* border: 1px dashed red; */
-}
+} */
 
 .sidebar {
   /* width: 300px; */
-  width: 30%;
+  width: 25%;
   height: 85vh;
   padding: 20px;
   padding-top: 20px;
@@ -77,8 +104,9 @@ main {
   font-weight: 700;
 }
 
-.container {
+.outlet {
   padding-left: 40px;
+  width: 75%;
 }
 
 .voca_note_header {
@@ -266,6 +294,7 @@ main {
   border-bottom-left-radius: 20px;
   opacity: 0.4;
   cursor: default;
+  color: light;
 }
 
 #toggle-meaning-disabled label {
@@ -655,3 +684,15 @@ input::placeholder {
   font-size: 0.9rem;
   font-weight: 500;
 }
+
+/* @media screen and (max-width: 1440px) {}
+@media (max-width: 1000px) {
+  .card {
+    background: var(--colorA);
+  }
+}
+@media (max-width: 700px) {
+  .card {
+    background: var(--colorC);
+  }
+} */

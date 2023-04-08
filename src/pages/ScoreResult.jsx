@@ -30,7 +30,7 @@ export default function ScoreResult() {
 
   const handleOnlineBtn = () => {
     dispatch({ type: "test" });
-    navigate(`/voca-notes/${noteTitle}/online-test`);
+    navigate(`/voca-notes/${noteTitle}`);
   };
 
   return (
