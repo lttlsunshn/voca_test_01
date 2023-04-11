@@ -1,8 +1,15 @@
 import React, { useContext, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { SortDispatchContext } from "../SortContext";
 
 export default function TestToggle() {
   const dispatch = useContext(SortDispatchContext);
+  const navigate = useNavigate();
+
+  const { noteTitle } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sort = searchParams.get("sort");
+  const toggle = searchParams.get("toggle");
 
   const [checked, setChecked] = useState("meaning");
 
@@ -13,10 +20,14 @@ export default function TestToggle() {
 
   const handleToggleSpell = (e) => {
     dispatch({ type: "spell" });
+    navigate(`/voca-notes/${noteTitle}/online-test?sort=${sort}&toggle=spell`);
   };
 
   const handleToggleMeaning = (e) => {
     dispatch({ type: "meaning" });
+    navigate(
+      `/voca-notes/${noteTitle}/online-test?sort=${sort}&toggle=meaning`
+    );
   };
 
   return (

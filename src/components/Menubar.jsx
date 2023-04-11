@@ -9,17 +9,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AddNote from "./AddNote";
 import ModifyNote from "./ModifyNote";
-import { SortDispatchContext, SortStateContext } from "../SortContext";
+import { SortDispatchContext } from "../SortContext";
 
-export default function Sidebar() {
+export default function Menubar() {
   const [isHoverId, setIsHoverId] = useState(null);
-  const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
 
   const { data: vocaNotes } = useQuery(["voca-notes"], getNotes);
   // vocaNotes && console.log("vocaNotes : ", vocaNotes);
-  // !vocaNotes && console.log("No vocaNotes! ");
-
   const [noteTitleModify, setNoteTitleModify] = useState("");
 
   const [modalOpenAdd, setModalOpenAdd] = useState(false);
@@ -33,6 +30,7 @@ export default function Sidebar() {
 
     setNoteTitleModify(e.currentTarget.value);
     setModalOpenModify(true);
+    // console.log("noteTitleModify : ", noteTitleModify);
   };
 
   const navigate = useNavigate();
@@ -68,7 +66,7 @@ export default function Sidebar() {
       </div>
       <div className="notes_list">
         {vocaNotes &&
-          vocaNotes.map((item, index) => (
+          vocaNotes.map((item) => (
             <p
               key={item.id}
               className="notes_list_items"
@@ -81,9 +79,8 @@ export default function Sidebar() {
                 id={item.id}
                 onClick={() => {
                   dispatch({ type: "note" });
-                  navigate(
-                    `/voca-notes/${item.noteTitle}?sort=asc&toggle=meaning`
-                  );
+                  navigate(`/voca-notes/${item.noteTitle}`);
+                  // console.log(item.noteTitle, "note clicked!");
                 }}
               >
                 <span className="note_icon">

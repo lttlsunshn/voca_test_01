@@ -1,16 +1,26 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { makeAnswerTitle, makeAnswerList } from "../api/firebase";
 import SortList from "../components/SortList";
 import { useCreatedTime } from "../hooks/useCreatedTime";
-import { SortStateContext } from "../SortContext";
+import { SortDispatchContext, SortStateContext } from "../SortContext";
 import { HiPrinter } from "react-icons/hi";
 import { FaKeyboard } from "react-icons/fa";
 import TestToggle from "../components/TestToggle";
+import ReactToPrint from "react-to-print";
+
+// React To Print 설치
 
 export default function OnlineTest() {
+  // console.log("ONLINE TEST !!!");
+
   const sortState = useContext(SortStateContext);
+  const dispatch = useContext(SortDispatchContext);
   const { noteTitle } = useParams();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sort = searchParams.get("sort");
+  const toggle = searchParams.get("toggle");
 
   const navigate = useNavigate();
 
@@ -18,35 +28,35 @@ export default function OnlineTest() {
 
   const answerObject = {};
   const answerList = [];
-  const answerSheet = [];
 
-  const handleWordChange = (e, num) => {
-    answerObject[num] = e.target.value;
+  const handleWordChange = (e, idx) => {
+    answerObject[idx] = e.target.value;
   };
 
   const handleMarkableAnswer = () => {
+    console.log("answerObject : ", answerObject);
+    console.log(
+      "Object.entries(answerObject) : ",
+      Object.entries(answerObject)
+    );
+
     Object.entries(answerObject).forEach((item) => {
-      answerList[item[0] - 1] = item[1];
+      answerList[item[0]] = item[1];
     });
-
-    const answerArr = Array.from(answerList);
-
-    answerArr.forEach((item, idx) => {
-      item === undefined ? (answerSheet[idx] = "") : (answerSheet[idx] = item);
-    });
+    console.log("answerList : ", answerList);
 
     makeAnswerTitle(noteTitle, createdTime);
 
-    sortState.vocaList.forEach((item, idx) => {
+    sortState.vocaList.map((item, idx) => {
       const answer = answerList[idx] === undefined ? "" : answerList[idx];
-      const word =
-        sortState.toggle === "meaning" ? item.word_kor : item.word_eng;
+
+      const word = toggle === "meaning" ? item.word_kor : item.word_eng;
       const isCorrect =
-        answerList[idx] !== undefined && word === answerList[item.num - 1]
+        answerList[idx] !== undefined && word === answerList[idx]
           ? true
           : false;
 
-      makeAnswerList(noteTitle, createdTime, answer, isCorrect, item);
+      makeAnswerList(noteTitle, createdTime, answer, isCorrect, item, idx);
     });
   };
 
@@ -55,8 +65,13 @@ export default function OnlineTest() {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleMarkableAnswer();
-    navigate(`/voca-notes/${noteTitle}/online-test/${createdTime}`);
+
+    navigate(
+      `/voca-notes/${noteTitle}/online-test/${createdTime}?sort=${sort}&toggle=${toggle}`
+    );
   };
+
+  const printRef = useRef();
 
   useEffect(() => {
     setTestList(sortState.vocaList);
@@ -68,17 +83,14 @@ export default function OnlineTest() {
       <div className="voca_note_header">
         <div className="voca_note_title">{noteTitle} Online TEST</div>
         <div className="button-list">
-          <button
-            onClick={() => {
-              window.open(
-                `/voca-notes/${noteTitle}/print-page/`,
-                "print",
-                "width=800, height=900"
-              );
-            }}
-          >
-            <HiPrinter />
-          </button>
+          <ReactToPrint
+            trigger={() => (
+              <button>
+                <HiPrinter />
+              </button>
+            )}
+            content={() => printRef.current}
+          />
           <button>
             <FaKeyboard />
           </button>
@@ -92,9 +104,10 @@ export default function OnlineTest() {
           {testList && <SortList wordList={testList} />}
         </div>
       </div>
+
       <form>
-        <table className="voca_note">
-          {sortState.toggle === "meaning" ? (
+        <table className="voca_note" ref={printRef}>
+          {toggle === "meaning" ? (
             <>
               <thead>
                 <tr>
@@ -106,7 +119,7 @@ export default function OnlineTest() {
               </thead>
               <tbody>
                 {testList &&
-                  testList.map((item) => (
+                  testList.map((item, idx) => (
                     <tr key={item.id}>
                       <td>{item.num}</td>
                       <td>{item.word_eng}</td>
@@ -116,7 +129,7 @@ export default function OnlineTest() {
                           name="answer"
                           placeholder="뜻을 적어주세요."
                           value={answerObject[item.num]}
-                          onChange={(e) => handleWordChange(e, item.num)}
+                          onChange={(e) => handleWordChange(e, idx)}
                         />
                       </td>
                       <td></td>

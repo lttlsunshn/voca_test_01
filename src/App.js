@@ -12,6 +12,10 @@ function App() {
         <div className="sidebar">
           <Sidebar />
         </div>
+        {/* <div className="menubar"> */}
+        {/* <div>
+          <Sidebar />
+        </div> */}
         <div className="outlet">
           <Outlet />
         </div>

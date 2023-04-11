@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useContext, useRef, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import AddWord from "../components/AddWord";
 import { getNote } from "../api/firebase";
@@ -10,14 +10,20 @@ import { RiPencilFill } from "react-icons/ri";
 import SortList from "../components/SortList";
 import { SortDispatchContext, SortStateContext } from "../SortContext";
 import ModifyWord from "../components/ModifyWord";
+import ReactToPrint from "react-to-print";
 
 export default function VocaNote() {
   const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
   const navigate = useNavigate();
+  const printRef = useRef();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sort = searchParams.get("sort");
+  const toggle = searchParams.get("toggle");
 
   const { noteTitle } = useParams();
-  // console.log("noteTitle : ", noteTitle);
 
   const { data: vocaNote } = useQuery(
     [`voca-notes/${noteTitle}/`],
@@ -27,10 +33,6 @@ export default function VocaNote() {
   const [wordModify, setWordModify] = useState("");
 
   // vocaNote && console.log("vocaNote : ", vocaNote);
-
-  // vocaNote &&
-  //   vocaNote["wordList"] &&
-  //   console.log("vocaNote['wordList'] : ", vocaNote["wordList"]);
 
   const wordList =
     vocaNote && vocaNote.wordList && Object.values(vocaNote.wordList);
@@ -60,7 +62,10 @@ export default function VocaNote() {
 
   const handleOnlineBtn = () => {
     dispatch({ type: "test" });
-    navigate(`/voca-notes/${noteTitle}/online-test`);
+
+    navigate(
+      `/voca-notes/${noteTitle}/online-test?sort=${sort}&toggle=${toggle}`
+    );
   };
 
   return (
@@ -73,18 +78,14 @@ export default function VocaNote() {
           </span>
         </div>
         <div className="button-list">
-          <button
-            onClick={() => {
-              dispatch({ type: "print" });
-              window.open(
-                `/voca-notes/${noteTitle}/print-page/`,
-                "print",
-                "width=1000, height=900"
-              );
-            }}
-          >
-            <HiPrinter />
-          </button>
+          <ReactToPrint
+            trigger={() => (
+              <button>
+                <HiPrinter />
+              </button>
+            )}
+            content={() => printRef.current}
+          />
           <button onClick={handleOnlineBtn}>
             <FaKeyboard />
           </button>
@@ -107,7 +108,7 @@ export default function VocaNote() {
           <p>단어장이 비어 있어요.</p>
         </div>
       ) : (
-        <table className="voca_note">
+        <table className="voca_note" ref={printRef}>
           <thead>
             <tr>
               <th>번호</th>

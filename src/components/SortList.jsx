@@ -1,94 +1,94 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { SortDispatchContext, SortStateContext } from "../SortContext";
 
 export default function SortList({ wordList }) {
   const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
+  const navigate = useNavigate();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sort = searchParams.get("sort");
+  const toggle = searchParams.get("toggle");
 
   const { noteTitle } = useParams();
 
-  const handleSortAsc = () => {
-    let ascWordList = wordList && [...wordList];
+  const [checked, setChecked] = useState(sort);
 
-    ascWordList &&
-      ascWordList.sort(function (a, b) {
-        return a.num - b.num;
-      });
+  let path;
+  // console.log("sortState.mode : ", sortState.mode);
 
-    dispatch({ type: "ascSort", ascWordList });
+  const mode = sortState.mode;
+  switch (mode) {
+    case "test":
+      path = "/online-test";
+
+      break;
+    case "print":
+      path = "/print-page";
+      break;
+    default:
+      path = "";
+  }
+
+  // console.log("path : ", path);
+
+  const handleSort = (e) => {
+    const sortValue = e.target.value;
+    // console.log("sortValue : ", sortValue);
+
+    dispatch({ type: `${sortValue}Sort`, wordList, mode });
+    navigate(
+      `/voca-notes/${noteTitle}${path}?sort=${sortValue}&toggle=${toggle}`
+    );
   };
-
-  const handleSortDesc = () => {
-    let descWordList = wordList && [...wordList];
-
-    descWordList &&
-      descWordList.sort(function (a, b) {
-        return b.num - a.num;
-      });
-
-    dispatch({ type: "descSort", descWordList });
-  };
-
-  const handleSortRandom = () => {
-    const shuffleList = (arr) => {
-      for (let i = arr.length - 1; i > 0; i--) {
-        let j = Math.floor((i + 1) * Math.random());
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    };
-
-    let randomWordList = wordList && shuffleList(wordList);
-
-    dispatch({ type: "randomSort", randomWordList });
-  };
-  const [checked, setChecked] = useState("sort_asc");
 
   const handleChange = (e) => {
-    // console.log("e.target.value :", e.target.value);
     setChecked(e.target.value);
   };
 
   useEffect(() => {
-    wordList && handleSortAsc();
+    if (sortState.mode === "note") {
+      dispatch({ type: "ascSort", wordList });
+      setChecked("asc");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [noteTitle, sortState.mode]);
+  }, [noteTitle]);
 
   return (
     <>
-      <div className="sort" onClick={handleSortAsc}>
+      <div className="sort" onClick={handleSort}>
         <input
           id="btn_sort_asc"
           type="radio"
           name="sort_btn"
-          value="sort_asc"
+          value="asc"
           onChange={handleChange}
-          checked={checked === "sort_asc"}
+          checked={checked === "asc"}
         />
         <label htmlFor="btn_sort_asc">오름차순</label>
       </div>
 
-      <div className="sort" onClick={handleSortDesc}>
+      <div className="sort" onClick={handleSort}>
         <input
           id="btn_sort_desc"
           type="radio"
           name="sort_btn"
-          value="sort_desc"
+          value="desc"
           onChange={handleChange}
-          checked={checked === "sort_desc"}
+          checked={checked === "desc"}
         />
         <label htmlFor="btn_sort_desc">내림차순</label>
       </div>
 
-      <div className="sort" onClick={handleSortRandom}>
+      <div className="sort" onClick={handleSort}>
         <input
           id="btn_sort_random"
           type="radio"
           name="sort_btn"
-          value="sort_random"
+          value="random"
           onChange={handleChange}
-          checked={checked === "sort_random"}
+          checked={checked === "random"}
         />
         <label htmlFor="btn_sort_random">랜덤</label>
       </div>

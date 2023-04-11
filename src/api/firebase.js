@@ -89,7 +89,8 @@ export async function makeAnswerList(
   createdTime,
   answer,
   isCorrect,
-  item
+  item,
+  idx
 ) {
   return set(
     ref(
@@ -102,6 +103,7 @@ export async function makeAnswerList(
       num: item.num,
       word_eng: item.word_eng,
       word_kor: item.word_kor,
+      order: idx,
     }
   );
 }

@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import VocaNote from "./pages/VocaNote";
 import OnlineTest from "./pages/OnlineTest";
-// import PrintPage from "./pages/PrintPage";
+import PrintPage from "./pages/PrintPage";
 import ScoreResult from "./pages/ScoreResult";
 import { SortProvider } from "./SortContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -23,30 +23,19 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "/voca-notes", element: <VocaNotes /> },
-      // { path: "/voca-notes/:noteTitle/:sortTypee", element: <VocaNote /> },
       { path: "/voca-notes/:noteTitle", element: <VocaNote /> },
-      {
-        // path: "/voca-notes/:noteTitle/online-test/:sortTypee",
-        path: "/voca-notes/:noteTitle/online-test",
-        // path: "/voca-notes/:noteTitle/:sortTypee/online-test",
-        element: <OnlineTest />,
-      },
+      { path: "/voca-notes/:noteTitle/online-test", element: <OnlineTest /> },
       {
         path: "/voca-notes/:noteTitle/online-test/:timeTitle",
         element: <ScoreResult />,
       },
-      // {
-      //   path: "/voca-notes/:noteTitle/print-page",
-      //   element: <PrintPage />,
-      //   errorElement: <NotFound />,
-      // },
     ],
   },
-  // {
-  //   path: "/voca-notes/:noteTitle/print-page",
-  //   element: <PrintPage />,
-  //   errorElement: <NotFound />,
-  // },
+  {
+    path: "/voca-notes/:noteTitle/print-page",
+    element: <PrintPage />,
+    errorElement: <NotFound />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -56,7 +45,6 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router}>
           <App />
-          {/* <PrintPage /> */}
         </RouterProvider>
       </QueryClientProvider>
     </SortProvider>

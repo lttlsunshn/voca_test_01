@@ -21,23 +21,40 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  /* padding: 10px 0; */
 }
 
-td:nth-of-type(1) {
-  width: 100px;
+table.voca_note th {
+  color: var(--color-butter);
+  background-color: var(--color-green);
+  padding: 10px 0;
+  /* border: 1px dashed red; */
+}
+
+table.voca_note td {
+  font-weight: 600;
+  color: grey;
+  border-bottom: 1px solid grey;
+  padding: 10px 0;
+}
+
+table.voca_note td:nth-of-type(1) {
+  width: 80px;
   /* border: 1px dashed blue; */
 }
 
-td:nth-of-type(2) {
-  width: 200px;
+table.voca_note td:nth-of-type(2) {
+  width: 150px;
+  /* padding: 10px 10px; */
 }
 
-td:nth-of-type(3) {
+table.voca_note td:nth-of-type(3) {
   width: 200px;
+  /* padding: 10px 10px; */
 }
 
-td:last-of-type {
-  width: 80px;
+table.voca_note td:last-of-type {
+  width: 60px;
 }
 
 body {
@@ -52,8 +69,6 @@ body {
   max-width: 1440px;
   height: 100vh;
   background-color: var(--color-butter);
-
-  /* margin: 0 auto; */
 }
 
 /* #root {
@@ -69,11 +84,11 @@ code {
   max-width: 1024px;
 
   margin: 0 auto;
+  padding: 0 30px;
 }
 
 .header {
   height: 60px;
-  /* padding-left: 60px; */
 
   font-size: 2rem;
   font-weight: bold;
@@ -81,20 +96,30 @@ code {
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.header_menu {
+  display: none;
+}
+
+.menubar {
+  height: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--color-green);
+  width: 100%;
+  padding: 20px;
+  display: none;
 }
 
 main {
   display: flex;
   justify-content: left;
-  /* width: 100%; */
 }
 
-/* .side-space {
-  width: 70px;
-} */
-
 .sidebar {
-  /* width: 300px; */
   width: 25%;
   height: 85vh;
   padding: 20px;
@@ -102,6 +127,8 @@ main {
   background-color: var(--color-green);
   color: var(--color-butter);
   font-weight: 700;
+
+  display: block;
 }
 
 .outlet {
@@ -457,19 +484,6 @@ main {
   /* border: 1px dashed red; */
 }
 
-.voca_note th {
-  color: var(--color-butter);
-  background-color: var(--color-green);
-  padding: 10px;
-}
-
-.voca_note td {
-  font-weight: 600;
-  color: grey;
-  border-bottom: 1px solid grey;
-  padding: 10px;
-}
-
 /* .btn_new_word {
   width: 100px;
   font-size: 1rem;
@@ -685,14 +699,114 @@ input::placeholder {
   font-weight: 500;
 }
 
+@page {
+  size: A4;
+  margin: 20mm;
+}
 /* @media screen and (max-width: 1440px) {}
 @media (max-width: 1000px) {
   .card {
     background: var(--colorA);
   }
-}
-@media (max-width: 700px) {
-  .card {
-    background: var(--colorC);
+} */
+/* @media print {
+  table.voca_note td {
+    font-weight: 600;
+    color: red;
+    border-bottom: 1px solid grey;
+    padding: 10px 0;
   }
 } */
+@media (max-width: 320px) {
+  .header {
+    height: 40px;
+    /* height: auto; */
+    /* padding-left: 60px; */
+
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 8px;
+  }
+
+  .header_menu {
+    display: block;
+
+    cursor: pointer;
+  }
+
+  /* .menubar {
+    display: none;
+  } */
+
+  .header_menu:hover .menubar {
+    display: block;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .outlet {
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  .button-list > button {
+    width: 27px;
+    height: 27px;
+
+    font-size: 1.1rem;
+    margin-left: 10px;
+  }
+
+  .voca_note_title {
+    font-size: 1.2rem;
+  }
+
+  .voca_note_title_icon {
+    font-size: 1.5rem;
+    padding-left: 7px;
+  }
+
+  .list-options {
+    margin: 20px 0 10px;
+  }
+
+  .sort-btn-list {
+    width: 100%;
+    gap: 5px;
+    /* border: 1px dashed blue; */
+  }
+
+  .sort {
+    width: 55px;
+  }
+
+  .toggle {
+    width: 35px;
+    font-size: 0.7rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+    /* width: 100%; */
+  }
+
+  td:nth-of-type(1) {
+    width: 50px;
+    /* border: 1px dashed blue; */
+  }
+
+  td:nth-of-type(2) {
+    width: 100px;
+    /* border: 1px dashed blue; */
+  }
+
+  td:nth-of-type(3) {
+    width: 100px;
+  }
+
+  td:last-of-type {
+    width: 0;
+  }
+}

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getAnswerList } from "../api/firebase";
 import { SortDispatchContext, SortStateContext } from "../SortContext";
 import { FaArrowLeft } from "react-icons/fa";
@@ -17,11 +17,28 @@ export default function ScoreResult() {
   // console.log("noteTitle", noteTitle);
   // console.log("timeTitle ", timeTitle);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sort = searchParams.get("sort");
+  const toggle = searchParams.get("toggle");
+
   const { data: scoreResult } = useQuery(
     [`test-${noteTitle}-${timeTitle}/answer-list/`],
-
     () => getAnswerList(noteTitle, timeTitle)
   );
+
+  if (sort === "random") {
+    scoreResult &&
+      scoreResult.sort(function (a, b) {
+        return a.order - b.order;
+      });
+  }
+
+  if (sort === "desc") {
+    scoreResult &&
+      scoreResult.sort(function (a, b) {
+        return a.order - b.order;
+      });
+  }
 
   scoreResult && console.log("score result : ", scoreResult);
 
@@ -30,7 +47,9 @@ export default function ScoreResult() {
 
   const handleOnlineBtn = () => {
     dispatch({ type: "test" });
-    navigate(`/voca-notes/${noteTitle}`);
+    navigate(
+      `/voca-notes/${noteTitle}/online-test?sort=${sort}&toggle=${toggle}`
+    );
   };
 
   return (
@@ -76,7 +95,7 @@ export default function ScoreResult() {
       </div>
       <form>
         <table className="voca_note">
-          {sortState.toggle === "meaning" ? (
+          {toggle === "meaning" ? (
             <>
               <thead>
                 <tr>
