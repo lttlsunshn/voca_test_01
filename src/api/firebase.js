@@ -16,7 +16,6 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 export async function addNewNote(inputTitle, createdTime, createdTimeNum) {
-  // return set(ref(db, `voca-notes/${inputTitle}`), {
   return set(ref(db, `voca-notes/${createdTimeNum}`), {
     noteTitle: inputTitle,
     createdTime,

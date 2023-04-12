@@ -7,7 +7,7 @@ import { SortDispatchContext, SortStateContext } from "../SortContext";
 import { HiPrinter } from "react-icons/hi";
 import { FaKeyboard } from "react-icons/fa";
 import TestToggle from "../components/TestToggle";
-import ReactToPrint from "react-to-print";
+import ReactToPrint, { useReactToPrint } from "react-to-print";
 import { useQuery } from "@tanstack/react-query";
 
 // React To Print 설치
@@ -26,6 +26,7 @@ export default function OnlineTest() {
   const navigate = useNavigate();
 
   const [testList, setTestList] = useState(sortState.vocaList);
+  const [placeholder, setPlaceholder] = useState("");
 
   const { data: vocaNote } = useQuery(
     [`voca-notes/${noteId}/`],
@@ -76,24 +77,41 @@ export default function OnlineTest() {
 
   const printRef = useRef();
 
+  const handlePrint = useReactToPrint({
+    onBeforeGetContent: () => {
+      dispatch({ type: "print" });
+
+      return new Promise((resolve) => {
+        setPlaceholder("");
+        resolve();
+      });
+    },
+    onAfterPrint: () => {
+      dispatch({ type: "test" });
+      setPlaceholder(`${toggle === "meaning" ? "뜻을" : "철자를"} 입력하세요.`);
+    },
+    content: () => printRef.current,
+  });
+  // console.log("sortState.mode : ", sortState.mode);
+
   useEffect(() => {
     setTestList(sortState.vocaList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortState.sortType]);
+
+  useEffect(() => {
+    setPlaceholder(`${toggle === "meaning" ? "뜻을" : "철자를"} 입력하세요.`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortState.toggle]);
 
   return (
     <>
       <div className="voca_note_header">
         <div className="voca_note_title">{vocaNote.noteTitle} Online TEST</div>
         <div className="button-list">
-          <ReactToPrint
-            trigger={() => (
-              <button>
-                <HiPrinter />
-              </button>
-            )}
-            content={() => printRef.current}
-          />
+          <button onClick={handlePrint}>
+            <HiPrinter />
+          </button>
           <button>
             <FaKeyboard />
           </button>
@@ -130,7 +148,7 @@ export default function OnlineTest() {
                         <input
                           type="text"
                           name="answer"
-                          placeholder="뜻을 적어주세요."
+                          placeholder={placeholder}
                           value={answerObject[item.num]}
                           onChange={(e) => handleWordChange(e, idx)}
                         />
@@ -160,7 +178,7 @@ export default function OnlineTest() {
                         <input
                           type="text"
                           name="answer"
-                          placeholder="철자를 적어주세요."
+                          placeholder={placeholder}
                           value={answerObject[item.num]}
                           onChange={(e) => handleWordChange(e, item.num)}
                         />

@@ -10,7 +10,7 @@ import { RiPencilFill } from "react-icons/ri";
 import SortList from "../components/SortList";
 import { SortDispatchContext, SortStateContext } from "../SortContext";
 import ModifyWord from "../components/ModifyWord";
-import ReactToPrint from "react-to-print";
+import ReactToPrint, { useReactToPrint } from "react-to-print";
 
 export default function VocaNote() {
   const sortState = useContext(SortStateContext);
@@ -61,29 +61,31 @@ export default function VocaNote() {
 
   const handleOnlineBtn = () => {
     dispatch({ type: "test" });
-
     navigate(`/voca-notes/${noteId}/online-test?sort=${sort}&toggle=${toggle}`);
   };
+
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+    onBeforeGetContent: () => {
+      dispatch({ type: "print" });
+    },
+  });
+
+  // console.log("sortState.mode : ", sortState.mode);
 
   return (
     <>
       <div className="voca_note_header">
         <div className="voca_note_title">
           {vocaNote && vocaNote.noteTitle}
-
           <span className="voca_note_title_icon" onClick={showModalAddWord}>
             <IoMdAddCircleOutline />
           </span>
         </div>
         <div className="button-list">
-          <ReactToPrint
-            trigger={() => (
-              <button>
-                <HiPrinter />
-              </button>
-            )}
-            content={() => printRef.current}
-          />
+          <button onClick={handlePrint}>
+            <HiPrinter />
+          </button>
           <button onClick={handleOnlineBtn}>
             <FaKeyboard />
           </button>
@@ -120,7 +122,6 @@ export default function VocaNote() {
             </tr>
           </thead>
           <tbody>
-            {/* {sortState.vocaList && */}
             {sortState.vocaList.map((item) => (
               <tr key={item.id}>
                 <td>{item.num}</td>
