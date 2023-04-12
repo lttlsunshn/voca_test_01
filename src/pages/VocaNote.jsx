@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import AddWord from "../components/AddWord";
-import { getNote, getNotes } from "../api/firebase";
+import { getNote } from "../api/firebase";
 import { HiPrinter } from "react-icons/hi";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaKeyboard } from "react-icons/fa";
@@ -29,7 +29,7 @@ export default function VocaNote() {
     [`voca-notes/${noteId}/`],
     () => getNote(noteId) // 객체로 가져오기
   );
-
+  // console.log("vocaNite : ", vocaNote);
   const [wordModify, setWordModify] = useState("");
 
   const wordList =
@@ -41,6 +41,7 @@ export default function VocaNote() {
 
   const lengthNum = wordList ? wordList.length : 0;
   // console.log("lengthNum : ", lengthNum);
+
   const [modalOpenAddWord, setModalOpenAddWord] = useState(false);
   const showModalAddWord = () => {
     setModalOpenAddWord(true);
@@ -100,7 +101,10 @@ export default function VocaNote() {
           </div>
         )}
       </div>
-      {lengthNum === 0 || wordList === undefined ? (
+
+      {vocaNote === undefined ? (
+        <></>
+      ) : lengthNum === 0 ? (
         <div id="empty-note">
           <p>단어장이 비어 있어요.</p>
         </div>
@@ -116,24 +120,24 @@ export default function VocaNote() {
             </tr>
           </thead>
           <tbody>
-            {sortState.vocaList &&
-              sortState.vocaList.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.num}</td>
-                  <td>{item.word_eng}</td>
-                  <td>{item.word_kor}</td>
-                  <td></td>
-                  <td>
-                    <button
-                      id="btn_word_mod"
-                      value={item.id}
-                      onClick={showModalModifyWord}
-                    >
-                      <RiPencilFill />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+            {/* {sortState.vocaList && */}
+            {sortState.vocaList.map((item) => (
+              <tr key={item.id}>
+                <td>{item.num}</td>
+                <td>{item.word_eng}</td>
+                <td>{item.word_kor}</td>
+                <td></td>
+                <td>
+                  <button
+                    id="btn_word_mod"
+                    value={item.id}
+                    onClick={showModalModifyWord}
+                  >
+                    <RiPencilFill />
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
