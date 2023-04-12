@@ -1,15 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {
-  child,
-  get,
-  getDatabase,
-  push,
-  ref,
-  remove,
-  set,
-  update,
-} from "firebase/database";
+import { get, getDatabase, ref, remove, set, update } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -32,16 +23,6 @@ export async function addNewNote(inputTitle, createdTime, createdTimeNum) {
     id: createdTimeNum,
   });
 }
-
-// export async function getNote_(noteTitle) {
-//   return get(ref(db, `voca-notes/${noteTitle}/wordList`)).then((snapshot) => {
-//     if (snapshot.exists()) {
-//       return Object.values(snapshot.val());
-
-//     }
-//     return [];
-//   });
-// }
 
 export async function getNote(noteId) {
   return get(ref(db, `voca-notes/${noteId}`)).then((snapshot) => {
