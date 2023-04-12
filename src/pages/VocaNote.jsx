@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import AddWord from "../components/AddWord";
-import { getNote } from "../api/firebase";
+import { getNote, getNotes } from "../api/firebase";
 import { HiPrinter } from "react-icons/hi";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaKeyboard } from "react-icons/fa";
@@ -23,16 +23,14 @@ export default function VocaNote() {
   const sort = searchParams.get("sort");
   const toggle = searchParams.get("toggle");
 
-  const { noteTitle } = useParams();
+  const { noteId } = useParams();
 
   const { data: vocaNote } = useQuery(
-    [`voca-notes/${noteTitle}/`],
-    () => getNote(noteTitle) // 객체로 가져오기
+    [`voca-notes/${noteId}/`],
+    () => getNote(noteId) // 객체로 가져오기
   );
 
   const [wordModify, setWordModify] = useState("");
-
-  // vocaNote && console.log("vocaNote : ", vocaNote);
 
   const wordList =
     vocaNote && vocaNote.wordList && Object.values(vocaNote.wordList);
@@ -63,16 +61,15 @@ export default function VocaNote() {
   const handleOnlineBtn = () => {
     dispatch({ type: "test" });
 
-    navigate(
-      `/voca-notes/${noteTitle}/online-test?sort=${sort}&toggle=${toggle}`
-    );
+    navigate(`/voca-notes/${noteId}/online-test?sort=${sort}&toggle=${toggle}`);
   };
 
   return (
     <>
       <div className="voca_note_header">
         <div className="voca_note_title">
-          {noteTitle}
+          {vocaNote && vocaNote.noteTitle}
+
           <span className="voca_note_title_icon" onClick={showModalAddWord}>
             <IoMdAddCircleOutline />
           </span>
@@ -144,7 +141,7 @@ export default function VocaNote() {
         <AddWord
           modalOpen={modalOpenAddWord}
           setModalOpen={setModalOpenAddWord}
-          noteTitle={noteTitle}
+          noteId={noteId}
           lengthNum={lengthNum}
         />
       )}

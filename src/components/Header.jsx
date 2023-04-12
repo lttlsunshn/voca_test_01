@@ -12,9 +12,9 @@ export default function Header() {
       </Link>
       <div className="header_menu">
         <GiHamburgerMenu />
-        <div className="menubar">
+        {/* <div className="menubar">
           <Menubar />
-        </div>
+        </div> */}
       </div>
     </div>
   );

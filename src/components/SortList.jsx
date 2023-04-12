@@ -11,18 +11,16 @@ export default function SortList({ wordList }) {
   const sort = searchParams.get("sort");
   const toggle = searchParams.get("toggle");
 
-  const { noteTitle } = useParams();
+  const { noteId } = useParams();
 
   const [checked, setChecked] = useState(sort);
 
   let path;
-  // console.log("sortState.mode : ", sortState.mode);
 
   const mode = sortState.mode;
   switch (mode) {
     case "test":
       path = "/online-test";
-
       break;
     case "print":
       path = "/print-page";
@@ -31,16 +29,12 @@ export default function SortList({ wordList }) {
       path = "";
   }
 
-  // console.log("path : ", path);
-
   const handleSort = (e) => {
     const sortValue = e.target.value;
-    // console.log("sortValue : ", sortValue);
+    console.log("sortValue : ", sortValue);
 
     dispatch({ type: `${sortValue}Sort`, wordList, mode });
-    navigate(
-      `/voca-notes/${noteTitle}${path}?sort=${sortValue}&toggle=${toggle}`
-    );
+    navigate(`/voca-notes/${noteId}${path}?sort=${sortValue}&toggle=${toggle}`);
   };
 
   const handleChange = (e) => {
@@ -53,7 +47,7 @@ export default function SortList({ wordList }) {
       setChecked("asc");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [noteTitle]);
+  }, [noteId]);
 
   return (
     <>

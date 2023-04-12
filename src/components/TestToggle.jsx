@@ -6,33 +6,29 @@ export default function TestToggle() {
   const dispatch = useContext(SortDispatchContext);
   const navigate = useNavigate();
 
-  const { noteTitle } = useParams();
+  const { noteId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get("sort");
-  const toggle = searchParams.get("toggle");
+  // const toggle = searchParams.get("toggle");
 
   const [checked, setChecked] = useState("meaning");
 
   const handleChange = (e) => {
-    // console.log("e.target : ", e.target);
+    // console.log("e.target.value : ", e.target.value);
     setChecked(e.target.value);
   };
 
-  const handleToggleSpell = (e) => {
-    dispatch({ type: "spell" });
-    navigate(`/voca-notes/${noteTitle}/online-test?sort=${sort}&toggle=spell`);
-  };
-
-  const handleToggleMeaning = (e) => {
-    dispatch({ type: "meaning" });
+  const handleToggle = (e) => {
+    dispatch({ type: `${e.target.value}` });
     navigate(
-      `/voca-notes/${noteTitle}/online-test?sort=${sort}&toggle=meaning`
+      `/voca-notes/${noteId}/online-test?sort=${sort}&toggle=${e.target.value}`
     );
+    console.log("toggle : ", e.target.value);
   };
 
   return (
     <>
-      <div className="toggle" id="toggle-spell" onClick={handleToggleSpell}>
+      <div className="toggle" id="toggle-spell" onClick={handleToggle}>
         <input
           id="btn_toggle_spell"
           type="radio"
@@ -45,8 +41,7 @@ export default function TestToggle() {
           철자
         </label>
       </div>
-
-      <div className="toggle" id="toggle-meaning" onClick={handleToggleMeaning}>
+      <div className="toggle" id="toggle-meaning" onClick={handleToggle}>
         <input
           id="btn_toggle_meaning"
           type="radio"

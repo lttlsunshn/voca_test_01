@@ -8,9 +8,7 @@ export default function ModifyWord({
   setModalOpenModifyWord,
   wordModify,
 }) {
-  // console.log("wordModify : ", wordModify);
-
-  const { noteTitle } = useParams();
+  const { noteId } = useParams();
   const [modifiedWord, setModifiedWord] = useState({
     modified_eng: "",
     modified_kor: "",
@@ -52,8 +50,9 @@ export default function ModifyWord({
     word_kor = modified_kor ? modified_kor : wordModify.word_kor;
     console.log("modified Kor_ : ", modified_kor);
 
-    deleteWord(noteTitle, wordModify.word_eng);
-    modifyWord(noteTitle, word_eng, num, word_kor, id);
+    deleteWord(noteId, wordModify.word_eng);
+    // modifyWord(noteTitle, word_eng, num, word_kor, id);
+    modifyWord(noteId, word_eng, num, word_kor, id);
 
     handleReset();
   };

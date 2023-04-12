@@ -24,15 +24,15 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/voca-notes", element: <VocaNotes /> },
       // { path: "/voca-notes/:noteTitle/:sortTypee", element: <VocaNote /> },
-      { path: "/voca-notes/:noteTitle", element: <VocaNote /> },
+      { path: "/voca-notes/:noteId", element: <VocaNote /> },
       {
         // path: "/voca-notes/:noteTitle/online-test/:sortTypee",
-        path: "/voca-notes/:noteTitle/online-test",
+        path: "/voca-notes/:noteId/online-test",
         // path: "/voca-notes/:noteTitle/:sortTypee/online-test",
         element: <OnlineTest />,
       },
       {
-        path: "/voca-notes/:noteTitle/online-test/:timeTitle",
+        path: "/voca-notes/:noteId/online-test/:timeTitle",
         element: <ScoreResult />,
       },
       // {

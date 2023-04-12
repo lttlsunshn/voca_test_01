@@ -20,7 +20,11 @@ export default function Sidebar() {
   // vocaNotes && console.log("vocaNotes : ", vocaNotes);
   // !vocaNotes && console.log("No vocaNotes! ");
 
-  const [noteTitleModify, setNoteTitleModify] = useState("");
+  const vocaNotesList = vocaNotes && Object.values(vocaNotes);
+  // vocaNotesList && console.log("vocaNotesList : ", vocaNotesList);
+
+  // const [noteTitleModify, setNoteTitleModify] = useState("");
+  const [noteIdModify, setNoteIdModify] = useState("");
 
   const [modalOpenAdd, setModalOpenAdd] = useState(false);
   const showModalAdd = () => {
@@ -31,7 +35,8 @@ export default function Sidebar() {
   const showModalModify = (e) => {
     console.log(e.currentTarget.value);
 
-    setNoteTitleModify(e.currentTarget.value);
+    // setNoteTitleModify(e.currentTarget.value);
+    setNoteIdModify(e.currentTarget.value);
     setModalOpenModify(true);
   };
 
@@ -67,8 +72,8 @@ export default function Sidebar() {
         단어장 목록
       </div>
       <div className="notes_list">
-        {vocaNotes &&
-          vocaNotes.map((item, index) => (
+        {vocaNotesList &&
+          vocaNotesList.map((item, index) => (
             <p
               key={item.id}
               className="notes_list_items"
@@ -81,9 +86,7 @@ export default function Sidebar() {
                 id={item.id}
                 onClick={() => {
                   dispatch({ type: "note" });
-                  navigate(
-                    `/voca-notes/${item.noteTitle}?sort=asc&toggle=meaning`
-                  );
+                  navigate(`/voca-notes/${item.id}?sort=asc&toggle=meaning`);
                 }}
               >
                 <span className="note_icon">
@@ -101,14 +104,15 @@ export default function Sidebar() {
               >
                 <button
                   id="btn_mod_note"
-                  value={item.noteTitle}
+                  // value={item.noteTitle}
+                  value={item.id}
                   onClick={showModalModify}
                 >
                   <RiPencilFill />
                 </button>
                 <button
                   id="btn_del_note"
-                  value={item.noteTitle}
+                  value={item.id}
                   onClick={handleDeleteNote}
                 >
                   <RiDeleteBin4Line />
@@ -136,7 +140,7 @@ export default function Sidebar() {
           <ModifyNote
             modalOpenModify={modalOpenModify}
             setModalOpenModify={setModalOpenModify}
-            noteTitleModify={noteTitleModify}
+            noteIdModify={noteIdModify}
           />
         )}
       </section>

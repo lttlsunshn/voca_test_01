@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from "react";
 
 const initialList = {
   vocaList: [],
+  // noteTitle: "",
   sortType: "asc", // 불필요한지 점검할 것.
   mode: "note",
   // mode: "note",

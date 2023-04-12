@@ -6,7 +6,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 export default function AddWord({
   modalOpen,
   setModalOpen,
-  noteTitle,
+  noteId,
   lengthNum,
 }) {
   const closeModal = () => {
@@ -40,7 +40,7 @@ export default function AddWord({
   const handleAddWord = () => {
     const id = uuid();
 
-    addNewWord(noteTitle, word_eng, num, word_kor, id);
+    addNewWord(noteId, word_eng, num, word_kor, id);
 
     nextNum.current += 1;
     handleReset();

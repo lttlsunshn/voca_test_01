@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { makeAnswerTitle, makeAnswerList } from "../api/firebase";
+import { makeAnswerTitle, makeAnswerList, getNote } from "../api/firebase";
 import SortList from "../components/SortList";
 import { useCreatedTime } from "../hooks/useCreatedTime";
 import { SortDispatchContext, SortStateContext } from "../SortContext";
@@ -8,6 +8,7 @@ import { HiPrinter } from "react-icons/hi";
 import { FaKeyboard } from "react-icons/fa";
 import TestToggle from "../components/TestToggle";
 import ReactToPrint from "react-to-print";
+import { useQuery } from "@tanstack/react-query";
 
 // React To Print 설치
 
@@ -16,7 +17,7 @@ export default function OnlineTest() {
 
   const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
-  const { noteTitle } = useParams();
+  const { noteId } = useParams();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get("sort");
@@ -26,6 +27,11 @@ export default function OnlineTest() {
 
   const [testList, setTestList] = useState(sortState.vocaList);
 
+  const { data: vocaNote } = useQuery(
+    [`voca-notes/${noteId}/`],
+    () => getNote(noteId) // 객체로 가져오기
+  );
+
   const answerObject = {};
   const answerList = [];
 
@@ -34,29 +40,25 @@ export default function OnlineTest() {
   };
 
   const handleMarkableAnswer = () => {
-    console.log("answerObject : ", answerObject);
-    console.log(
-      "Object.entries(answerObject) : ",
-      Object.entries(answerObject)
-    );
-
     Object.entries(answerObject).forEach((item) => {
       answerList[item[0]] = item[1];
     });
     console.log("answerList : ", answerList);
 
-    makeAnswerTitle(noteTitle, createdTime);
+    const answerArr = Array.from(answerList);
+    console.log("answerListArr : ", answerArr);
 
-    sortState.vocaList.map((item, idx) => {
-      const answer = answerList[idx] === undefined ? "" : answerList[idx];
+    makeAnswerTitle(noteId, createdTime);
 
+    sortState.vocaList.forEach((item, idx) => {
+      const answer = answerArr[idx] === undefined ? "" : answerArr[idx];
       const word = toggle === "meaning" ? item.word_kor : item.word_eng;
       const isCorrect =
-        answerList[idx] !== undefined && word === answerList[idx]
-          ? true
-          : false;
+        answerArr[idx] !== undefined && word === answer ? true : false;
 
-      makeAnswerList(noteTitle, createdTime, answer, isCorrect, item, idx);
+      // console.log("***", idx, item.num, word, answerArr[item.num], isCorrect);
+
+      makeAnswerList(noteId, createdTime, answer, isCorrect, item, idx);
     });
   };
 
@@ -65,9 +67,10 @@ export default function OnlineTest() {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleMarkableAnswer();
+    console.log("Submit answer");
 
     navigate(
-      `/voca-notes/${noteTitle}/online-test/${createdTime}?sort=${sort}&toggle=${toggle}`
+      `/voca-notes/${noteId}/online-test/${createdTime}?sort=${sort}&toggle=${toggle}`
     );
   };
 
@@ -81,7 +84,7 @@ export default function OnlineTest() {
   return (
     <>
       <div className="voca_note_header">
-        <div className="voca_note_title">{noteTitle} Online TEST</div>
+        <div className="voca_note_title">{vocaNote.noteTitle} Online TEST</div>
         <div className="button-list">
           <ReactToPrint
             trigger={() => (

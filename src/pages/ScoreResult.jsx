@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { getAnswerList } from "../api/firebase";
+import { getAnswerList, getNote } from "../api/firebase";
 import { SortDispatchContext, SortStateContext } from "../SortContext";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -12,18 +12,21 @@ export default function ScoreResult() {
   const dispatch = useContext(SortDispatchContext);
   const navigate = useNavigate();
 
-  const { noteTitle } = useParams();
+  const { noteId } = useParams();
   const { timeTitle } = useParams();
-  // console.log("noteTitle", noteTitle);
-  // console.log("timeTitle ", timeTitle);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const toggle = searchParams.get("toggle");
 
+  const { data: vocaNote } = useQuery(
+    [`voca-notes/${noteId}/`],
+    () => getNote(noteId) // 객체로 가져오기
+  );
+
   const { data: scoreResult } = useQuery(
-    [`test-${noteTitle}-${timeTitle}/answer-list/`],
-    () => getAnswerList(noteTitle, timeTitle)
+    [`test-${noteId}-${timeTitle}/answer-list/`],
+    () => getAnswerList(noteId, timeTitle)
   );
 
   if (sort === "random") {
@@ -45,31 +48,26 @@ export default function ScoreResult() {
   correctNum =
     scoreResult && scoreResult.filter((item) => item.isCorrect).length;
 
-  const handleOnlineBtn = () => {
+  const handleBackBtn = () => {
     dispatch({ type: "test" });
-    navigate(
-      `/voca-notes/${noteTitle}/online-test?sort=${sort}&toggle=${toggle}`
-    );
+    navigate(`/voca-notes/${noteId}/online-test?sort=${sort}&toggle=${toggle}`);
   };
 
   return (
     <>
       <div className="voca_note_header">
-        <div className="voca_note_title">{noteTitle} Online TEST Result</div>
+        <div className="voca_note_title">
+          {vocaNote && vocaNote.noteTitle} Online TEST Result
+        </div>
         <div className="button-list">
-          <button onClick={handleOnlineBtn}>
+          <button onClick={handleBackBtn}>
             <FaArrowLeft />
           </button>
         </div>
       </div>
       <div className="list-options">
         <div className="toggle" id="toggle-spell-disabled">
-          <input
-            id="btn_toggle_spell"
-            type="radio"
-            name="test-toggle"
-            value="spell"
-          />
+          <input id="btn_toggle_spell" type="radio" name="test-toggle" />
           <label htmlFor="btn_toggle_spell" value="spell">
             철자
           </label>
@@ -94,77 +92,76 @@ export default function ScoreResult() {
         </div>
       </div>
       <form>
-        <table className="voca_note">
-          {toggle === "meaning" ? (
-            <>
-              <thead>
-                <tr>
-                  <th>번호</th>
-                  <th>영어 단어</th>
-                  <th>뜻</th>
-                  <th>답</th>
-                  <th>O/X</th>
-                </tr>
-              </thead>
-              <tbody>
-                {scoreResult &&
-                  scoreResult.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.num}</td>
-                      <td>{item.word_eng}</td>
-                      <td>{item.word_kor}</td>
-                      <td>
-                        {item.isCorrect ? (
-                          <span style={{ color: "lightseagreen" }}>
-                            {item.answer}
-                          </span>
-                        ) : (
-                          <strike style={{ color: "salmon" }}>
-                            {item.answer}
-                          </strike>
-                        )}
-                      </td>
-                      <td>{item.isCorrect ? "O" : "X"}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </>
-          ) : (
-            <>
-              <thead>
-                <tr>
-                  <th>번호</th>
-                  <th>뜻</th>
-                  <th>영어 단어</th>
-                  <th>답</th>
-                  <th>O/X</th>
-                </tr>
-              </thead>
-              <tbody>
-                {scoreResult &&
-                  scoreResult.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.num}</td>
-                      <td>{item.word_kor}</td>
-                      <td>{item.word_eng}</td>
-                      <td>
-                        {item.isCorrect ? (
-                          <span style={{ color: "lightseagreen" }}>
-                            {item.answer}
-                          </span>
-                        ) : (
-                          <strike style={{ color: "salmon" }}>
-                            {item.answer}
-                          </strike>
-                        )}
-                      </td>
-                      <td>{item.isCorrect ? "O" : "X"}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </>
-          )}
-        </table>
+        {toggle === "meaning" ? (
+          <table className="voca_note">
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>영어 단어</th>
+                <th>뜻</th>
+                <th>답</th>
+                <th>O/X</th>
+              </tr>
+            </thead>
+            <tbody>
+              {scoreResult &&
+                scoreResult.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.num}</td>
+                    <td>{item.word_eng}</td>
+                    <td>{item.word_kor}</td>
+                    <td>
+                      {item.isCorrect ? (
+                        <span style={{ color: "lightseagreen" }}>
+                          {item.answer}
+                        </span>
+                      ) : (
+                        <strike style={{ color: "salmon" }}>
+                          {item.answer}
+                        </strike>
+                      )}
+                    </td>
+                    <td>{item.isCorrect ? "O" : "X"}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        ) : (
+          <table className="voca_note">
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>뜻</th>
+                <th>영어 단어</th>
+                <th>답</th>
+                <th>O/X</th>
+              </tr>
+            </thead>
+            <tbody>
+              {scoreResult &&
+                scoreResult.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.num}</td>
+                    <td>{item.word_kor}</td>
+                    <td>{item.word_eng}</td>
+                    <td>
+                      {item.isCorrect ? (
+                        <span style={{ color: "lightseagreen" }}>
+                          {item.answer}
+                        </span>
+                      ) : (
+                        <strike style={{ color: "salmon" }}>
+                          {item.answer}
+                        </strike>
+                      )}
+                    </td>
+                    <td>{item.isCorrect ? "O" : "X"}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        )}
+
         <div id="score-result">
           <span id="correct-num">맞은 개수</span>
           <span>

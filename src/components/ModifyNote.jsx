@@ -1,28 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { modifyNote, getNote, deleteNote } from "../api/firebase";
+import { getNote, updateNote } from "../api/firebase";
 import { useCreatedTime } from "../hooks/useCreatedTime";
-// import { useCreatedTime } from "../hooks/useCreatedTime.js";
+import { SortDispatchContext } from "../SortContext";
 
 export default function ModifyNote({
   modalOpenModify,
   setModalOpenModify,
-  noteTitleModify,
+  noteIdModify,
 }) {
+  console.log("noteIdModify : ", noteIdModify);
   const [inputTitle, setInputTitle] = useState("");
   const navigate = useNavigate();
-  const { modifiedTime } = useCreatedTime();
+  const dispatch = useContext(SortDispatchContext);
+
+  const { modifiedTime } = useCreatedTime(); // ???
   console.log("modifiedTime : ", modifiedTime);
 
-  const { data: noteModify } = useQuery(
-    [`voca-notes/${noteTitleModify}/`],
-    () => getNote(noteTitleModify)
+  const { data: noteModify } = useQuery([`voca-notes/${noteIdModify}/`], () =>
+    getNote(noteIdModify)
   );
-
-  console.log("noteTitleModify : ", noteTitleModify);
-  console.log("noteModify : ", noteModify);
 
   const closeModalModify = () => {
     setModalOpenModify(false);
@@ -38,12 +37,8 @@ export default function ModifyNote({
   };
 
   const handleModifyNote = () => {
-    console.log("noteModify : ", noteModify);
-    console.log("noteTitleModify : ", noteTitleModify);
-    console.log("inputTitle : ", inputTitle);
+    updateNote(noteModify, noteIdModify, inputTitle);
 
-    modifyNote(noteModify, inputTitle, modifiedTime);
-    deleteNote(noteTitleModify);
     handleReset();
   };
 
@@ -51,13 +46,15 @@ export default function ModifyNote({
     e.preventDefault();
 
     const ok = window.confirm(
-      `NOTE ${noteTitleModify}의 제목을 ${inputTitle}로 수정하시겠습니까?`
+      `NOTE ${noteModify.noteTitle}의 제목을 ${inputTitle}로 수정하시겠습니까?`
     );
 
     if (ok) {
       handleModifyNote();
       closeModalModify();
-      navigate(`voca-notes/${inputTitle}`);
+      const noteTitle = inputTitle;
+      dispatch({ type: "note", noteTitle });
+      navigate(`voca-notes/${noteIdModify}`);
       window.location.reload();
     }
   };
@@ -82,7 +79,7 @@ export default function ModifyNote({
           <tbody>
             <tr>
               <th>현재 제목</th>
-              <td>{noteTitleModify}</td>
+              <td>{noteModify.noteTitle}</td>
             </tr>
             <tr>
               <th>바꿀 제목</th>
