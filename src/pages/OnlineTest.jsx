@@ -38,8 +38,11 @@ export default function OnlineTest() {
 
   const handleWordChange = (e, idx) => {
     answerObject[idx] = e.target.value;
+    // console.log("event : ", e);
   };
 
+  // console.log("answerObject : ", answerObject); // ???
+  // 채점하기
   const handleMarkableAnswer = () => {
     Object.entries(answerObject).forEach((item) => {
       answerList[item[0]] = item[1];
@@ -54,10 +57,18 @@ export default function OnlineTest() {
     sortState.vocaList.forEach((item, idx) => {
       const answer = answerArr[idx] === undefined ? "" : answerArr[idx];
       const word = toggle === "meaning" ? item.word_kor : item.word_eng;
-      const isCorrect =
-        answerArr[idx] !== undefined && word === answer ? true : false;
+      const isCorrect = word === answer ? true : false;
+      // answerArr[idx] !== undefined && word === answer ? true : false;
 
-      // console.log("***", idx, item.num, word, answerArr[item.num], isCorrect);
+      // console.log(
+      //   "***",
+      //   idx,
+      //   item.num,
+      //   word,
+      //   answer,
+      //   answerArr[idx],
+      //   isCorrect
+      // );
 
       makeAnswerList(noteId, createdTime, answer, isCorrect, item, idx);
     });
@@ -151,7 +162,7 @@ export default function OnlineTest() {
                             type="text"
                             name="answer"
                             placeholder={placeholder}
-                            value={answerObject[item.num]}
+                            value={answerObject[idx]}
                             onChange={(e) => handleWordChange(e, idx)}
                           />
                         </td>
@@ -172,7 +183,7 @@ export default function OnlineTest() {
                 </thead>
                 <tbody>
                   {testList &&
-                    testList.map((item) => (
+                    testList.map((item, idx) => (
                       <tr key={item.id}>
                         <td>{item.num}</td>
                         <td>{item.word_kor}</td>
@@ -181,8 +192,8 @@ export default function OnlineTest() {
                             type="text"
                             name="answer"
                             placeholder={placeholder}
-                            value={answerObject[item.num]}
-                            onChange={(e) => handleWordChange(e, item.num)}
+                            value={answerObject[idx]}
+                            onChange={(e) => handleWordChange(e, idx)}
                           />
                         </td>
                         <td></td>
