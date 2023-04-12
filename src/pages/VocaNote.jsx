@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import AddWord from "../components/AddWord";
@@ -10,7 +10,7 @@ import { RiPencilFill } from "react-icons/ri";
 import SortList from "../components/SortList";
 import { SortDispatchContext, SortStateContext } from "../SortContext";
 import ModifyWord from "../components/ModifyWord";
-import ReactToPrint, { useReactToPrint } from "react-to-print";
+import { useReactToPrint } from "react-to-print";
 
 export default function VocaNote() {
   const sortState = useContext(SortStateContext);
@@ -31,6 +31,7 @@ export default function VocaNote() {
   );
   // console.log("vocaNite : ", vocaNote);
   const [wordModify, setWordModify] = useState("");
+  // const [mode, setMode] = useState("note");
 
   const wordList =
     vocaNote && vocaNote.wordList && Object.values(vocaNote.wordList);
@@ -66,12 +67,7 @@ export default function VocaNote() {
 
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
-    onBeforeGetContent: () => {
-      dispatch({ type: "print" });
-    },
   });
-
-  // console.log("sortState.mode : ", sortState.mode);
 
   return (
     <>
@@ -91,6 +87,7 @@ export default function VocaNote() {
           </button>
         </div>
       </div>
+
       <div>
         {lengthNum === 0 || wordList === undefined ? (
           <></>
@@ -111,37 +108,41 @@ export default function VocaNote() {
           <p>단어장이 비어 있어요.</p>
         </div>
       ) : (
-        <table className="voca_note" ref={printRef}>
-          <thead>
-            <tr>
-              <th>번호</th>
-              <th>영어 단어</th>
-              <th>뜻</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortState.vocaList.map((item) => (
-              <tr key={item.id}>
-                <td>{item.num}</td>
-                <td>{item.word_eng}</td>
-                <td>{item.word_kor}</td>
-                <td></td>
-                <td>
-                  <button
-                    id="btn_word_mod"
-                    value={item.id}
-                    onClick={showModalModifyWord}
-                  >
-                    <RiPencilFill />
-                  </button>
-                </td>
+        <div ref={printRef}>
+          <div id="table_title">{vocaNote && vocaNote.noteTitle}</div>
+          <table className="voca_note">
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>영어 단어</th>
+                <th>뜻</th>
+                <th></th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {sortState.vocaList.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.num}</td>
+                  <td>{item.word_eng}</td>
+                  <td>{item.word_kor}</td>
+                  <td></td>
+                  <td>
+                    <button
+                      id="btn_word_mod"
+                      value={item.id}
+                      onClick={showModalModifyWord}
+                    >
+                      <RiPencilFill />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
+
       {modalOpenAddWord && (
         <AddWord
           modalOpen={modalOpenAddWord}

@@ -56,6 +56,9 @@ table.voca_note td:nth-of-type(3) {
 table.voca_note td:last-of-type {
   width: 60px;
 }
+#table_title {
+  display: none;
+}
 
 body {
   /* margin: 0; */
@@ -266,7 +269,6 @@ main {
 .button-list {
   display: flex;
   flex-flow: row-reverse;
-
   /* border: 1px dashed red; */
 }
 
@@ -284,6 +286,14 @@ main {
   margin-left: 30px;
 
   border-radius: 50%;
+  /* border: 1px dashed red; */
+}
+
+#test_btn_disabled {
+  /* color: gray; */
+  background-color: gray;
+  opacity: 0.7;
+  cursor: default;
 }
 
 .list-options {
@@ -297,6 +307,14 @@ main {
 
   /* border: 1px dashed green; */
 }
+
+/* #options.note {
+  display: block;
+}
+
+#options.print {
+  display: none;
+} */
 
 .test-toggle {
   width: 100%;
@@ -483,17 +501,6 @@ main {
   text-align: center;
   /* border: 1px dashed red; */
 }
-
-/* .btn_new_word {
-  width: 100px;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 15px;
-  margin-top: 30px;
-  margin-left: 0;
-  background-color: var(--color-purple);
-  border: 1px dashed red;
-} */
 
 .add_word_head {
   width: 100%;
@@ -699,114 +706,22 @@ input::placeholder {
   font-weight: 500;
 }
 
-@page {
-  size: A4;
-  margin: 20mm;
-}
-/* @media screen and (max-width: 1440px) {}
-@media (max-width: 1000px) {
-  .card {
-    background: var(--colorA);
-  }
-} */
-/* @media print {
-  table.voca_note td {
-    font-weight: 600;
-    color: red;
-    border-bottom: 1px solid grey;
-    padding: 10px 0;
-  }
-} */
-@media (max-width: 320px) {
-  .header {
-    height: 40px;
-    /* height: auto; */
-    /* padding-left: 60px; */
-
-    font-size: 1.3rem;
-    font-weight: bold;
-    padding: 8px;
-  }
-
-  .header_menu {
-    display: block;
-
-    cursor: pointer;
-  }
-
-  /* .menubar {
+@media print {
+  /* #table_title.note {
     display: none;
   } */
 
-  .header_menu:hover .menubar {
+  #table_title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-green);
+    margin-bottom: 10px;
+    text-align: center;
+
     display: block;
   }
-
-  .sidebar {
-    display: none;
-  }
-
-  .outlet {
-    padding: 0 10px;
-    width: 100%;
-  }
-
-  .button-list > button {
-    width: 27px;
-    height: 27px;
-
-    font-size: 1.1rem;
-    margin-left: 10px;
-  }
-
-  .voca_note_title {
-    font-size: 1.2rem;
-  }
-
-  .voca_note_title_icon {
-    font-size: 1.5rem;
-    padding-left: 7px;
-  }
-
-  .list-options {
-    margin: 20px 0 10px;
-  }
-
-  .sort-btn-list {
-    width: 100%;
-    gap: 5px;
-    /* border: 1px dashed blue; */
-  }
-
-  .sort {
-    width: 55px;
-  }
-
-  .toggle {
-    width: 35px;
-    font-size: 0.7rem;
-  }
-
-  table {
-    font-size: 0.9rem;
-    /* width: 100%; */
-  }
-
-  td:nth-of-type(1) {
-    width: 50px;
-    /* border: 1px dashed blue; */
-  }
-
-  td:nth-of-type(2) {
-    width: 100px;
-    /* border: 1px dashed blue; */
-  }
-
-  td:nth-of-type(3) {
-    width: 100px;
-  }
-
-  td:last-of-type {
-    width: 0;
+  @page {
+    size: A4;
+    margin: 20mm;
   }
 }

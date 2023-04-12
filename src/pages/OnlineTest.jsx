@@ -7,7 +7,7 @@ import { SortDispatchContext, SortStateContext } from "../SortContext";
 import { HiPrinter } from "react-icons/hi";
 import { FaKeyboard } from "react-icons/fa";
 import TestToggle from "../components/TestToggle";
-import ReactToPrint, { useReactToPrint } from "react-to-print";
+import { useReactToPrint } from "react-to-print";
 import { useQuery } from "@tanstack/react-query";
 
 // React To Print 설치
@@ -112,7 +112,7 @@ export default function OnlineTest() {
           <button onClick={handlePrint}>
             <HiPrinter />
           </button>
-          <button>
+          <button id="test_btn_disabled">
             <FaKeyboard />
           </button>
         </div>
@@ -127,69 +127,72 @@ export default function OnlineTest() {
       </div>
 
       <form>
-        <table className="voca_note" ref={printRef}>
-          {toggle === "meaning" ? (
-            <>
-              <thead>
-                <tr>
-                  <th>번호</th>
-                  <th>영어 단어</th>
-                  <th>뜻</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {testList &&
-                  testList.map((item, idx) => (
-                    <tr key={item.id}>
-                      <td>{item.num}</td>
-                      <td>{item.word_eng}</td>
-                      <td>
-                        <input
-                          type="text"
-                          name="answer"
-                          placeholder={placeholder}
-                          value={answerObject[item.num]}
-                          onChange={(e) => handleWordChange(e, idx)}
-                        />
-                      </td>
-                      <td></td>
-                    </tr>
-                  ))}
-              </tbody>
-            </>
-          ) : (
-            <>
-              <thead>
-                <tr>
-                  <th>번호</th>
-                  <th>뜻</th>
-                  <th>영어 단어</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {testList &&
-                  testList.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.num}</td>
-                      <td>{item.word_kor}</td>
-                      <td>
-                        <input
-                          type="text"
-                          name="answer"
-                          placeholder={placeholder}
-                          value={answerObject[item.num]}
-                          onChange={(e) => handleWordChange(e, item.num)}
-                        />
-                      </td>
-                      <td></td>
-                    </tr>
-                  ))}
-              </tbody>
-            </>
-          )}
-        </table>
+        <div ref={printRef}>
+          <div id="table_title">{vocaNote.noteTitle} Online TEST</div>
+          <table className="voca_note" ref={printRef}>
+            {toggle === "meaning" ? (
+              <>
+                <thead>
+                  <tr>
+                    <th>번호</th>
+                    <th>영어 단어</th>
+                    <th>뜻</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {testList &&
+                    testList.map((item, idx) => (
+                      <tr key={item.id}>
+                        <td>{item.num}</td>
+                        <td>{item.word_eng}</td>
+                        <td>
+                          <input
+                            type="text"
+                            name="answer"
+                            placeholder={placeholder}
+                            value={answerObject[item.num]}
+                            onChange={(e) => handleWordChange(e, idx)}
+                          />
+                        </td>
+                        <td></td>
+                      </tr>
+                    ))}
+                </tbody>
+              </>
+            ) : (
+              <>
+                <thead>
+                  <tr>
+                    <th>번호</th>
+                    <th>뜻</th>
+                    <th>영어 단어</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {testList &&
+                    testList.map((item) => (
+                      <tr key={item.id}>
+                        <td>{item.num}</td>
+                        <td>{item.word_kor}</td>
+                        <td>
+                          <input
+                            type="text"
+                            name="answer"
+                            placeholder={placeholder}
+                            value={answerObject[item.num]}
+                            onChange={(e) => handleWordChange(e, item.num)}
+                          />
+                        </td>
+                        <td></td>
+                      </tr>
+                    ))}
+                </tbody>
+              </>
+            )}
+          </table>
+        </div>
         <button className="btn_save_word" type="submit" onClick={handleSubmit}>
           제출
         </button>
