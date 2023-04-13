@@ -21,9 +21,7 @@ export default function Sidebar() {
   // !vocaNotes && console.log("No vocaNotes! ");
 
   const vocaNotesList = vocaNotes && Object.values(vocaNotes);
-  // vocaNotesList && console.log("vocaNotesList : ", vocaNotesList);
 
-  // const [noteTitleModify, setNoteTitleModify] = useState("");
   const [noteIdModify, setNoteIdModify] = useState("");
 
   const [modalOpenAdd, setModalOpenAdd] = useState(false);
@@ -81,18 +79,20 @@ export default function Sidebar() {
               onMouseLeave={handleMouseLeave}
               value={item.id}
             >
-              <span
-                className="item_list"
-                id={item.id}
-                onClick={() => {
-                  dispatch({ type: "note" });
-                  navigate(`/voca-notes/${item.id}?sort=asc&toggle=meaning`);
-                }}
-              >
+              <span className="item_list">
                 <span className="note_icon">
                   <MdOutlineStickyNote2 />
                 </span>
-                {item.noteTitle}
+                <span
+                  className="item_list_title"
+                  id={item.id}
+                  onClick={() => {
+                    dispatch({ type: "note" });
+                    navigate(`/voca-notes/${item.id}?sort=asc&toggle=meaning`);
+                  }}
+                >
+                  {item.noteTitle}
+                </span>
               </span>
 
               <span

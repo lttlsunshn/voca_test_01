@@ -77,9 +77,10 @@ export default function AddWord({
                 <input
                   type="text"
                   name="word_eng"
-                  placeholder="Write a new English word."
+                  placeholder=""
                   value={word_eng}
                   onChange={handleWordChange}
+                  autoComplete="off"
                 />
               </td>
             </tr>
@@ -89,9 +90,10 @@ export default function AddWord({
                 <input
                   type="text"
                   name="word_kor"
-                  placeholder="Write a Korean meaning."
+                  placeholder=""
                   value={word_kor}
                   onChange={handleWordChange}
+                  autoComplete="off"
                 />
               </td>
             </tr>

@@ -125,8 +125,8 @@ main {
 .sidebar {
   width: 25%;
   height: 85vh;
-  padding: 20px;
-  padding-top: 20px;
+  padding: 15px;
+  padding-top: 15px;
   background-color: var(--color-green);
   color: var(--color-butter);
   font-weight: 700;
@@ -148,11 +148,11 @@ main {
 }
 
 .notes_list_title {
-  cursor: pointer;
+  cursor: default;
   color: var(--color-purple);
   font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   display: flex;
   /* border: 1px dashed red; */
 }
@@ -172,16 +172,23 @@ main {
 .item_list {
   display: flex;
   width: 80%;
-  cursor: pointer;
-  /* overflow: hidden; */
 }
 
-.item_list:hover {
+.item_list_title {
+  cursor: pointer;
+
+  width: 85px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item_list_title:hover {
   color: var(--color-purple);
   transition: all 200ms ease-in;
 }
 
-.item_list:active {
+.item_list_title:active {
   color: var(--color-light-purple);
 }
 
@@ -190,12 +197,13 @@ main {
   padding-right: 5px;
   font-size: 1.3rem;
   color: var(--color-butter);
+  cursor: default;
 }
 
 .btns_list {
   display: flex;
   justify-content: right;
-  gap: 10px;
+  gap: 5px;
   font-size: 1.2rem;
 
   cursor: pointer;
@@ -260,6 +268,11 @@ main {
   cursor: pointer;
 }
 
+.new_note2:hover {
+  transform: scale(1.05);
+  transition: all 200ms ease-in-out;
+}
+
 .icon_add_note {
   font-size: 1.7rem;
   margin: 0 auto;
@@ -289,11 +302,20 @@ main {
   /* border: 1px dashed red; */
 }
 
+.button-list > button:hover {
+  transform: scale(1.1);
+  transition: all 200ms ease-in;
+}
+
 #test_btn_disabled {
   /* color: gray; */
   background-color: gray;
   opacity: 0.7;
   cursor: default;
+}
+
+#test_btn_disabled:hover {
+  transform: none;
 }
 
 .list-options {
@@ -307,14 +329,6 @@ main {
 
   /* border: 1px dashed green; */
 }
-
-/* #options.note {
-  display: block;
-}
-
-#options.print {
-  display: none;
-} */
 
 .test-toggle {
   width: 100%;
@@ -380,6 +394,8 @@ main {
 .toggle label:hover {
   background-color: var(--color-green);
   color: var(--color-butter);
+  transform: scale(1.05);
+  transition: all 200ms ease-in;
 }
 
 .toggle input:checked + label {
@@ -486,6 +502,12 @@ main {
   /* border: 1px dashed red; */
 }
 
+#btn_word_mod:hover {
+  color: var(--color-green);
+  transform: scale(1.2);
+  transition: all 200ms ease-in;
+}
+
 .voca_note_title_icon {
   font-size: 1.7rem;
   padding-top: 2px;
@@ -496,6 +518,11 @@ main {
   /* border: 1px dashed red; */
 }
 
+.voca_note_title_icon:hover {
+  /* color: var(--color-green); */
+  transform: scale(1.2);
+  transition: all 200ms ease-in;
+}
 .voca_note {
   width: 100%;
   text-align: center;
@@ -506,6 +533,7 @@ main {
   width: 100%;
   height: 60px;
   background-color: var(--color-green);
+  /* border: 1px dashed red; */
 }
 
 .add_word_title {
@@ -649,8 +677,8 @@ main {
 }
 
 .btn_save_word:hover {
-  transform: scale(1.05);
   background-color: var(--color-purple);
+  transform: scale(1.05);
   transition: all 300ms ease-in-out;
 }
 

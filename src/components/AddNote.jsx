@@ -62,6 +62,7 @@ export default function AddNote({ modalOpenAdd, setModalOpenAdd }) {
                   placeholder="단어장 제목을 적어 주세요."
                   value={inputTitle}
                   onChange={handleWordChange}
+                  autoComplete="off"
                 />
               </td>
             </tr>

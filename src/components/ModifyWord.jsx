@@ -98,6 +98,7 @@ export default function ModifyWord({
                   placeholder={`${wordModify.word_eng}`}
                   value={modified_eng}
                   onChange={handleWordChange}
+                  autoComplete="off"
                 />
               </td>
             </tr>
@@ -110,6 +111,7 @@ export default function ModifyWord({
                   placeholder={`${wordModify.word_kor}`}
                   value={modified_kor}
                   onChange={handleWordChange}
+                  autoComplete="off"
                 />
               </td>
             </tr>

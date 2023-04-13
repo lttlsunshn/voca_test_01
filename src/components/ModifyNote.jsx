@@ -90,6 +90,7 @@ export default function ModifyNote({
                   placeholder="단어장 제목을 바꿔 주세요."
                   value={inputTitle}
                   onChange={handleWordChange}
+                  autoComplete="off"
                 />
               </td>
             </tr>
