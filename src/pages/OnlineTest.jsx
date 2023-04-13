@@ -164,6 +164,7 @@ export default function OnlineTest() {
                             placeholder={placeholder}
                             value={answerObject[idx]}
                             onChange={(e) => handleWordChange(e, idx)}
+                            autoComplete="off"
                           />
                         </td>
                         <td></td>
@@ -194,6 +195,7 @@ export default function OnlineTest() {
                             placeholder={placeholder}
                             value={answerObject[idx]}
                             onChange={(e) => handleWordChange(e, idx)}
+                            autoComplete="off"
                           />
                         </td>
                         <td></td>
