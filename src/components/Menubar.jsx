@@ -19,6 +19,8 @@ export default function Menubar() {
   // vocaNotes && console.log("vocaNotes : ", vocaNotes);
   const [noteTitleModify, setNoteTitleModify] = useState("");
 
+  const vocaNotesList = vocaNotes && Object.values(vocaNotes);
+
   const [modalOpenAdd, setModalOpenAdd] = useState(false);
   const showModalAdd = () => {
     setModalOpenAdd(true);
@@ -30,7 +32,6 @@ export default function Menubar() {
 
     setNoteTitleModify(e.currentTarget.value);
     setModalOpenModify(true);
-    // console.log("noteTitleModify : ", noteTitleModify);
   };
 
   const navigate = useNavigate();
@@ -65,8 +66,8 @@ export default function Menubar() {
         단어장 목록
       </div>
       <div className="notes_list">
-        {vocaNotes &&
-          vocaNotes.map((item) => (
+        {vocaNotesList &&
+          vocaNotesList.map((item) => (
             <p
               key={item.id}
               className="notes_list_items"
@@ -74,21 +75,21 @@ export default function Menubar() {
               onMouseLeave={handleMouseLeave}
               value={item.id}
             >
-              <span
-                className="item_list"
-                id={item.id}
-                onClick={() => {
-                  dispatch({ type: "note" });
-                  navigate(`/voca-notes/${item.noteTitle}`);
-                  // console.log(item.noteTitle, "note clicked!");
-                }}
-              >
+              <span className="item_list">
                 <span className="note_icon">
                   <MdOutlineStickyNote2 />
                 </span>
-                {item.noteTitle}
+                <span
+                  className="item_list_title"
+                  id={item.id}
+                  onClick={() => {
+                    dispatch({ type: "note" });
+                    navigate(`/voca-notes/${item.id}?sort=asc&toggle=meaning`);
+                  }}
+                >
+                  {item.noteTitle}
+                </span>
               </span>
-
               <span
                 className={
                   "btns_list" +

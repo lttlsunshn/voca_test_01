@@ -140,7 +140,7 @@ export default function OnlineTest() {
       <form>
         <div ref={printRef}>
           <div id="table_title">{vocaNote.noteTitle} Online TEST</div>
-          <table className="voca_note" ref={printRef}>
+          <table className="voca_note">
             {toggle === "meaning" ? (
               <>
                 <thead>

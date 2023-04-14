@@ -71,7 +71,7 @@ export default function Sidebar() {
       </div>
       <div className="notes_list">
         {vocaNotesList &&
-          vocaNotesList.map((item, index) => (
+          vocaNotesList.map((item) => (
             <p
               key={item.id}
               className="notes_list_items"

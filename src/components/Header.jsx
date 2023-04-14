@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
-import Sidebar from "./Sidebar";
 import Menubar from "./Menubar";
 
 export default function Header() {
@@ -12,9 +11,9 @@ export default function Header() {
       </Link>
       <div className="header_menu">
         <GiHamburgerMenu />
-        {/* <div className="menubar">
+        <div className="menubar">
           <Menubar />
-        </div> */}
+        </div>
       </div>
     </div>
   );

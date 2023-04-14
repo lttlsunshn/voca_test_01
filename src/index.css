@@ -56,6 +56,7 @@ table.voca_note td:nth-of-type(3) {
 table.voca_note td:last-of-type {
   width: 60px;
 }
+
 #table_title {
   display: none;
 }
@@ -729,6 +730,7 @@ main {
   color: var(--color-green);
   margin-right: 30px;
 }
+
 input::placeholder {
   font-size: 0.9rem;
   font-weight: 500;
