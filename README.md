@@ -13,7 +13,7 @@
 <h3>셀프프로젝트 : VOCA TEST 2주차</h3>
 
 
-<img src="https://github.com/lttlsunshn/voca_test_01/blob/main//public/images/voca-test-02.png"/>
+<img src="https://github.com/lttlsunshn/voca_test_01/blob/main/public/images/voca-test-02.png"/>
 
 <h3>셀프프로젝트 : VOCA TEST 1주차</h3>
 
