@@ -16,7 +16,6 @@ export default function Menubar() {
   const dispatch = useContext(SortDispatchContext);
 
   const { data: vocaNotes } = useQuery(["voca-notes"], getNotes);
-  // vocaNotes && console.log("vocaNotes : ", vocaNotes);
   const [noteTitleModify, setNoteTitleModify] = useState("");
 
   const vocaNotesList = vocaNotes && Object.values(vocaNotes);
@@ -28,8 +27,6 @@ export default function Menubar() {
 
   const [modalOpenModify, setModalOpenModify] = useState(false);
   const showModalModify = (e) => {
-    console.log(e.currentTarget.value);
-
     setNoteTitleModify(e.currentTarget.value);
     setModalOpenModify(true);
   };
@@ -53,7 +50,6 @@ export default function Menubar() {
       deleteNote(e.currentTarget.value);
       navigate("/voca-notes");
       window.location.reload();
-      // console.log(e.currentTarget.value);
     }
   };
 

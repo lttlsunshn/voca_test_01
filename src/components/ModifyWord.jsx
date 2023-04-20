@@ -21,11 +21,10 @@ export default function ModifyWord({
     setModalOpenModifyWord(false);
   };
 
-  const { modified_eng, modified_kor } = modifiedWord; // 비구조화 할당을 통해 값 추출
+  const { modified_eng, modified_kor } = modifiedWord;
 
   const handleWordChange = (e) => {
     const { value, name } = e.target;
-    // console.log(name, value);
 
     setModifiedWord({
       ...modifiedWord,
@@ -44,14 +43,10 @@ export default function ModifyWord({
     const num = wordModify.num;
     const id = wordModify.id;
 
-    !modified_kor && console.log("값이 없어.");
-
     word_eng = modified_eng ? modified_eng : wordModify.word_eng;
     word_kor = modified_kor ? modified_kor : wordModify.word_kor;
-    console.log("modified Kor_ : ", modified_kor);
 
     deleteWord(noteId, wordModify.word_eng);
-    // modifyWord(noteTitle, word_eng, num, word_kor, id);
     modifyWord(noteId, word_eng, num, word_kor, id);
 
     handleReset();

@@ -9,16 +9,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AddNote from "./AddNote";
 import ModifyNote from "./ModifyNote";
-import { SortDispatchContext, SortStateContext } from "../SortContext";
+import { SortDispatchContext } from "../SortContext";
 
 export default function Sidebar() {
   const [isHoverId, setIsHoverId] = useState(null);
-  const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
 
   const { data: vocaNotes } = useQuery(["voca-notes"], getNotes);
-  // vocaNotes && console.log("vocaNotes : ", vocaNotes);
-  // !vocaNotes && console.log("No vocaNotes! ");
 
   const vocaNotesList = vocaNotes && Object.values(vocaNotes);
 
@@ -31,9 +28,6 @@ export default function Sidebar() {
 
   const [modalOpenModify, setModalOpenModify] = useState(false);
   const showModalModify = (e) => {
-    console.log(e.currentTarget.value);
-
-    // setNoteTitleModify(e.currentTarget.value);
     setNoteIdModify(e.currentTarget.value);
     setModalOpenModify(true);
   };
@@ -57,7 +51,6 @@ export default function Sidebar() {
       deleteNote(e.currentTarget.value);
       navigate("/voca-notes");
       window.location.reload();
-      // console.log(e.currentTarget.value);
     }
   };
 
@@ -94,7 +87,6 @@ export default function Sidebar() {
                   {item.noteTitle}
                 </span>
               </span>
-
               <span
                 className={
                   "btns_list" +

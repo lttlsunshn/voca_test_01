@@ -19,9 +19,8 @@ export default function ScoreResult() {
   const sort = searchParams.get("sort");
   const toggle = searchParams.get("toggle");
 
-  const { data: vocaNote } = useQuery(
-    [`voca-notes/${noteId}/`],
-    () => getNote(noteId) // 객체로 가져오기
+  const { data: vocaNote } = useQuery([`voca-notes/${noteId}/`], () =>
+    getNote(noteId)
   );
 
   const { data: scoreResult } = useQuery(
@@ -42,8 +41,6 @@ export default function ScoreResult() {
         return a.order - b.order;
       });
   }
-
-  scoreResult && console.log("score result : ", scoreResult);
 
   correctNum =
     scoreResult && scoreResult.filter((item) => item.isCorrect).length;

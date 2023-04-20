@@ -2,11 +2,8 @@ import React, { createContext, useReducer } from "react";
 
 const initialList = {
   vocaList: [],
-  // noteTitle: "",
-  sortType: "asc", // 불필요한지 점검할 것.
+  sortType: "asc",
   mode: "note",
-  // mode: "note",
-  // spellToggle: false,
   testToggle: "meaning",
   answerList: [],
 };
@@ -14,7 +11,6 @@ const initialList = {
 function sortReducer(state, action) {
   switch (action.type) {
     case "ascSort":
-      // return { ...state, vocaList: action.ascWordList, sortType: "asc" };
       return {
         ...state,
         vocaList: action.wordList.sort(function (a, b) {
@@ -23,9 +19,7 @@ function sortReducer(state, action) {
         sortType: "asc",
         mode: action.mode,
       };
-
     case "descSort":
-      // return { ...state, vocaList: action.descWordList, sortType: "desc" };
       return {
         ...state,
         vocaList: action.wordList.sort(function (a, b) {
