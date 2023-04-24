@@ -7,7 +7,7 @@ export default function TestToggle() {
   const navigate = useNavigate();
 
   const { noteId } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
 
   const [checked, setChecked] = useState("meaning");

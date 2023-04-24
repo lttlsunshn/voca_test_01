@@ -18,7 +18,7 @@ export default function OnlineTest() {
   const dispatch = useContext(SortDispatchContext);
   const { noteId } = useParams();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const toggle = searchParams.get("toggle");
 
