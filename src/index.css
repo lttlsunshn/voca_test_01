@@ -737,10 +737,6 @@ input::placeholder {
 }
 
 @media print {
-  /* #table_title.note {
-    display: none;
-  } */
-
   #table_title {
     font-size: 1.3rem;
     font-weight: 700;

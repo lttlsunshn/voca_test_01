@@ -19,7 +19,7 @@ export default function AddWord({
     word_kor: "",
   });
 
-  const { word_eng, word_kor } = newWord; // 비구조화 할당을 통해 값 추출
+  const { word_eng, word_kor } = newWord;
 
   const handleWordChange = (e) => {
     const { value, name } = e.target;

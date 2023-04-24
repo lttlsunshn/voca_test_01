@@ -25,23 +25,16 @@ export default function VocaNote() {
 
   const { noteId } = useParams();
 
-  const { data: vocaNote } = useQuery(
-    [`voca-notes/${noteId}/`],
-    () => getNote(noteId) // 객체로 가져오기
+  const { data: vocaNote } = useQuery([`voca-notes/${noteId}/`], () =>
+    getNote(noteId)
   );
-  // console.log("vocaNite : ", vocaNote);
+
   const [wordModify, setWordModify] = useState("");
-  // const [mode, setMode] = useState("note");
 
   const wordList =
     vocaNote && vocaNote.wordList && Object.values(vocaNote.wordList);
-  // const wordList = vocaNote.wordList && Object.values(vocaNote.wordList);
-
-  // !wordList && console.log("NO LIST");
-  // wordList && console.log("vocaNote wordList : ", wordList);
 
   const lengthNum = wordList ? wordList.length : 0;
-  // console.log("lengthNum : ", lengthNum);
 
   const [modalOpenAddWord, setModalOpenAddWord] = useState(false);
   const showModalAddWord = () => {
@@ -50,12 +43,10 @@ export default function VocaNote() {
 
   const [modalOpenModifyWord, setModalOpenModifyWord] = useState(false);
   const showModalModifyWord = (e) => {
-    console.log(e.currentTarget.value);
-
     const clickedWord = wordList.find(
       (item) => item.id === e.currentTarget.value
     );
-    console.log("clickedWord : ", clickedWord);
+
     setWordModify(clickedWord);
     setModalOpenModifyWord(true);
   };

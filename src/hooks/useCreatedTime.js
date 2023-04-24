@@ -9,7 +9,6 @@ export function useCreatedTime() {
 
   const createdTime =
     nowYear + nowMonth + nowDate + "_" + nowHour + nowMinute + nowSecond;
-  // console.log("createdTime : ", createdTime);
 
   return { createdTime };
 }

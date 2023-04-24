@@ -14,7 +14,6 @@ export default function TestToggle() {
   const [checked, setChecked] = useState("meaning");
 
   const handleChange = (e) => {
-    // console.log("e.target.value : ", e.target.value);
     setChecked(e.target.value);
   };
 
@@ -23,7 +22,6 @@ export default function TestToggle() {
     navigate(
       `/voca-notes/${noteId}/online-test?sort=${sort}&toggle=${e.target.value}`
     );
-    console.log("toggle : ", e.target.value);
   };
 
   return (

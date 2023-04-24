@@ -10,11 +10,7 @@ import TestToggle from "../components/TestToggle";
 import { useReactToPrint } from "react-to-print";
 import { useQuery } from "@tanstack/react-query";
 
-// React To Print 설치
-
 export default function OnlineTest() {
-  // console.log("ONLINE TEST !!!");
-
   const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
   const { noteId } = useParams();
@@ -28,9 +24,8 @@ export default function OnlineTest() {
   const [testList, setTestList] = useState(sortState.vocaList);
   const [placeholder, setPlaceholder] = useState("");
 
-  const { data: vocaNote } = useQuery(
-    [`voca-notes/${noteId}/`],
-    () => getNote(noteId) // 객체로 가져오기
+  const { data: vocaNote } = useQuery([`voca-notes/${noteId}/`], () =>
+    getNote(noteId)
   );
 
   const answerObject = {};
@@ -38,19 +33,15 @@ export default function OnlineTest() {
 
   const handleWordChange = (e, idx) => {
     answerObject[idx] = e.target.value;
-    // console.log("event : ", e);
   };
 
-  // console.log("answerObject : ", answerObject); // ???
   // 채점하기
   const handleMarkableAnswer = () => {
     Object.entries(answerObject).forEach((item) => {
       answerList[item[0]] = item[1];
     });
-    console.log("answerList : ", answerList);
 
     const answerArr = Array.from(answerList);
-    console.log("answerListArr : ", answerArr);
 
     makeAnswerTitle(noteId, createdTime);
 
@@ -58,17 +49,6 @@ export default function OnlineTest() {
       const answer = answerArr[idx] === undefined ? "" : answerArr[idx];
       const word = toggle === "meaning" ? item.word_kor : item.word_eng;
       const isCorrect = word === answer ? true : false;
-      // answerArr[idx] !== undefined && word === answer ? true : false;
-
-      // console.log(
-      //   "***",
-      //   idx,
-      //   item.num,
-      //   word,
-      //   answer,
-      //   answerArr[idx],
-      //   isCorrect
-      // );
 
       makeAnswerList(noteId, createdTime, answer, isCorrect, item, idx);
     });
@@ -79,7 +59,6 @@ export default function OnlineTest() {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleMarkableAnswer();
-    console.log("Submit answer");
 
     navigate(
       `/voca-notes/${noteId}/online-test/${createdTime}?sort=${sort}&toggle=${toggle}`
@@ -103,7 +82,6 @@ export default function OnlineTest() {
     },
     content: () => printRef.current,
   });
-  // console.log("sortState.mode : ", sortState.mode);
 
   useEffect(() => {
     setTestList(sortState.vocaList);

@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { get, getDatabase, ref, remove, set, update } from "firebase/database";
 
@@ -43,7 +42,6 @@ export async function deleteNote(noteTitle) {
 }
 
 export async function addNewWord(noteId, word_eng, num, word_kor, id) {
-  console.log("add new word");
   return set(ref(db, `voca-notes/${noteId}/wordList/` + word_eng), {
     num,
     word_eng,
@@ -53,8 +51,6 @@ export async function addNewWord(noteId, word_eng, num, word_kor, id) {
 }
 
 export async function modifyWord(noteId, word_eng, num, word_kor, id) {
-  console.log("update word");
-
   return update(ref(db, `voca-notes/${noteId}/wordList/` + word_eng), {
     num,
     word_eng,
@@ -112,9 +108,6 @@ export async function getAnswerList(noteId, timeTitle) {
 export async function getNotes() {
   return get(ref(db, "voca-notes")).then((snapshot) => {
     if (snapshot.exists()) {
-      // console.log("snapshot.val() : ", snapshot.val());
-
-      // return Object.values(snapshot.val());
       return snapshot.val();
     }
     return [];

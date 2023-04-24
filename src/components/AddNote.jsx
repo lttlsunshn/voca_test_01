@@ -11,8 +11,6 @@ export default function AddNote({ modalOpenAdd, setModalOpenAdd }) {
   const { createdTime } = useCreatedTime();
   const createdTimeNum = Number(createdTime.split("_").join(""));
 
-  console.log("createdTimeNum : ", createdTimeNum);
-
   const closeModalAdd = () => {
     setModalOpenAdd(false);
   };

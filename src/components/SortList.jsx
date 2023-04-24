@@ -31,7 +31,6 @@ export default function SortList({ wordList }) {
 
   const handleSort = (e) => {
     const sortValue = e.target.value;
-    console.log("sortValue : ", sortValue);
 
     dispatch({ type: `${sortValue}Sort`, wordList, mode });
     navigate(`/voca-notes/${noteId}${path}?sort=${sortValue}&toggle=${toggle}`);

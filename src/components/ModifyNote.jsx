@@ -3,7 +3,6 @@ import React, { useContext, useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { getNote, updateNote } from "../api/firebase";
-import { useCreatedTime } from "../hooks/useCreatedTime";
 import { SortDispatchContext } from "../SortContext";
 
 export default function ModifyNote({
@@ -11,13 +10,9 @@ export default function ModifyNote({
   setModalOpenModify,
   noteIdModify,
 }) {
-  console.log("noteIdModify : ", noteIdModify);
   const [inputTitle, setInputTitle] = useState("");
   const navigate = useNavigate();
   const dispatch = useContext(SortDispatchContext);
-
-  const { modifiedTime } = useCreatedTime(); // ???
-  console.log("modifiedTime : ", modifiedTime);
 
   const { data: noteModify } = useQuery([`voca-notes/${noteIdModify}/`], () =>
     getNote(noteIdModify)
