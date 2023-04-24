@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
-import { v4 as uuid } from "uuid";
 import { addNewWord } from "../api/firebase";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { createUuid } from "../utils/createUuid";
+// import { v4 as uuid } from "uuid";
 
 export default function AddWord({
   modalOpen,
@@ -38,7 +39,8 @@ export default function AddWord({
   const nextNum = useRef(lengthNum + 1);
   const num = nextNum.current;
   const handleAddWord = () => {
-    const id = uuid();
+    const id = createUuid().uuidv4;
+    console.log("id : ", id);
 
     addNewWord(noteId, word_eng, num, word_kor, id);
 
