@@ -96,7 +96,6 @@ export default function Sidebar() {
               >
                 <button
                   id="btn_mod_note"
-                  // value={item.noteTitle}
                   value={item.id}
                   onClick={showModalModify}
                 >

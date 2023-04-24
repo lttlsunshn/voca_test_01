@@ -8,7 +8,6 @@ import { FaArrowLeft } from "react-icons/fa";
 let correctNum = 0;
 
 export default function ScoreResult() {
-  const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
   const navigate = useNavigate();
 
