@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AddNote from "./AddNote";
 import ModifyNote from "./ModifyNote";
-import { SortDispatchContext } from "../SortContext";
+import { SortDispatchContext } from "./SortContext";
 
 export default function Sidebar() {
   const [isHoverId, setIsHoverId] = useState(null);

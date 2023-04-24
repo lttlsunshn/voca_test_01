@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { SortDispatchContext } from "../SortContext";
+import { SortDispatchContext } from "./SortContext";
 
 export default function TestToggle() {
   const dispatch = useContext(SortDispatchContext);
@@ -9,7 +9,6 @@ export default function TestToggle() {
   const { noteId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get("sort");
-  // const toggle = searchParams.get("toggle");
 
   const [checked, setChecked] = useState("meaning");
 

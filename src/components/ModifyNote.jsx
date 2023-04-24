@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { getNote, updateNote } from "../api/firebase";
-import { SortDispatchContext } from "../SortContext";
+import { SortDispatchContext } from "./SortContext";
 
 export default function ModifyNote({
   modalOpenModify,
