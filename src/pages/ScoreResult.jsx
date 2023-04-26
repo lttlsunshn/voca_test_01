@@ -14,7 +14,7 @@ export default function ScoreResult() {
   const { noteId } = useParams();
   const { timeTitle } = useParams();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const toggle = searchParams.get("toggle");
 

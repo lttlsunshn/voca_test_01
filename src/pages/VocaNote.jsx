@@ -21,7 +21,7 @@ export default function VocaNote() {
   const navigate = useNavigate();
   const printRef = useRef();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const sort = searchParams.get("sort");
   const toggle = searchParams.get("toggle");

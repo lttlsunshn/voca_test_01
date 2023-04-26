@@ -7,7 +7,7 @@ export default function SortList({ wordList }) {
   const dispatch = useContext(SortDispatchContext);
   const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const sort = searchParams.get("sort");
   const toggle = searchParams.get("toggle");
 
