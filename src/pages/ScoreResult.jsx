@@ -2,13 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getAnswerList, getNote } from "../api/firebase";
-import { SortDispatchContext, SortStateContext } from "../SortContext";
 import { FaArrowLeft } from "react-icons/fa";
+import { SortDispatchContext } from "../components/SortContext";
 
 let correctNum = 0;
 
 export default function ScoreResult() {
-  const sortState = useContext(SortStateContext);
   const dispatch = useContext(SortDispatchContext);
   const navigate = useNavigate();
 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { SortDispatchContext, SortStateContext } from "../SortContext";
+import { SortDispatchContext, SortStateContext } from "./SortContext";
 
 export default function SortList({ wordList }) {
   const sortState = useContext(SortStateContext);

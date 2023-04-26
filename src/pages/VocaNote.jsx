@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import AddWord from "../components/AddWord";
@@ -8,9 +8,12 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaKeyboard } from "react-icons/fa";
 import { RiPencilFill } from "react-icons/ri";
 import SortList from "../components/SortList";
-import { SortDispatchContext, SortStateContext } from "../SortContext";
 import ModifyWord from "../components/ModifyWord";
 import { useReactToPrint } from "react-to-print";
+import {
+  SortDispatchContext,
+  SortStateContext,
+} from "../components/SortContext";
 
 export default function VocaNote() {
   const sortState = useContext(SortStateContext);
