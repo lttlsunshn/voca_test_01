@@ -62,7 +62,7 @@ function sortReducer(state, action) {
 export const SortStateContext = createContext();
 export const SortDispatchContext = createContext();
 
-export function SortProvider({ children }) {
+export default function SortProvider({ children }) {
   const [state, dispatch] = useReducer(sortReducer, initialList);
 
   return (
