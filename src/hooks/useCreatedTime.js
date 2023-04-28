@@ -1,14 +1,18 @@
 export function useCreatedTime() {
   const now = new Date();
-  const nowYear = now.getFullYear();
-  const nowMonth = ("0" + (now.getMonth() + 1)).slice(-2);
-  const nowDate = ("0" + now.getDate()).slice(-2);
-  const nowHour = ("0" + now.getHours()).slice(-2);
-  const nowMinute = ("0" + now.getMinutes()).slice(-2);
-  const nowSecond = ("0" + now.getSeconds()).slice(-2);
+  const [year, month, date, hours, minutes, seconds] = [
+    now.getFullYear(),
 
-  const createdTime =
-    nowYear + nowMonth + nowDate + "_" + nowHour + nowMinute + nowSecond;
+    `${now.getMonth() + 1}`.padStart(2, "0"),
+    `${now.getDate()}`.padStart(2, "0"),
+    `${now.getHours()}`.padStart(2, "0"),
+    `${now.getMinutes()}`.padStart(2, "0"),
+    `${now.getSeconds()}`.padStart(2, "0"),
+  ];
+
+  const createdTime = `${
+    year + month + date + "_" + hours + minutes + seconds
+  }`;
 
   return { createdTime };
 }
