@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { addNewWord } from "../api/firebase";
-import { AiFillCloseCircle } from "react-icons/ai";
 import { createUuid } from "../utils/createUuid";
+import Modal from "./Modal";
 
 export default function AddWord({
   modalOpen,
@@ -54,55 +54,47 @@ export default function AddWord({
   };
 
   return (
-    <div
-      className={"modal-background" + (modalOpen ? " active" : "")}
-      id="modal_add_word"
+    <Modal
+      title={"새 단어 추가"}
+      modalOpen={modalOpen}
+      closeModal={closeModal}
+      handleSubmit={handleSubmit}
     >
-      <form onSubmit={handleSubmit} className="modal-window">
-        <div className="add_word_head">
-          <div className="add_word_title">새 단어 추가</div>
-          <span className="modal-close" id="closeModal" onClick={closeModal}>
-            <AiFillCloseCircle />
-          </span>
-        </div>
-        <table className="input_area">
-          <tbody>
-            <tr>
-              <th>번호</th>
-              <td>{num}</td>
-            </tr>
-            <tr>
-              <th>영어 단어</th>
-              <td>
-                <input
-                  type="text"
-                  name="word_eng"
-                  placeholder=""
-                  value={word_eng}
-                  onChange={handleWordChange}
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>단어 뜻</th>
-              <td>
-                <input
-                  type="text"
-                  name="word_kor"
-                  placeholder=""
-                  value={word_kor}
-                  onChange={handleWordChange}
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button className="btn_save_word" type="submit">
-          저장
-        </button>
-      </form>
-    </div>
+      <table className="input_area">
+        <tbody>
+          <tr>
+            <th>번호</th>
+            <td>{num}</td>
+          </tr>
+          <tr>
+            <th>영어 단어</th>
+            <td>
+              <input
+                type="text"
+                name="word_eng"
+                placeholder=""
+                value={word_eng}
+                onChange={handleWordChange}
+                autoComplete="off"
+                autoFocus
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>단어 뜻</th>
+            <td>
+              <input
+                type="text"
+                name="word_kor"
+                placeholder=""
+                value={word_kor}
+                onChange={handleWordChange}
+                autoComplete="off"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </Modal>
   );
 }

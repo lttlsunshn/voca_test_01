@@ -7,7 +7,14 @@ export default function Header() {
   return (
     <div className="header">
       <Link to="/">
-        <p>VOCA TEST</p>
+        <span className="logo_title">
+          {/* <img
+            src="images/logo_voca_test.png"
+            alt="logo_voca_test"
+            width={35}
+          ></img> */}
+          <h1>VOCA TEST</h1>
+        </span>
       </Link>
       <div className="header_menu">
         <GiHamburgerMenu />

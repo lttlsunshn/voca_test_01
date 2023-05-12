@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { AiFillCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { addNewNote } from "../api/firebase";
 import { useCreatedTime } from "../hooks/useCreatedTime.js";
+import Modal from "./Modal";
 
 export default function AddNote({ modalOpenAdd, setModalOpenAdd }) {
   const [inputTitle, setInputTitle] = useState("");
@@ -38,38 +38,30 @@ export default function AddNote({ modalOpenAdd, setModalOpenAdd }) {
   };
 
   return (
-    <div
-      className={"modal-background" + (modalOpenAdd ? " active" : "")}
-      id="modal_add_note"
+    <Modal
+      title={"단어장 제목"}
+      modalOpen={modalOpenAdd}
+      closeModal={closeModalAdd}
+      handleSubmit={handleSubmit}
     >
-      <form onSubmit={handleSubmit} className="modal-window">
-        <div className="add_note_head">
-          <div className="add_note_title">새 단어장 추가</div>
-          <span className="modal-close" id="closeModal" onClick={closeModalAdd}>
-            <AiFillCloseCircle />
-          </span>
-        </div>
-        <table className="input_area">
-          <tbody>
-            <tr>
-              <th>단어장 제목</th>
-              <td>
-                <input
-                  type="text"
-                  name="note_title"
-                  placeholder="단어장 제목을 적어 주세요."
-                  value={inputTitle}
-                  onChange={handleWordChange}
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button className="btn_save_word" type="submit">
-          저장
-        </button>
-      </form>
-    </div>
+      <table className="input_area">
+        <tbody>
+          <tr>
+            <th>단어장 제목</th>
+            <td>
+              <input
+                type="text"
+                name="note_title"
+                placeholder="단어장 제목을 적어 주세요."
+                value={inputTitle}
+                onChange={handleWordChange}
+                autoComplete="off"
+                autoFocus
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </Modal>
   );
 }

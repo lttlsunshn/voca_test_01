@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { AiFillCloseCircle } from "react-icons/ai";
 import { deleteWord, modifyWord } from "../api/firebase";
+import Modal from "./Modal";
 
 export default function ModifyWord({
   modalOpenModifyWord,
@@ -67,55 +67,43 @@ export default function ModifyWord({
   };
 
   return (
-    <div
-      className={"modal-background" + (modalOpenModifyWord ? " active" : "")}
-      id="modal_modify_word"
+    <Modal
+      title={"단어장 수정"}
+      modalOpen={modalOpenModifyWord}
+      closeModal={closeModalModifyWord}
+      handleSubmit={handleSubmit}
     >
-      <form onSubmit={handleSubmit} className="modal-window">
-        <div className="add_note_head">
-          <div className="add_note_title">단어 수정</div>
-          <span
-            className="modal-close"
-            id="closeModal"
-            onClick={closeModalModifyWord}
-          >
-            <AiFillCloseCircle />
-          </span>
-        </div>
-        <table className="input_area">
-          <tbody>
-            <tr>
-              <th>철자 수정</th>
-              <td>
-                <input
-                  type="text"
-                  name="modified_eng"
-                  placeholder={`${wordModify.word_eng}`}
-                  value={modified_eng}
-                  onChange={handleWordChange}
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>뜻 수정</th>
-              <td>
-                <input
-                  type="text"
-                  name="modified_kor"
-                  placeholder={`${wordModify.word_kor}`}
-                  value={modified_kor}
-                  onChange={handleWordChange}
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button className="btn_save_word" type="submit">
-          저장
-        </button>
-      </form>
-    </div>
+      <table className="input_area">
+        <tbody>
+          <tr>
+            <th>철자 수정</th>
+            <td>
+              <input
+                type="text"
+                name="modified_eng"
+                placeholder={`${wordModify.word_eng}`}
+                value={modified_eng}
+                onChange={handleWordChange}
+                autoComplete="off"
+                autoFocus
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>뜻 수정</th>
+            <td>
+              <input
+                type="text"
+                name="modified_kor"
+                placeholder={`${wordModify.word_kor}`}
+                value={modified_kor}
+                onChange={handleWordChange}
+                autoComplete="off"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </Modal>
   );
 }
