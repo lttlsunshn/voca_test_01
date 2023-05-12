@@ -99,7 +99,9 @@ export default function OnlineTest() {
   return (
     <>
       <div className="voca_note_header">
-        <div className="voca_note_title">{vocaNote.noteTitle} Online TEST</div>
+        <div className="voca_note_title">
+          {vocaNote && vocaNote.noteTitle} Online TEST
+        </div>
         <div className="button-list">
           <button onClick={handlePrint}>
             <HiPrinter />
@@ -120,7 +122,9 @@ export default function OnlineTest() {
 
       <form>
         <div ref={printRef}>
-          <div id="table_title">{vocaNote.noteTitle} Online TEST</div>
+          <div id="table_title">
+            {vocaNote && vocaNote.noteTitle} Online TEST
+          </div>
           <table className="voca_note">
             {toggle === "meaning" ? (
               <>
@@ -187,7 +191,7 @@ export default function OnlineTest() {
             )}
           </table>
         </div>
-        <button className="btn_save_word" type="submit" onClick={handleSubmit}>
+        <button className="btn_save" type="submit" onClick={handleSubmit}>
           제출
         </button>
       </form>

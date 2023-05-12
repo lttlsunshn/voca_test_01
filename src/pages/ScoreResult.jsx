@@ -102,7 +102,7 @@ export default function ScoreResult() {
             <tbody>
               {scoreResult &&
                 scoreResult.map((item) => (
-                  <tr key={item.id}>
+                  <tr key={item.num}>
                     <td>{item.num}</td>
                     <td>{item.word_eng}</td>
                     <td>{item.word_kor}</td>
@@ -136,7 +136,7 @@ export default function ScoreResult() {
             <tbody>
               {scoreResult &&
                 scoreResult.map((item) => (
-                  <tr key={item.id}>
+                  <tr key={item.num}>
                     <td>{item.num}</td>
                     <td>{item.word_kor}</td>
                     <td>{item.word_eng}</td>

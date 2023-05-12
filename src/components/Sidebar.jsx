@@ -117,6 +117,7 @@ export default function Sidebar() {
           <IoMdAddCircleOutline />
         </span>
       </div>
+
       <section>
         {modalOpenAdd && (
           <AddNote
